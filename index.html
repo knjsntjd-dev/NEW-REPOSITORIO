@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<!-- Meta Pixel Code (carregamento adiado p/ não travar a página) -->
+<script>
+(function(){
+  function loadPixel(){
+    if(window.__fbLoaded) return; window.__fbLoaded = true;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1030457068878493');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', {
+      content_name: 'Método Ler no Meu Tempo',
+      content_category: 'Infoproduto - Alfabetização',
+      value: 39.90,
+      currency: 'BRL'
+    });
+  }
+  var evts = ['scroll','mousemove','touchstart','click','keydown'];
+  function trigger(){ evts.forEach(function(ev){ window.removeEventListener(ev, trigger); }); loadPixel(); }
+  evts.forEach(function(ev){ window.addEventListener(ev, trigger, {passive:true, once:true}); });
+  function armFallback(){ setTimeout(loadPixel, 1200); }
+  if(document.readyState === 'complete' || document.readyState === 'interactive'){ armFallback(); }
+  else { document.addEventListener('DOMContentLoaded', armFallback); }
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1030457068878493&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Método Ler no Meu Tempo</title>
+<meta name="description" content="Método completo de alfabetização para crianças de 2 a 10 anos — inclusive TDAH, autismo e ritmo mais lento. Só 10 minutos por dia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@700&display=swap"></noscript>
+<style>
+  *{box-sizing:border-box;}
+  html{overflow-x:hidden;}
+  body{margin:0;background:#FFF9EF;-webkit-font-smoothing:antialiased;font-family:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3A3330;line-height:1.55;overflow-x:hidden;}
+  img{height:auto;max-width:100%;}
+  a{color:#E8443A;} a:hover{color:#C22F27;}
+  .press{transition:transform .1s ease, box-shadow .1s ease;}
+  .press:hover{transform:translateY(3px);}
+  @keyframes wiggle{0%,100%{transform:rotate(-1.5deg);}50%{transform:rotate(1.5deg);}}
+  @keyframes balloonFloat{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-10px) rotate(2deg);}}
+  @keyframes balloonFloat2{0%,100%{transform:translateY(0) rotate(2deg);}50%{transform:translateY(-14px) rotate(-2deg);}}
+  @keyframes neonPulse{0%,100%{box-shadow:0 0 12px rgba(57,255,20,0.6),0 0 24px rgba(57,255,20,0.35),inset 0 0 18px rgba(57,255,20,0.15);}50%{box-shadow:0 0 20px rgba(57,255,20,0.9),0 0 40px rgba(57,255,20,0.5),inset 0 0 24px rgba(57,255,20,0.22);}}
+  @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,77,77,0.6);}70%{box-shadow:0 0 0 8px rgba(255,77,77,0);}100%{box-shadow:0 0 0 0 rgba(255,77,77,0);}}
+  @keyframes blobFloat1{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(120px,60px) scale(1.1);}50%{transform:translate(70px,140px) scale(0.95);}75%{transform:translate(-60px,80px) scale(1.05);}}
+  @keyframes blobFloat2{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(-130px,70px) scale(1.08);}50%{transform:translate(-80px,-60px) scale(0.94);}75%{transform:translate(60px,-40px) scale(1.04);}}
+  @keyframes blobFloat3{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(90px,-70px) scale(1.1);}66%{transform:translate(-70px,-40px) scale(0.96);}}
+  @keyframes blobFloat4{0%,100%{transform:translate(0,0) scale(1);}30%{transform:translate(-90px,-90px) scale(1.06);}60%{transform:translate(-40px,60px) scale(0.95);}}
+  @keyframes revealUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+  .reveal{opacity:0;}
+  .reveal.in{animation:revealUp .7s ease-out both;}
+  #bookFly{position:fixed;left:50%;top:14vh;width:52px;margin-left:-26px;z-index:4;pointer-events:none;opacity:0;transition:opacity .45s ease;filter:drop-shadow(0 6px 12px rgba(46,35,32,0.25));will-change:transform;}
+  #bookFly.on{opacity:0.35;}
+  @media (min-width:900px){#bookFly{width:64px;margin-left:-32px;}#bookFly.on{opacity:0.45;}}
+  #bookFly.boom{transition:transform .55s cubic-bezier(.2,.7,.3,1), opacity .55s ease;transform:scale(2.4) rotate(14deg) !important;opacity:0 !important;}
+  .confeti{position:fixed;z-index:9999;pointer-events:none;transition:transform 1.15s cubic-bezier(.15,.65,.35,1), opacity 1.15s ease;will-change:transform,opacity;}
+  .confeti.bola{width:12px;height:12px;border-radius:50%;}
+  .confeti.papel{width:8px;height:16px;border-radius:2px;}
+  .confeti.balao{font-size:30px;line-height:1;background:none !important;}
+  @keyframes pricePop{0%{transform:scale(0.15) translateY(80px);opacity:0;}55%{transform:scale(1.08) translateY(-8px);opacity:1;}100%{transform:scale(1) translateY(0);}}
+  .price-pop{animation:pricePop .8s cubic-bezier(.2,.8,.3,1.1) both;}
+  .gift-hidden{opacity:0;transform:scale(0.15) translateY(80px);}
+  #giftBox{display:none;text-align:center;font-size:72px;line-height:1;margin:10px auto -6px;transition:transform .4s ease, opacity .4s ease;}
+  #giftBox.shake{animation:giftShake .5s ease-in-out;}
+  #giftBox.open{transform:scale(1.6) translateY(-20px);opacity:0;}
+  @keyframes giftShake{0%,100%{transform:rotate(0);}20%{transform:rotate(-8deg);}40%{transform:rotate(8deg);}60%{transform:rotate(-6deg);}80%{transform:rotate(6deg);}}
+</style>
+</head>
+<body>
+
+<div role="main">
+
+  <!-- ============ BANNER BALÕES ============ -->
+  <section aria-label="Ler no Meu Tempo" style="background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFFEB 100%);padding:18px 20px 0;text-align:center;">
+    <img src="assets/logo-caixa.webp" alt="Ler no Meu Tempo" width="183" height="224" loading="eager" decoding="async" style="width:min(20vw,86px);display:block;margin:0 auto;animation:balloonFloat 7s ease-in-out infinite;">
+  </section>
+
+  <!-- ============ HERO ============ -->
+  <section style="background:linear-gradient(180deg,#FFFFFFEB,#FFF9EF 100%);padding:clamp(36px,7vw,72px) 20px 48px;text-align:center;position:relative;overflow:hidden;">
+    <div style="max-width:860px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;width:100%;">
+      <span style="font-family:'Caveat',cursive;font-weight:700;font-size:clamp(20px,3vw,26px);color:#E8443A;transform:rotate(-2deg);display:inline-block;">✏️ um jeito diferente de alfabetizar</span>
+      <h1 style="font-family:'Anton',sans-serif;font-weight:400;margin:0;color:#2E2320;max-width:820px;letter-spacing:0.3px;line-height:1.15;">
+        <span style="display:block;font-size:clamp(22px,5.8vw,40px);">Seu filho <span style="background:#E8443A;color:#fff;border-radius:8px;padding:2px 10px;display:inline-block;transform:rotate(-1deg);">vai aprender a ler</span></span>
+        <span style="display:block;font-size:clamp(42px,11.5vw,80px);margin:8px 0 6px;text-shadow:3px 3px 0px #FFFFFF;">10X Mais Rápido</span>
+        <span style="display:block;font-size:clamp(17px,4.4vw,30px);color:#292828;">de forma <span style="background:#FFC53D;color:#2E2320;border-radius:10px;padding:2px 12px;white-space:nowrap;display:inline-block;transform:rotate(1deg);">leve e divertida.</span></span>
+      </h1>
+      <p style="font-size:clamp(16px,2.2vw,19px);color:#6B5F58;max-width:627px;margin:0;width:100%;"><b>Méto</b>do completo de <u><b>alfabetização</b></u> com traçado, <b>sons</b> e leitura — incluindo <b>crianças</b> com <b style="color:#3A3330;">TDAH, autismo ou ritmo mais lento</b>.</p>
+      <div style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;">
+        <span style="background:#fff;border:2px solid #2E2320;border-radius:999px;padding:7px 16px;font-size:15px;font-weight:800;box-shadow:3px 3px 0 #2E2320;white-space:nowrap;">👧 2 a 10 anos</span>
+        <span style="background:#fff;border:2px solid #2E2320;border-radius:999px;padding:7px 16px;font-size:15px;font-weight:800;box-shadow:3px 3px 0 #2E2320;white-space:nowrap;">🔥 15% OFF</span>
+      </div>
+      <a href="https://pay.hotmart.com/C106709810K" class="press" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#000;color:#fff;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(15px,4vw,18px);letter-spacing:0.5px;text-transform:uppercase;padding:15px 24px;border-radius:14px;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,0.28);white-space:nowrap;margin-top:6px;">Quero alfabetizar meu filho <span>→</span></a>
+      <span style="font-size:13px;color:#8A7C73;">🔒 Compra segura · Garantia de 7 dias · Acesso imediato</span>
+    </div>
+  </section>
+
+  <!-- ============ DOR ============ -->
+  <section class="reveal" style="padding:clamp(48px,8vw,88px) 20px;background:#FFFFFF;">
+    <div style="max-width:640px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:14px;">
+      <span style="font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#E8443A;">se isso parece familiar...</span>
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(24px,3.6vw,34px);line-height:1.18;margin:0;color:#2E2320;">Você já tentou de tudo e ainda vê seu filho travar na hora de ler?</h2>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;text-align:left;">
+        <div style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 18px;font-weight:700;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:22px;line-height:1;">😔</span><span>Já testou apostilas prontas que não respeitam o ritmo dele</span></div>
+        <div style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 18px;font-weight:700;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:22px;line-height:1;">💔</span><span>A escola compara com os coleguinhas e isso machuca vocês dois</span></div>
+        <div style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 18px;font-weight:700;display:flex;gap:12px;align-items:flex-start;"><span style="font-size:22px;line-height:1;">😤</span><span>Ele se frustra rápido e você não sabe mais como ajudar sem virar briga</span></div>
+      </div>
+      <p style="font-size:17px;color:#6B5F58;margin:14px 0 0;">A questão nunca foi capacidade. É que <strong style="color:#2E2320;background:#FFE59A;border-radius:6px;padding:0 6px;">a maioria dos materiais foi feita para uma criança "padrão"</strong> — e o seu filho não precisa se encaixar em padrão nenhum pra aprender a ler bem.</p>
+    </div>
+  </section>
+
+  <!-- ============ MÉTODO ============ -->
+  <section class="reveal" style="background:#FFFFFF;padding:clamp(48px,8vw,88px) 20px;">
+    <div style="max-width:1000px;margin:0 auto;text-align:center;">
+      <span style="font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#E8443A;">o método, passo a passo</span>
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(24px,3.8vw,36px);line-height:1.18;margin:10px auto 8px;color:#2E2320;max-width:700px;">5 pilares que respeitam o ritmo real da criança</h2>
+      <p style="color:#6B5F58;max-width:560px;margin:0 auto;">Uma trilha progressiva: cada pilar prepara o próximo, do traçado à leitura fluente.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:34px;text-align:left;">
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #FFC53D;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;"><span style="font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;background:#FFC53D;border:2px solid #2E2320;border-radius:10px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span><h3 style="font-family:'Baloo 2',cursive;font-weight:700;font-size:19px;margin:0;color:#2E2320;">✏️ Traçado guiado</h3></div>
+          <p style="margin:0;font-size:15px;color:#6B5F58;">Atividades de grafomotricidade que preparam a mão antes de exigir a leitura.</p>
+        </div>
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #F977A9;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;"><span style="font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;background:#F977A9;border:2px solid #2E2320;border-radius:10px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span><h3 style="font-family:'Baloo 2',cursive;font-weight:700;font-size:19px;margin:0;color:#2E2320;">👂 Consciência dos sons</h3></div>
+          <p style="margin:0;font-size:15px;color:#6B5F58;">Jogos com rimas e sílabas para o ouvido reconhecer padrões antes da letra.</p>
+        </div>
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #5BB6E7;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;"><span style="font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;background:#5BB6E7;border:2px solid #2E2320;border-radius:10px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span><h3 style="font-family:'Baloo 2',cursive;font-weight:700;font-size:19px;margin:0;color:#2E2320;">🔤 Formação de palavras</h3></div>
+          <p style="margin:0;font-size:15px;color:#6B5F58;">Monta e desmonta palavras simples até virar automático, sem decoreba.</p>
+        </div>
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #7FCB8F;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;"><span style="font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;background:#7FCB8F;border:2px solid #2E2320;border-radius:10px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</span><h3 style="font-family:'Baloo 2',cursive;font-weight:700;font-size:19px;margin:0;color:#2E2320;">🎲 Jogos de alfabeto</h3></div>
+          <p style="margin:0;font-size:15px;color:#6B5F58;">Quebra-cabeças e desafios visuais para fixar sem parecer "dever de casa".</p>
+        </div>
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #FFA24C;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;"><span style="font-family:'Baloo 2',cursive;font-weight:800;font-size:15px;background:#FFA24C;border:2px solid #2E2320;border-radius:10px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</span><h3 style="font-family:'Baloo 2',cursive;font-weight:700;font-size:19px;margin:0;color:#2E2320;">📖 Leitura fluente</h3></div>
+          <p style="margin:0;font-size:15px;color:#6B5F58;">Textos curtos e progressivos para ganhar confiança lendo de verdade.</p>
+        </div>
+        <div style="background:#2E2320;color:#FFF3DD;border:2px solid #2E2320;border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:center;gap:8px;">
+          <span style="font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#FFC53D;">resultado ✨</span>
+          <p style="margin:0;font-size:15px;line-height:1.5;">Uma criança que lê com confiança — e uma rotina em casa <strong>sem brigas na hora da atividade</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POR DENTRO / VÍDEOS ============ -->
+  <section class="reveal" style="padding:clamp(48px,8vw,88px) 20px;background:#FFFFFF;">
+    <div style="max-width:900px;margin:0 auto;text-align:center;">
+      <span style="font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#E8443A;">espia só 👀</span>
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(24px,3.6vw,34px);margin:10px auto 8px;color:#2E2320;">Veja o material por dentro</h2>
+      <p style="color:#6B5F58;max-width:540px;margin:0 auto;">Páginas reais das atividades: sílabas com apoio visual, traçado guiado e níveis que sobem junto com a criança.</p>
+      <div style="position:relative;max-width:720px;margin:0 auto;">
+        <div style="display:flex;overflow-x:auto;padding:28px 4px 6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;">
+          <div style="display:flex;gap:12px;margin:0 auto;">
+            <div class="story" data-src="assets/story-1.mp4" style="flex:0 0 clamp(104px,28vw,190px);scroll-snap-align:start;background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF);padding:3px;border-radius:22px;">
+              <div class="story-tap" style="position:relative;width:100%;aspect-ratio:9/16;border-radius:19px;overflow:hidden;cursor:pointer;background:#2E2320;border:3px solid #FFF9EF;">
+                <video preload="none" playsinline muted loop poster="assets/poster-1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+                <div class="story-ov" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(46,35,32,0.22);"><span style="width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,0.3);padding-left:3px;">▶</span></div>
+              </div>
+            </div>
+            <div class="story" data-src="assets/story-2.mp4" style="flex:0 0 clamp(104px,28vw,190px);scroll-snap-align:start;background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF);padding:3px;border-radius:22px;">
+              <div class="story-tap" style="position:relative;width:100%;aspect-ratio:9/16;border-radius:19px;overflow:hidden;cursor:pointer;background:#2E2320;border:3px solid #FFF9EF;">
+                <video preload="none" playsinline muted loop poster="assets/poster-2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+                <div class="story-ov" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(46,35,32,0.22);"><span style="width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,0.3);padding-left:3px;">▶</span></div>
+              </div>
+            </div>
+            <div class="story" data-src="assets/story-3.mp4" style="flex:0 0 clamp(104px,28vw,190px);scroll-snap-align:start;background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF);padding:3px;border-radius:22px;">
+              <div class="story-tap" style="position:relative;width:100%;aspect-ratio:9/16;border-radius:19px;overflow:hidden;cursor:pointer;background:#2E2320;border:3px solid #FFF9EF;">
+                <video preload="none" playsinline muted loop poster="assets/poster-3.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+                <div class="story-ov" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(46,35,32,0.22);"><span style="width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,0.3);padding-left:3px;">▶</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;top:0;right:0;bottom:6px;width:44px;background:linear-gradient(to right,rgba(255,249,239,0),#FFF9EF 75%);display:flex;align-items:center;justify-content:flex-end;pointer-events:none;"><span style="font-size:24px;font-weight:900;color:#2E2320;margin-right:2px;animation:wiggle 1.6s ease-in-out infinite;">›</span></div>
+      </div>
+      <p style="font-family:'Caveat',cursive;font-size:20px;color:#6B5F58;margin:10px 0 0;">👆 toque para assistir · arraste para ver mais →</p>
+    </div>
+  </section>
+
+  <!-- ============ DEPOIMENTOS ============ -->
+  <section class="reveal" style="padding:clamp(48px,8vw,88px) 20px;background:#FFFDFA;">
+    <div style="max-width:960px;margin:0 auto;text-align:center;">
+      <span style="font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#E8443A;">quem já usa 💛</span>
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(24px,3.6vw,34px);margin:10px auto 26px;color:#2E2320;">O que outras famílias contam</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;text-align:left;">
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #2E2320;">
+          <div style="color:#FFC53D;font-size:17px;letter-spacing:2px;margin-bottom:8px;">★★★★★</div>
+          <p style="margin:0 0 12px;font-size:15.5px;font-style:italic;color:#4A403B;">"Meu filho tem TDAH e nunca tinha um material que respeitasse o tempo dele até esse."</p>
+          <span style="font-weight:900;font-size:14px;color:#E8443A;">Fernanda · mãe do Théo, 6 anos</span>
+        </div>
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #2E2320;">
+          <div style="color:#FFC53D;font-size:17px;letter-spacing:2px;margin-bottom:8px;">★★★★★</div>
+          <p style="margin:0 0 12px;font-size:15.5px;font-style:italic;color:#4A403B;">"O que mudou foi parar de comparar com a irmã mais velha. Cada um no seu ritmo mesmo."</p>
+          <span style="font-weight:900;font-size:14px;color:#E8443A;">Rodrigo · pai da Lívia, 5 anos</span>
+        </div>
+        <div style="background:#fff;border:2px solid #2E2320;border-radius:18px;padding:22px;box-shadow:5px 5px 0 #2E2320;">
+          <div style="color:#FFC53D;font-size:17px;letter-spacing:2px;margin-bottom:8px;">★★★★★</div>
+          <p style="margin:0 0 12px;font-size:15.5px;font-style:italic;color:#4A403B;">"10 minutos por dia realmente cabem na rotina corrida aqui de casa."</p>
+          <span style="font-weight:900;font-size:14px;color:#E8443A;">Patrícia · mãe do Bernardo, 7 anos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OFERTA ============ -->
+  <section id="oferta" class="reveal" style="color:#FFF3DD;padding:clamp(52px,8vw,96px) 20px;background:#000000;">
+    <div style="max-width:960px;margin:0 auto;text-align:center;">
+      <span style="font-family:'Caveat',cursive;font-weight:700;font-size:24px;color:#FFC53D;">a oferta completa 🎁</span>
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(26px,4vw,38px);margin:10px auto 8px;color:#fff;max-width:640px;">Tudo que você recebe hoje</h2>
+      <div style="background:#fff;border-radius:22px;border:3px solid #FFC53D;padding:14px;max-width:640px;margin:22px auto 6px;"><img src="assets/kit-oferta.jpg" width="1254" height="1254" loading="lazy" decoding="async" alt="Kit completo: livro principal, guia de aplicação, jogos educativos e bônus exclusivos" style="width:100%;display:block;border-radius:12px;"></div>
+
+      <div style="max-width:760px;margin:34px auto 0;">
+        <span style="display:inline-block;background:#E8443A;color:#fff;font-weight:900;font-size:13px;letter-spacing:0.5px;border-radius:999px;padding:7px 18px;transform:rotate(-1.5deg);">🎁 COMPRANDO HOJE VOCÊ TAMBÉM LEVA</span>
+        <h3 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(20px,3vw,28px);color:#fff;margin:14px 0 4px;">Bônus exclusivos de presente</h3>
+        <p style="color:#B7A99C;font-size:14px;margin:0 0 22px;">Materiais extras que acompanham o método sem custo nenhum:</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;">
+          <div style="background:#fff;border-radius:18px;padding:12px;border:3px solid #FFC53D;">
+            <img src="assets/bonus-cristas.jpg" width="900" height="900" loading="lazy" decoding="async" alt="Bônus de Atividades Cristãs — Aventuras Bíblicas" style="width:100%;display:block;border-radius:10px;">
+            <p style="font-family:'Baloo 2',cursive;font-weight:700;font-size:16px;color:#2E2320;margin:12px 6px 2px;">✝️ Atividades Cristãs — Aventuras Bíblicas</p>
+            <p style="font-size:13px;color:#6B5F58;margin:0 6px 6px;">Caderno de atividades para alfabetizar edificando valores e fé.</p>
+          </div>
+          <div style="background:#fff;border-radius:18px;padding:12px;border:3px solid #FFC53D;">
+            <img src="assets/bonus-alimentacao.jpg" width="900" height="900" loading="lazy" decoding="async" alt="Bônus de Atividades sobre Alimentação Saudável" style="width:100%;display:block;border-radius:10px;">
+            <p style="font-family:'Baloo 2',cursive;font-weight:700;font-size:16px;color:#2E2320;margin:12px 6px 2px;">🥕 Atividades de Alimentação Saudável</p>
+            <p style="font-size:13px;color:#6B5F58;margin:0 6px 6px;">Aprender brincando sobre nutrientes e alimentos que nutrem corpo e alma.</p>
+          </div>
+          <div style="background:#fff;border-radius:18px;padding:12px;border:3px solid #FFC53D;">
+            <img src="assets/bonus-tdah.jpg" width="900" height="990" loading="lazy" decoding="async" alt="Bônus de Atividades para TDAH, Autismo e ritmo mais lento" style="width:100%;display:block;border-radius:10px;">
+            <p style="font-family:'Baloo 2',cursive;font-weight:700;font-size:16px;color:#2E2320;margin:12px 6px 2px;">🧩 Atividades TDAH, Autismo e Ritmo Mais Lento</p>
+            <p style="font-size:13px;color:#6B5F58;margin:0 6px 6px;">Exercícios lúdicos e terapêuticos para atenção, foco e autonomia.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="max-width:580px;margin:34px auto 0;display:flex;flex-direction:column;gap:10px;text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span><strong style="color:#FFC53D;">✅ Método Ler no Meu Tempo</strong> — Kit completo (5 pilares)</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€29</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span>🎁 Bônus 1: Rotina Visual para Dias Difíceis</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€7</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span>🎁 Bônus 2: Jogos de Alfabeto para Imprimir</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€5</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span>🎁 Bônus 3: Guia de Adaptação para TDAH e Autismo</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€9</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span>🎁 Bônus 4: Cartazes de Progresso Sem Comparação</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€4</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span>🎁 Bônus 5: E-book Rotina de 10 Minutos</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€6</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 18px;font-size:15px;"><span>🎁 Bônus 6: Comunidade de Apoio para Famílias</span><span style="color:#B7A99C;text-decoration:line-through;font-weight:800;white-space:nowrap;">€7</span></div>
+      </div>
+      <p style="color:#EDE1D3;font-size:19px;font-weight:700;margin:22px 0 0;">Tudo isso somado sai por <span style="text-decoration:line-through;color:#FF6B61;font-family:'Baloo 2',cursive;font-weight:800;font-size:26px;">€67,00</span> — mas hoje:</p>
+
+      <div style="max-width:300px;margin:22px auto 0;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:12px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#FF4D4D;display:inline-block;animation:pulseDot 1.2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(255,77,77,0.6);"></span>
+          <span style="font-weight:800;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:#8A7C73;">Oferta expira em</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="position:relative;background:#1C1815;border-radius:8px;width:74px;height:58px;box-shadow:0 6px 14px rgba(0,0,0,0.3);overflow:hidden;">
+              <span id="cdM" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-weight:800;font-size:30px;color:#fff;font-variant-numeric:tabular-nums;">10</span>
+              <span style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,0.45);"></span>
+              <span style="position:absolute;left:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#3A322C;"></span>
+              <span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#3A322C;"></span>
+            </div>
+            <span style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#8A7C73;text-transform:uppercase;">Minutos</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="position:relative;background:#1C1815;border-radius:8px;width:74px;height:58px;box-shadow:0 6px 14px rgba(0,0,0,0.3);overflow:hidden;">
+              <span id="cdS" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-weight:800;font-size:30px;color:#fff;font-variant-numeric:tabular-nums;">00</span>
+              <span style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,0.45);"></span>
+              <span style="position:absolute;left:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#3A322C;"></span>
+              <span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#3A322C;"></span>
+            </div>
+            <span style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#8A7C73;text-transform:uppercase;">Segundos</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="giftBox" aria-hidden="true">🎁</div>
+      <div class="price-card" style="max-width:400px;margin:16px auto 0;background:#080D08;border-radius:14px;padding:12px;box-shadow:0 12px 30px rgba(0,0,0,0.4);">
+        <div style="position:relative;border:2.5px solid #39FF14;border-radius:12px;padding:0 20px 22px;background:radial-gradient(120% 90% at 50% 0%,#0E2412 0%,#050A05 75%);animation:neonPulse 2.2s ease-in-out infinite;overflow:hidden;">
+          <div style="position:relative;margin:0 -20px 14px;">
+            <div style="background:linear-gradient(#FFD21E,#F2B705);color:#0B2E10;font-family:'Anton',sans-serif;font-size:clamp(16px,4.6vw,20px);letter-spacing:1.5px;text-transform:uppercase;text-align:center;padding:11px 10px 15px;clip-path:polygon(0 0,100% 0,100% 72%,96% 82%,92% 70%,88% 84%,84% 72%,80% 86%,76% 72%,72% 84%,68% 70%,64% 84%,60% 72%,56% 86%,52% 72%,48% 84%,44% 70%,40% 84%,36% 72%,32% 86%,28% 71%,24% 84%,20% 72%,16% 85%,12% 71%,8% 83%,4% 72%,0 84%);">Investimento único</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:12px;color:#39FF14;font-family:'Anton',sans-serif;font-size:clamp(15px,4vw,18px);letter-spacing:4px;text-transform:uppercase;margin-bottom:4px;">
+            <span>»»»</span><span>Apenas</span><span>«««</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;justify-content:center;gap:5px;color:#fff;line-height:1;font-family:'Anton',sans-serif;text-shadow:0 0 16px rgba(57,255,20,0.35);">
+            <span style="color:#39FF14;font-size:clamp(24px,6.5vw,32px);margin-top:14px;">€</span>
+            <span style="font-size:clamp(58px,17vw,86px);">14</span>
+            <span style="font-size:clamp(30px,8vw,40px);margin-top:12px;">,99</span>
+          </div>
+          <p style="font-family:'Nunito',sans-serif;font-size:13px;color:#9FC7A8;margin:2px 0 18px;">ou <strong style="color:#fff;">3x de €5,00</strong> · <span style="text-decoration:line-through;opacity:0.7;">de €67,00</span></p>
+          <a href="https://pay.hotmart.com/C106709810K" class="press" style="display:block;background:linear-gradient(#F0333B,#C81019);color:#fff;font-family:'Anton',sans-serif;font-size:clamp(18px,5vw,23px);letter-spacing:0.5px;text-transform:uppercase;padding:16px 18px;border-radius:10px;text-decoration:none;box-shadow:0 5px 0 #7E0A11,0 0 18px rgba(240,51,59,0.5);">Quero o meu KIT agora!</a>
+          <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.5px;color:#8FB49B;text-transform:uppercase;">
+            <span>🔒</span><span>Acesso imediato após a compra</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GARANTIA ============ -->
+  <section class="reveal" style="padding:clamp(48px,8vw,80px) 20px;">
+    <div style="max-width:640px;margin:0 auto;display:flex;gap:22px;align-items:center;background:#fff;border:2px solid #2E2320;border-radius:22px;padding:clamp(22px,4vw,32px);box-shadow:6px 6px 0 #7FCB8F;flex-wrap:wrap;justify-content:center;text-align:center;">
+      <div style="font-size:56px;line-height:1;">🛡️</div>
+      <div style="flex:1 1 300px;text-align:left;">
+        <h3 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:22px;margin:0 0 6px;color:#2E2320;">Risco zero: garantia incondicional de 7 dias</h3>
+        <p style="margin:0;font-size:15px;color:#6B5F58;">Se o método não fizer sentido pra rotina da sua família, é só mandar um e-mail dentro de 7 dias e devolvemos <strong style="color:#2E2320;">100% do valor</strong>. Sem perguntas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="reveal" style="padding:0 20px clamp(48px,8vw,80px);">
+    <div style="max-width:640px;margin:0 auto;">
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(24px,3.6vw,32px);text-align:center;margin:0 0 24px;color:#2E2320;">Perguntas frequentes</h2>
+      <details style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 20px;margin-bottom:10px;cursor:pointer;">
+        <summary style="font-weight:800;font-size:16px;color:#2E2320;">Para qual idade é indicado?</summary>
+        <p style="margin:10px 0 0;font-size:15px;color:#6B5F58;">Crianças de 2 a 10 anos, em qualquer fase da alfabetização, incluindo quem ainda não reconhece letras.</p>
+      </details>
+      <details style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 20px;margin-bottom:10px;cursor:pointer;">
+        <summary style="font-weight:800;font-size:16px;color:#2E2320;">Funciona para TDAH e autismo?</summary>
+        <p style="margin:10px 0 0;font-size:15px;color:#6B5F58;">Sim — o método foi adaptado justamente para respeitar ritmos diferentes de atenção e processamento.</p>
+      </details>
+      <details style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 20px;margin-bottom:10px;cursor:pointer;">
+        <summary style="font-weight:800;font-size:16px;color:#2E2320;">Como recebo o material?</summary>
+        <p style="margin:10px 0 0;font-size:15px;color:#6B5F58;">No seu e-mail, em PDF, liberado imediatamente após a confirmação da compra.</p>
+      </details>
+      <details style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 20px;margin-bottom:10px;cursor:pointer;">
+        <summary style="font-weight:800;font-size:16px;color:#2E2320;">Posso imprimir quantas vezes quiser?</summary>
+        <p style="margin:10px 0 0;font-size:15px;color:#6B5F58;">Sim, o acesso é vitalício e você pode reimprimir sempre que precisar.</p>
+      </details>
+      <details style="background:#fff;border:2px solid #F0E4D4;border-radius:14px;padding:16px 20px;margin-bottom:10px;cursor:pointer;">
+        <summary style="font-weight:800;font-size:16px;color:#2E2320;">E se eu não gostar?</summary>
+        <p style="margin:10px 0 0;font-size:15px;color:#6B5F58;">Você tem 7 dias de garantia incondicional, com reembolso total.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="reveal" style="background:linear-gradient(180deg,#FFFFFFEB,#FFFFFFEB);padding:clamp(52px,8vw,90px) 20px 64px;text-align:center;">
+    <div style="max-width:560px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(26px,4vw,36px);line-height:1.18;margin:0;color:#2E2320;">Seu filho não precisa se encaixar no ritmo de ninguém pra aprender a ler bem. 💛</h2>
+      <a href="https://pay.hotmart.com/C106709810K" class="press" style="display:inline-block;background:#2FA35C;color:#fff;font-weight:900;font-size:19px;padding:20px 44px;border-radius:16px;text-decoration:none;box-shadow:0 6px 0 rgba(0,0,0,0.28);">QUERO O MÉTODO LER NO MEU TEMPO →</a>
+      <span style="font-size:13px;color:#8A7C73;">🛡️ Garantia de 7 dias · 🔒 Compra segura · ⚡ Acesso imediato</span>
+    </div>
+  </section>
+
+  <!-- ============ STICKY BAR ============ -->
+  <div id="stickyBar" style="position:fixed;bottom:0;left:0;right:0;z-index:50;background:#2E2320;padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;justify-content:center;gap:14px;box-shadow:0 -4px 16px rgba(0,0,0,0.25);">
+    <div style="display:flex;flex-direction:column;line-height:1.2;">
+      <span style="color:#B7A99C;font-size:11px;text-decoration:line-through;">€67,00</span>
+      <span style="color:#FFC53D;font-family:'Baloo 2',cursive;font-weight:800;font-size:20px;">€14,99</span>
+      <span style="color:#FFF3DD;font-size:11px;">⏰ expira em <span id="cdBar">10:00</span></span>
+    </div>
+    <a href="https://pay.hotmart.com/C106709810K" style="flex:1;max-width:260px;display:block;background:#2FA35C;color:#fff;font-weight:900;font-size:16px;padding:14px 16px;border-radius:12px;text-decoration:none;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,0.3);">QUERO AGORA →</a>
+  </div>
+
+  <footer style="text-align:center;padding:28px 20px;font-size:13px;color:#000000;background:#FAFAFA;">© 2026 Método Ler no Meu Tempo — Todos os direitos reservados.</footer>
+
+  <div style="display:none;" aria-hidden="true">
+    <span style="position:absolute;top:-23px;left:-128px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,197,61,0.35),rgba(255,197,61,0) 70%);animation:blobFloat1 28s ease-in-out infinite;"></span>
+    <span style="position:absolute;top:10%;right:-100px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(91,182,231,0.28),rgba(91,182,231,0) 70%);animation:blobFloat2 32s ease-in-out infinite;"></span>
+    <span style="position:absolute;bottom:8%;left:6%;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(249,119,169,0.22),rgba(249,119,169,0) 70%);animation:blobFloat3 30s ease-in-out infinite;"></span>
+    <span style="position:absolute;bottom:-40px;right:12%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(127,203,143,0.24),rgba(127,203,143,0) 70%);animation:blobFloat4 34s ease-in-out infinite;"></span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // ---- Contador regressivo (10 min, evergreen por visitante) ----
+  var MINS = 10, KEY = 'lnmt_offer_deadline';
+  function getStore(){ try { return parseInt(localStorage.getItem(KEY)||'0',10); } catch(e){ return 0; } }
+  function setStore(v){ try { localStorage.setItem(KEY,String(v)); } catch(e){} }
+  var deadline = getStore();
+  if(!deadline || deadline < Date.now()+1000){ deadline = Date.now()+MINS*60000; setStore(deadline); }
+  var cdM=document.getElementById('cdM'), cdS=document.getElementById('cdS'), cdBar=document.getElementById('cdBar');
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    var rem = deadline - Date.now();
+    if(rem<=0){ deadline = Date.now()+MINS*60000; setStore(deadline); rem = MINS*60000; }
+    var t=Math.floor(rem/1000), m=pad(Math.floor(t/60)), s=pad(t%60);
+    if(cdM)cdM.textContent=m; if(cdS)cdS.textContent=s; if(cdBar)cdBar.textContent=m+':'+s;
+  }
+  tick(); setInterval(tick,1000);
+
+  // ---- Vídeos: tocar ao clicar (com som), pausar os outros ----
+  var stories = [].slice.call(document.querySelectorAll('.story'));
+  stories.forEach(function(st){
+    var v = st.querySelector('video'), ov = st.querySelector('.story-ov'), tap = st.querySelector('.story-tap');
+    tap.addEventListener('click', function(){
+      if(v.paused){
+        if(!v.getAttribute('src')){ v.setAttribute('src', st.getAttribute('data-src')); }
+        v.muted = false;
+        stories.forEach(function(o){ if(o!==st){ var ov2=o.querySelector('video'); ov2.pause(); var b=o.querySelector('.story-ov'); if(b)b.style.display='flex'; } });
+        v.play().then(function(){ ov.style.display='none'; }).catch(function(){});
+      } else {
+        v.pause(); ov.style.display='flex';
+      }
+    });
+    v.addEventListener('pause', function(){ ov.style.display='flex'; });
+    v.addEventListener('play', function(){ ov.style.display='none'; });
+  });
+
+  // ---- Barra fixa de compra (mobile, após rolar) ----
+  var bar=document.getElementById('stickyBar');
+  function onScroll(){ bar.style.display = (window.scrollY>600 && window.innerWidth<900) ? 'flex' : 'none'; }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // ---- Livro voador: desce com o scroll e explode na oferta ----
+  (function(){
+    var book=document.createElement('img');
+    book.id='bookFly'; book.src='assets/logo-caixa.webp'; book.alt=''; book.setAttribute('aria-hidden','true');
+    book.width=54; book.height=66;
+    document.body.appendChild(book);
+    var oferta=document.getElementById('oferta');
+    var exploded=false, ticking=false;
+    var pc0=document.querySelector('.price-card'), gb0=document.getElementById('giftBox');
+    if(pc0&&gb0){ pc0.classList.add('gift-hidden'); gb0.style.display='block'; }
+    // ---- Som de festa (Web Audio, zero download) ----
+    var actx=null;
+    function unlockAudio(){
+      try{
+        if(!actx){ actx=new (window.AudioContext||window.webkitAudioContext)(); }
+        if(actx.state==='suspended'){ actx.resume(); }
+      }catch(e){}
+    }
+    ['touchstart','click','keydown','scroll'].forEach(function(ev){
+      window.addEventListener(ev,unlockAudio,{once:true,passive:true});
+    });
+    function partySound(){
+      if(!actx||actx.state!=='running') return;
+      var t=actx.currentTime;
+      // "pop" do estouro: ruído curto
+      var dur=0.25, buf=actx.createBuffer(1,actx.sampleRate*dur,actx.sampleRate);
+      var d=buf.getChannelData(0);
+      for(var i=0;i<d.length;i++){ d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2); }
+      var noise=actx.createBufferSource(); noise.buffer=buf;
+      var ng=actx.createGain(); ng.gain.setValueAtTime(0.5,t); ng.gain.exponentialRampToValueAtTime(0.001,t+dur);
+      noise.connect(ng).connect(actx.destination); noise.start(t);
+      // "tada": arpejo alegre subindo
+      var notas=[523.25,659.25,783.99,1046.5];
+      notas.forEach(function(f,i){
+        var o=actx.createOscillator(), g=actx.createGain();
+        o.type='triangle'; o.frequency.value=f;
+        var t0=t+0.06+i*0.09;
+        g.gain.setValueAtTime(0.0001,t0);
+        g.gain.exponentialRampToValueAtTime(0.22,t0+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,t0+0.5);
+        o.connect(g).connect(actx.destination);
+        o.start(t0); o.stop(t0+0.55);
+      });
+    }
+    function explode(){
+      if(exploded) return; exploded=true;
+      var gift=document.getElementById('giftBox');
+      var priceCard=document.querySelector('.price-card');
+      var r=book.getBoundingClientRect();
+      var cx=r.left+r.width/2, cy=r.top+r.height/2;
+      if(gift){ gift.classList.add('shake'); var gr=gift.getBoundingClientRect(); cx=gr.left+gr.width/2; cy=gr.top+gr.height/2; }
+      book.classList.add('boom');
+      partySound();
+      setTimeout(function(){ book.remove(); },700);
+      setTimeout(function(){
+        var cores=['#FFC53D','#E8443A','#5BB6E7','#F977A9','#7FCB8F','#FFD700'];
+        var total=60;
+        for(var i=0;i<total;i++){
+          var p=document.createElement('span');
+          var tipo=i%5===0?'balao':(i%2===0?'papel':'bola');
+          p.className='confeti '+tipo;
+          p.style.left=cx+'px'; p.style.top=cy+'px';
+          if(tipo==='balao'){ p.textContent='🎈'; }
+          else { p.style.background=cores[i%cores.length]; }
+          document.body.appendChild(p);
+          var ang=(i/total)*Math.PI*2, dist=90+Math.random()*130;
+          var dy=tipo==='balao'?-(120+Math.random()*100):(Math.sin(ang)*dist-30);
+          var dx=tipo==='balao'?(Math.cos(ang)*dist*0.6):(Math.cos(ang)*dist);
+          (function(p,dx,dy){
+            void p.offsetWidth;
+            requestAnimationFrame(function(){
+              requestAnimationFrame(function(){
+                p.style.transform='translate('+dx+'px,'+dy+'px) scale(0.35) rotate('+(Math.random()*540-270)+'deg)';
+                p.style.opacity='0';
+              });
+            });
+            setTimeout(function(){ p.remove(); },1600);
+          })(p,dx,dy);
+        }
+        if(gift){ gift.classList.remove('shake'); gift.classList.add('open'); }
+        if(priceCard){ priceCard.classList.remove('gift-hidden'); priceCard.classList.add('price-pop'); }
+      },520);
+    }
+    function update(){
+      ticking=false;
+      if(exploded) return;
+      var y=window.scrollY||window.pageYOffset;
+      if(y>260){ book.classList.add('on'); } else { book.classList.remove('on'); }
+      var prog=0;
+      var priceEl=document.querySelector('.price-card');
+      if(priceEl){
+        var pt=priceEl.getBoundingClientRect().top;
+        var total=Math.max(1,(oferta?oferta.offsetTop:document.body.scrollHeight)-window.innerHeight);
+        prog=Math.min(1,Math.max(0,y/total));
+        if(pt<window.innerHeight*0.8 && y>260){ explode(); return; }
+      }
+      book.style.transform='translateY('+(prog*38)+'vh) rotate('+(Math.sin(y/240)*8)+'deg)';
+    }
+    window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } },{passive:true});
+    update();
+  })();
+
+  // ---- Reveal progressivo ao rolar ----
+  var reveals=[].slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:0.08});
+    reveals.forEach(function(s){ io.observe(s); });
+  } else {
+    reveals.forEach(function(s){ s.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
