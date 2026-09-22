@@ -25,15 +25,24 @@ const LOJA = {
      não risca vender o produto errado por engano. */
   variante: '65999605399901',
 
-  /* Cores = variantes da Shopify (opção "Cor"). Cada cor tem o seu ID de
-     variante e a sua foto. disponivel: false mostra a cor riscada como
+  /* Cores × tamanhos = variantes da Shopify (opções "Cor" e "Tamanho").
+     Cada cor tem a sua foto e um ID de variante por tamanho. disponivel: false mostra a cor riscada como
      "Esgotado" e desativa a compra nessa cor — mude para true quando a cor
      voltar a ter stock na Shopify. hex = cor da bolinha (ajuste à vontade). */
   cores: [
-    { nome: 'Brown',  pt: 'Castanho',     hex: '#6B4A36', variante: '65999605399901', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113', disponivel: true  },
-    { nome: 'Navy',   pt: 'Azul-marinho', hex: '#1F2A44', variante: '65999605432669', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/1f9adc8b-c2cb-4189-96f5-e871b9010116.png?v=1790112125', disponivel: true  },
-    { nome: 'Silver', pt: 'Prateado',     hex: '#BFC1C2', variante: '65999605465437', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972', disponivel: true  },
-    { nome: 'Black',  pt: 'Preto',        hex: '#161616', variante: '65999605498205', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/23205ea5-6141-47fb-9c2f-8602389a9e50.png?v=1790112146', disponivel: true  }
+    { nome: 'Brown',  pt: 'Castanho',     hex: '#6B4A36', variantes: { S: '65999605399901', M: '66000036430173', L: '66000036462941', XL: '66000036495709', XXL: '66000036528477' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113', disponivel: true  },
+    { nome: 'Navy',   pt: 'Azul-marinho', hex: '#1F2A44', variantes: { S: '65999605432669', M: '66000036561245', L: '66000036594013', XL: '66000036626781', XXL: '66000036659549' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/1f9adc8b-c2cb-4189-96f5-e871b9010116.png?v=1790112125', disponivel: true  },
+    { nome: 'Silver', pt: 'Prateado',     hex: '#BFC1C2', variantes: { S: '65999605465437', M: '66000036692317', L: '66000036725085', XL: '66000036757853', XXL: '66000036790621' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972', disponivel: true  },
+    { nome: 'Black',  pt: 'Preto',        hex: '#161616', variantes: { S: '65999605498205', M: '66000036823389', L: '66000036856157', XL: '66000036888925', XXL: '66000036921693' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/23205ea5-6141-47fb-9c2f-8602389a9e50.png?v=1790112146', disponivel: true  }
+  ],
+
+  /* Tamanhos, pela ordem da Shopify. cod = chave em "variantes" acima. */
+  tamanhos: [
+    { cod: 'S',   eu: 'EU 36' },
+    { cod: 'M',   eu: 'EU 38' },
+    { cod: 'L',   eu: 'EU 40/42' },
+    { cod: 'XL',  eu: 'EU 44' },
+    { cod: 'XXL', eu: 'EU 46' }
   ],
 
   /* SUBSTITUIR: preços reais do produto (Shopify Admin → Produtos). */
@@ -207,6 +216,22 @@ header.top{
   background:var(--ink-2);transform:rotate(45deg);
 }
 .opt-head .val.soldout{color:var(--ink-3)}
+
+/* ── Tamanhos ── */
+.sizes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.size{
+  border:1.5px solid var(--line-2);border-radius:var(--r-sm);padding:10px 4px;
+  text-align:center;background:var(--paper);transition:border-color .2s,background .2s,box-shadow .2s;
+}
+.size b{display:block;font-size:14px;font-weight:700;line-height:1.2}
+.size small{display:block;font-size:11px;color:var(--ink-3);margin-top:2px;white-space:nowrap}
+.size:hover{border-color:var(--ink-3)}
+.size[aria-pressed="true"]{border-color:var(--ink);background:var(--ground);box-shadow:0 0 0 1px var(--ink)}
+@media (max-width:360px){.sizes{grid-template-columns:repeat(3,1fr)}}
+#blocoTamanho.nudge .opt-head .val{color:var(--wine)}
+#blocoTamanho.nudge .sizes{animation:nudge .45s}
+@keyframes nudge{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){#blocoTamanho.nudge .sizes{animation:none}}
 
 /* ── Bundles ── */
 .bundle-head{
@@ -466,6 +491,12 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
         <div class="swatches" id="swatches" role="group" aria-label="Colour"><!-- preenchido por JS --></div>
       </div>
 
+      <!-- ═══ TAMANHOS ═══ -->
+      <div class="opt" id="blocoTamanho">
+        <div class="opt-head"><span class="lbl" data-i18n="size-head">Size</span><span class="val" id="tamNome">Select a size</span></div>
+        <div class="sizes" id="sizes" role="group" aria-label="Size"><!-- preenchido por JS --></div>
+      </div>
+
       <!-- ═══ BUNDLES ═══ -->
       <div class="opt">
         <div class="bundle-head"><span class="lbl" data-i18n="bundle-head">Buy more, pay less</span></div>
@@ -682,6 +713,10 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
         <div class="faq-body" data-i18n="faq-4-a">Executive Sculpt Pants come in Brown, Navy, Silver and Black — easy colours that pair with the rest of your wardrobe. You can see which colours are in stock right above, when choosing yours.</div>
       </details>
       <details>
+        <summary data-i18n="faq-6-q">Which size should I choose?</summary>
+        <div class="faq-body" data-i18n="faq-6-a">Sizes go from S to XXL: S (EU 36), M (EU 38), L (EU 40/42), XL (EU 44) and XXL (EU 46). Choose the EU size you usually wear — and if the fit isn't right, you have 30 days to exchange.</div>
+      </details>
+      <details>
         <summary data-i18n="faq-5-q">What's the exchange and return policy?</summary>
         <div class="faq-body" data-i18n="faq-5-a">You have 30 days after receiving your order to request an exchange or return, following our returns policy.</div>
       </details>
@@ -734,11 +769,11 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
 (function(){
   'use strict';
 
-  var estado = { bundle: 0, cor: 0 };
+  var estado = { bundle: 0, cor: 0, tam: -1 };
   for (var ci = 0; ci < LOJA.cores.length; ci++){
     if (LOJA.cores[ci].disponivel){ estado.cor = ci; break; }
   }
-  LOJA.variante = LOJA.cores[estado.cor].variante;
+  LOJA.variante = LOJA.cores[estado.cor].variantes[LOJA.tamanhos[0].cod];
 
   /* ── Idioma: EN por omissão (página oficial, mesma língua dos anúncios),
      PT automático para quem tiver o navegador em português. Para testar
@@ -757,13 +792,13 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
       bestValue: 'Melhor custo-benefício', unit: 'par', units: 'pares',
       perUnit: 'por par', tryIt: 'O teu primeiro par', freeShip: 'Frete grátis',
       save: 'Poupa ', buy: 'Comprar — ', buyNow: 'Comprar agora — ',
-      buyShort: 'Comprar', soldOut: 'Esgotado'
+      buyShort: 'Comprar', soldOut: 'Esgotado', pickSize: 'Escolhe o tamanho'
     },
     en: {
       bestValue: 'Best value', unit: 'pair', units: 'pairs',
       perUnit: 'per pair', tryIt: 'Your first pair', freeShip: 'Free shipping',
       save: 'Save ', buy: 'Buy — ', buyNow: 'Buy now — ',
-      buyShort: 'Buy', soldOut: 'Sold out'
+      buyShort: 'Buy', soldOut: 'Sold out', pickSize: 'Select a size'
     }
   }[LANG];
 
@@ -773,6 +808,7 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     'hero-stars-sub': 'Cintura subida · Perna reta · Bolsos práticos',
     'tax-note': 'IVA incluído · Frete grátis em todas as encomendas',
     'colour-head': 'Cor',
+    'size-head': 'Tamanho',
     'bundle-head': 'Compra mais, paga menos',
     'assur-1': 'Envio em 24 h úteis · entrega em 3 a 6 dias úteis',
     'assur-2': '30 dias para troca ou devolução',
@@ -803,6 +839,8 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     'faq-3-q': 'Quanto tempo demora a entrega?',
     'faq-3-a': 'Envio em 24 h úteis, com entrega estimada em 3 a 6 dias úteis após o envio.',
     'faq-4-q': 'Que cores estão disponíveis?', 'faq-4-a': 'As Executive Sculpt Pants existem em Castanho, Azul-marinho, Prateado e Preto — cores fáceis de combinar com o resto do teu guarda-roupa. Vês quais estão em stock logo acima, ao escolher a tua.',
+    'faq-6-q': 'Que tamanho devo escolher?',
+    'faq-6-a': 'Os tamanhos vão do S ao XXL: S (EU 36), M (EU 38), L (EU 40/42), XL (EU 44) e XXL (EU 46). Escolhe o tamanho EU que costumas usar — e se não servir bem, tens 30 dias para trocar.',
     'faq-5-q': 'Qual a política de trocas e devolução?',
     'faq-5-a': 'Tens 30 dias após a receção para pedir troca ou devolução, seguindo a nossa política de devoluções.',
     'footer-desc': 'Essenciais de guarda-roupa com visual cuidado e conforto fácil, todos os dias.',
@@ -908,6 +946,41 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     atualizar();
   });
 
+  /* ── Tamanhos: gerados a partir da config ── */
+  var elSizes = document.getElementById('sizes');
+  var blocoTamanho = document.getElementById('blocoTamanho');
+  LOJA.tamanhos.forEach(function(t, i){
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'size';
+    el.setAttribute('data-tam', i);
+    el.setAttribute('aria-pressed', 'false');
+    el.setAttribute('aria-label', t.cod + ' (' + t.eu + ')');
+    el.innerHTML = '<b>' + t.cod + '</b><small>' + t.eu + '</small>';
+    elSizes.appendChild(el);
+  });
+  elSizes.addEventListener('click', function(e){
+    var el = e.target.closest('[data-tam]');
+    if (!el) return;
+    this.querySelectorAll('[data-tam]').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+    el.setAttribute('aria-pressed','true');
+    estado.tam = parseInt(el.getAttribute('data-tam'), 10);
+    blocoTamanho.classList.remove('nudge');
+    atualizar();
+  });
+
+  /* Sem tamanho escolhido, os botões de compra levam ao seletor em vez do checkout */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('[data-buy]');
+    if (!a || estado.tam >= 0 || !LOJA.cores[estado.cor].disponivel) return;
+    e.preventDefault();
+    var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    blocoTamanho.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'center' });
+    blocoTamanho.classList.remove('nudge');
+    void blocoTamanho.offsetWidth;
+    blocoTamanho.classList.add('nudge');
+  });
+
   /* ── Texto e links ── */
   function txt(id, v){ var e = document.getElementById(id); if (e) e.textContent = v; }
   var anoEl = document.getElementById('ano'); if (anoEl) anoEl.textContent = new Date().getFullYear();
@@ -930,7 +1003,12 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     var b = LOJA.bundles[estado.bundle];
     var total = precoBundle(b);
     var cor = LOJA.cores[estado.cor];
-    LOJA.variante = cor.variante;
+    var tam = estado.tam >= 0 ? LOJA.tamanhos[estado.tam] : null;
+    LOJA.variante = cor.variantes[(tam || LOJA.tamanhos[0]).cod];
+    var pronto = cor.disponivel && !!tam;
+    var textoCta = !cor.disponivel ? DYN.soldOut : (tam ? null : DYN.pickSize);
+
+    txt('tamNome', tam ? tam.cod + ' (' + tam.eu + ')' : DYN.pickSize);
 
     var elCor = document.getElementById('corNome');
     if (elCor){
@@ -942,16 +1020,16 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     txt('precoAntigo', b.off ? eur(precoCheio(b)) : eur(LOJA.precoComparacao));
     var pct = b.off || Math.round((1 - LOJA.precoBase / LOJA.precoComparacao) * 100);
     txt('poupanca', DYN.save + pct + '%');
-    txt('ctaPrincipal', cor.disponivel ? DYN.buy + eur(total) : DYN.soldOut);
-    txt('ctaFinal', cor.disponivel ? DYN.buyNow + eur(total) : DYN.soldOut);
-    txt('dockResumo', nomeCor(cor) + ' · ' + b.q + (b.q > 1 ? ' ' + DYN.units : ' ' + DYN.unit) + ' — ' + eur(total));
+    txt('ctaPrincipal', textoCta || DYN.buy + eur(total));
+    txt('ctaFinal', textoCta || DYN.buyNow + eur(total));
+    txt('dockResumo', nomeCor(cor) + (tam ? ' · ' + tam.cod : '') + ' · ' + b.q + (b.q > 1 ? ' ' + DYN.units : ' ' + DYN.unit) + ' — ' + eur(total));
     var dockCta = document.querySelector('.dock .cta');
-    if (dockCta) dockCta.textContent = cor.disponivel ? DYN.buyShort : DYN.soldOut;
+    if (dockCta) dockCta.textContent = textoCta || DYN.buyShort;
 
     document.querySelectorAll('[data-final-preco]').forEach(function(e){ e.textContent = eur(total); });
     document.querySelectorAll('[data-final-antigo]').forEach(function(e){ e.textContent = b.off ? eur(precoCheio(b)) : eur(LOJA.precoComparacao); });
 
-    var url = cor.disponivel ? urlCheckout() : '#comprar';
+    var url = pronto ? urlCheckout() : '#comprar';
     document.querySelectorAll('[data-buy]').forEach(function(a){
       a.setAttribute('href', url);
       if (a.classList.contains('cta')){
