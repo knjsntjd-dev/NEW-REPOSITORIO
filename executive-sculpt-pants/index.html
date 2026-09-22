@@ -9,7 +9,7 @@
 <meta property="og:type" content="product">
 <meta property="og:title" content="Executive Sculpt Pants">
 <meta property="og:description" content="Tailored look. Everyday comfort. High-waisted, straight-leg trousers for work and every day.">
-<meta property="og:image" content="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972">
+<meta property="og:image" content="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="pt_PT">
 </head>
@@ -24,6 +24,17 @@ const LOJA = {
      ficar vazio (''), o botão "Comprar" fica desativado de propósito —
      não risca vender o produto errado por engano. */
   variante: '65999605399901',
+
+  /* Cores = variantes da Shopify (opção "Cor"). Cada cor tem o seu ID de
+     variante e a sua foto. disponivel: false mostra a cor riscada como
+     "Esgotado" e desativa a compra nessa cor — mude para true quando a cor
+     voltar a ter stock na Shopify. hex = cor da bolinha (ajuste à vontade). */
+  cores: [
+    { nome: 'Brown',  pt: 'Castanho',     hex: '#6B4A36', variante: '65999605399901', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113', disponivel: true  },
+    { nome: 'Navy',   pt: 'Azul-marinho', hex: '#1F2A44', variante: '65999605432669', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/1f9adc8b-c2cb-4189-96f5-e871b9010116.png?v=1790112125', disponivel: true  },
+    { nome: 'Silver', pt: 'Prateado',     hex: '#BFC1C2', variante: '65999605465437', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972', disponivel: true  },
+    { nome: 'Black',  pt: 'Preto',        hex: '#161616', variante: '65999605498205', img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/23205ea5-6141-47fb-9c2f-8602389a9e50.png?v=1790112146', disponivel: true  }
+  ],
 
   /* SUBSTITUIR: preços reais do produto (Shopify Admin → Produtos). */
   precoBase: 34.95,
@@ -181,6 +192,22 @@ header.top{
 .opt-head .val{font-size:13px;font-weight:600}
 .opt-head .link{font-size:12px;font-weight:600;text-decoration:underline;text-underline-offset:3px;color:var(--ink-2)}
 
+/* ── Cores ── */
+.swatches{display:flex;gap:12px;flex-wrap:wrap}
+.swatch{
+  position:relative;width:42px;height:42px;border-radius:50%;padding:3px;
+  border:1.5px solid var(--line-2);transition:border-color .2s,box-shadow .2s;
+}
+.swatch:hover{border-color:var(--ink-3)}
+.swatch[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.swatch i{display:block;width:100%;height:100%;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.swatch.off i{opacity:.45}
+.swatch.off::after{
+  content:'';position:absolute;left:50%;top:5px;bottom:5px;width:1.5px;margin-left:-.75px;
+  background:var(--ink-2);transform:rotate(45deg);
+}
+.opt-head .val.soldout{color:var(--ink-3)}
+
 /* ── Bundles ── */
 .bundle-head{
   display:flex;align-items:center;gap:12px;margin-bottom:10px;
@@ -229,6 +256,7 @@ header.top{
 }
 .cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,17,17,.18)}
 .cta:active{transform:none}
+.cta.is-off{background:var(--line-2);color:var(--ink-3);pointer-events:none;box-shadow:none;transform:none}
 
 .assur{list-style:none;margin:22px 0 0;padding:18px 0 0;border-top:1px solid var(--line);display:grid;gap:10px}
 .assur li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-2)}
@@ -384,11 +412,11 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
       <div style="position:relative">
         <span class="badge-hero">-27% OFF</span>
         <figure class="shot" id="mainShot" style="margin:0">
-          <img id="mainImg" src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972" alt="Executive Sculpt Pants — main photo" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
+          <img id="mainImg" src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113" alt="Executive Sculpt Pants — main photo" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
         </figure>
       </div>
       <div class="thumbs" id="thumbs">
-        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972" data-ph="1" aria-current="true" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972" alt="View 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113" data-ph="1" aria-current="true" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113" alt="View 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
         <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/bf7f3d08-5684-4954-b690-5d0980e8b4a8.png?v=1790111972" data-ph="2" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/bf7f3d08-5684-4954-b690-5d0980e8b4a8.png?v=1790111972" alt="View 2" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
         <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/d4ba0d19-f27a-44d5-82e7-e0bb2d4aada4.png?v=1790111972" data-ph="3" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/d4ba0d19-f27a-44d5-82e7-e0bb2d4aada4.png?v=1790111972" alt="View 3" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
         <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/e33c6bc9-6ede-4f17-82f9-17da07c91d5e.png?v=1790111972" data-ph="4" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/e33c6bc9-6ede-4f17-82f9-17da07c91d5e.png?v=1790111972" alt="View 4" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
@@ -407,7 +435,7 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
           <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg>
           <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg>
         </span>
-        <span class="num" data-i18n="hero-stars-sub">High-waisted · Straight leg · Practical pockets · Colour: Brown</span>
+        <span class="num" data-i18n="hero-stars-sub">High-waisted · Straight leg · Practical pockets</span>
       </div>
 
       <div class="price-row">
@@ -431,6 +459,12 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
           <span data-i18n-html="benefit-3"><b>Practical pockets</b> — for phone, keys and cards, from desk to dinner</span>
         </li>
       </ul>
+
+      <!-- ═══ CORES ═══ -->
+      <div class="opt">
+        <div class="opt-head"><span class="lbl" data-i18n="colour-head">Colour</span><span class="val" id="corNome">Brown</span></div>
+        <div class="swatches" id="swatches" role="group" aria-label="Colour"><!-- preenchido por JS --></div>
+      </div>
 
       <!-- ═══ BUNDLES ═══ -->
       <div class="opt">
@@ -477,6 +511,51 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     <div class="trust-cell rv">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
       <b data-i18n="trust-4-t">Work to weekend</b><span data-i18n="trust-4-d">Office hours, dinners, travel days</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 3 · UGC / REELS ═══════════ -->
+<section class="ugc">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="ugc-eyebrow">In motion</span>
+      <h2 style="color:#F7F4EE" data-i18n-html="ugc-h2">See how they move</h2>
+      <p class="lead" data-i18n="ugc-lead">From office hours to after-hours — Executive Sculpt Pants on real days.</p>
+    </div>
+    <div class="ugc-shell rv">
+    <div class="ugc-row" id="ugcRow">
+      <div class="reel" data-video="assets/video/ugc-1.mp4">
+        <div class="shot" data-ph="Video 1 · assets/video/ugc-1.mp4 · 576x1024"><img src="assets/video/ugc-poster-1.jpg" alt="Executive Sculpt Pants — video 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="reel-play"><span>▶</span></div>
+        <video preload="none" playsinline loop muted poster="assets/video/ugc-poster-1.jpg" style="display:none"></video>
+      </div>
+      <div class="reel" data-video="assets/video/ugc-2.mp4">
+        <div class="shot" data-ph="Video 2 · assets/video/ugc-2.mp4 · 576x1024"><img src="assets/video/ugc-poster-2.jpg" alt="Executive Sculpt Pants — video 2" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="reel-play"><span>▶</span></div>
+        <video preload="none" playsinline loop muted poster="assets/video/ugc-poster-2.jpg" style="display:none"></video>
+      </div>
+      <div class="reel" data-video="assets/video/ugc-3.mp4">
+        <div class="shot" data-ph="Video 3 · assets/video/ugc-3.mp4 · 576x1024"><img src="assets/video/ugc-poster-3.jpg" alt="Executive Sculpt Pants — video 3" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="reel-play"><span>▶</span></div>
+        <video preload="none" playsinline loop muted poster="assets/video/ugc-poster-3.jpg" style="display:none"></video>
+      </div>
+      <div class="reel" data-video="assets/video/ugc-4.mp4">
+        <div class="shot" data-ph="Video 4 · assets/video/ugc-4.mp4 · 576x1024"><img src="assets/video/ugc-poster-4.jpg" alt="Executive Sculpt Pants — video 4" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="reel-play"><span>▶</span></div>
+        <video preload="none" playsinline loop muted poster="assets/video/ugc-poster-4.jpg" style="display:none"></video>
+      </div>
+      <div class="reel" data-video="assets/video/ugc-5.mp4">
+        <div class="shot" data-ph="Video 5 · assets/video/ugc-5.mp4 · 576x1024"><img src="assets/video/ugc-poster-5.jpg" alt="Executive Sculpt Pants — video 5" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="reel-play"><span>▶</span></div>
+        <video preload="none" playsinline loop muted poster="assets/video/ugc-poster-5.jpg" style="display:none"></video>
+      </div>
+      <div class="reel" data-video="assets/video/ugc-6.mp4">
+        <div class="shot" data-ph="Video 6 · assets/video/ugc-6.mp4 · 576x1024"><img src="assets/video/ugc-poster-6.jpg" alt="Executive Sculpt Pants — video 6" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="reel-play"><span>▶</span></div>
+        <video preload="none" playsinline loop muted poster="assets/video/ugc-poster-6.jpg" style="display:none"></video>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -599,8 +678,8 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
         <div class="faq-body" data-i18n="faq-3-a">Dispatched within 24 business hours, with estimated delivery in 3–6 business days after shipping.</div>
       </details>
       <details>
-        <summary data-i18n="faq-4-q">Which colour is available?</summary>
-        <div class="faq-body" data-i18n="faq-4-a">Executive Sculpt Pants are currently available in Brown — a warm neutral that pairs easily with black, white, cream, camel and denim.</div>
+        <summary data-i18n="faq-4-q">Which colours are available?</summary>
+        <div class="faq-body" data-i18n="faq-4-a">Executive Sculpt Pants come in Brown, Navy, Silver and Black — easy colours that pair with the rest of your wardrobe. You can see which colours are in stock right above, when choosing yours.</div>
       </details>
       <details>
         <summary data-i18n="faq-5-q">What's the exchange and return policy?</summary>
@@ -655,7 +734,11 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
 (function(){
   'use strict';
 
-  var estado = { bundle: 0 };
+  var estado = { bundle: 0, cor: 0 };
+  for (var ci = 0; ci < LOJA.cores.length; ci++){
+    if (LOJA.cores[ci].disponivel){ estado.cor = ci; break; }
+  }
+  LOJA.variante = LOJA.cores[estado.cor].variante;
 
   /* ── Idioma: EN por omissão (página oficial, mesma língua dos anúncios),
      PT automático para quem tiver o navegador em português. Para testar
@@ -673,20 +756,23 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     pt: {
       bestValue: 'Melhor custo-benefício', unit: 'par', units: 'pares',
       perUnit: 'por par', tryIt: 'O teu primeiro par', freeShip: 'Frete grátis',
-      save: 'Poupa ', buy: 'Comprar — ', buyNow: 'Comprar agora — '
+      save: 'Poupa ', buy: 'Comprar — ', buyNow: 'Comprar agora — ',
+      buyShort: 'Comprar', soldOut: 'Esgotado'
     },
     en: {
       bestValue: 'Best value', unit: 'pair', units: 'pairs',
       perUnit: 'per pair', tryIt: 'Your first pair', freeShip: 'Free shipping',
-      save: 'Save ', buy: 'Buy — ', buyNow: 'Buy now — '
+      save: 'Save ', buy: 'Buy — ', buyNow: 'Buy now — ',
+      buyShort: 'Buy', soldOut: 'Sold out'
     }
   }[LANG];
 
   var I18N_PT = {
     'buy': 'Comprar',
     'hero-eyebrow': 'Visual alfaiate. Conforto para todos os dias.',
-    'hero-stars-sub': 'Cintura subida · Perna reta · Bolsos práticos · Cor: Castanho',
+    'hero-stars-sub': 'Cintura subida · Perna reta · Bolsos práticos',
     'tax-note': 'IVA incluído · Frete grátis em todas as encomendas',
+    'colour-head': 'Cor',
     'bundle-head': 'Compra mais, paga menos',
     'assur-1': 'Envio em 24 h úteis · entrega em 3 a 6 dias úteis',
     'assur-2': '30 dias para troca ou devolução',
@@ -695,6 +781,8 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     'trust-2-t': 'Confortáveis todos os dias', 'trust-2-d': 'Para usar da manhã à noite',
     'trust-3-t': 'Fáceis de combinar', 'trust-3-d': 'Com blazers, malhas, camisas ou ténis',
     'trust-4-t': 'Do trabalho ao fim de semana', 'trust-4-d': 'Escritório, jantares, dias de viagem',
+    'ugc-eyebrow': 'Em movimento',
+    'ugc-lead': 'Do escritório ao jantar — as Executive Sculpt Pants em dias reais.',
     'pillars-eyebrow': 'Porque as vais usar sempre',
     'pillars-h2': 'Um par. Quase todas as ocasiões.',
     'pillar-1-t': 'Horário de escritório',
@@ -714,7 +802,7 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     'faq-2-q': 'Com o que as posso usar?', 'faq-2-a': 'Com quase tudo: blazer e camisa para o escritório, uma malha fina ao fim de semana, um top simples e saltos para jantar. Ténis, mocassins ou saltos — tudo resulta.',
     'faq-3-q': 'Quanto tempo demora a entrega?',
     'faq-3-a': 'Envio em 24 h úteis, com entrega estimada em 3 a 6 dias úteis após o envio.',
-    'faq-4-q': 'Que cor está disponível?', 'faq-4-a': 'As Executive Sculpt Pants estão disponíveis em Castanho — um neutro quente que combina facilmente com preto, branco, creme, camel e ganga.',
+    'faq-4-q': 'Que cores estão disponíveis?', 'faq-4-a': 'As Executive Sculpt Pants existem em Castanho, Azul-marinho, Prateado e Preto — cores fáceis de combinar com o resto do teu guarda-roupa. Vês quais estão em stock logo acima, ao escolher a tua.',
     'faq-5-q': 'Qual a política de trocas e devolução?',
     'faq-5-a': 'Tens 30 dias após a receção para pedir troca ou devolução, seguindo a nossa política de devoluções.',
     'footer-desc': 'Essenciais de guarda-roupa com visual cuidado e conforto fácil, todos os dias.',
@@ -728,6 +816,7 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     'benefit-1': '<b>Elegantes, sem rigidez</b> — o visual de umas calças de alfaiataria, para usar o dia inteiro',
     'benefit-2': '<b>Cintura subida, perna reta</b> — uma linha limpa que combina com quase tudo',
     'benefit-3': '<b>Bolsos práticos</b> — para telemóvel, chaves e cartões, do escritório ao jantar',
+    'ugc-h2': 'Vê como assentam',
     'pillars-lead': 'Elegantes o suficiente para o trabalho, fáceis o suficiente para todos os dias.',
     'reviews-h2': 'Nas palavras de quem usa',
     'review-1-q': 'SUBSTITUIR — opinião real 1 (NÃO inventar — deixe este marcador até ter uma opinião real de cliente)',
@@ -790,6 +879,32 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     elBundles.appendChild(el);
   });
 
+  /* ── Cores: geradas a partir da config ── */
+  function nomeCor(c){ return LANG === 'pt' ? c.pt : c.nome; }
+  var elSwatches = document.getElementById('swatches');
+  LOJA.cores.forEach(function(c, i){
+    var rotulo = nomeCor(c) + (c.disponivel ? '' : ' — ' + DYN.soldOut);
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'swatch' + (c.disponivel ? '' : ' off');
+    el.setAttribute('data-cor', i);
+    el.setAttribute('aria-pressed', i === estado.cor ? 'true' : 'false');
+    el.setAttribute('aria-label', rotulo);
+    el.title = rotulo;
+    el.innerHTML = '<i style="--sw:' + c.hex + '"></i>';
+    elSwatches.appendChild(el);
+  });
+  elSwatches.addEventListener('click', function(e){
+    var el = e.target.closest('[data-cor]');
+    if (!el) return;
+    this.querySelectorAll('[data-cor]').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+    el.setAttribute('aria-pressed','true');
+    estado.cor = parseInt(el.getAttribute('data-cor'), 10);
+    trocarFoto(LOJA.cores[estado.cor].img);
+    document.querySelectorAll('#thumbs [data-src]').forEach(function(f){ f.setAttribute('aria-current','false'); });
+    atualizar();
+  });
+
   /* ── Texto e links ── */
   function txt(id, v){ var e = document.getElementById(id); if (e) e.textContent = v; }
   var anoEl = document.getElementById('ano'); if (anoEl) anoEl.textContent = new Date().getFullYear();
@@ -811,20 +926,36 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
   function atualizar(){
     var b = LOJA.bundles[estado.bundle];
     var total = precoBundle(b);
+    var cor = LOJA.cores[estado.cor];
+    LOJA.variante = cor.variante;
+
+    var elCor = document.getElementById('corNome');
+    if (elCor){
+      elCor.textContent = nomeCor(cor) + (cor.disponivel ? '' : ' — ' + DYN.soldOut);
+      elCor.classList.toggle('soldout', !cor.disponivel);
+    }
 
     txt('precoAtual', eur(total));
     txt('precoAntigo', b.off ? eur(precoCheio(b)) : eur(LOJA.precoComparacao));
     var pct = b.off || Math.round((1 - LOJA.precoBase / LOJA.precoComparacao) * 100);
     txt('poupanca', DYN.save + pct + '%');
-    txt('ctaPrincipal', DYN.buy + eur(total));
-    txt('ctaFinal', DYN.buyNow + eur(total));
-    txt('dockResumo', b.q + (b.q > 1 ? ' ' + DYN.units : ' ' + DYN.unit) + ' — ' + eur(total));
+    txt('ctaPrincipal', cor.disponivel ? DYN.buy + eur(total) : DYN.soldOut);
+    txt('ctaFinal', cor.disponivel ? DYN.buyNow + eur(total) : DYN.soldOut);
+    txt('dockResumo', nomeCor(cor) + ' · ' + b.q + (b.q > 1 ? ' ' + DYN.units : ' ' + DYN.unit) + ' — ' + eur(total));
+    var dockCta = document.querySelector('.dock .cta');
+    if (dockCta) dockCta.textContent = cor.disponivel ? DYN.buyShort : DYN.soldOut;
 
     document.querySelectorAll('[data-final-preco]').forEach(function(e){ e.textContent = eur(total); });
     document.querySelectorAll('[data-final-antigo]').forEach(function(e){ e.textContent = b.off ? eur(precoCheio(b)) : eur(LOJA.precoComparacao); });
 
-    var url = urlCheckout();
-    document.querySelectorAll('[data-buy]').forEach(function(a){ a.setAttribute('href', url); });
+    var url = cor.disponivel ? urlCheckout() : '#comprar';
+    document.querySelectorAll('[data-buy]').forEach(function(a){
+      a.setAttribute('href', url);
+      if (a.classList.contains('cta')){
+        a.classList.toggle('is-off', !cor.disponivel);
+        if (cor.disponivel) a.removeAttribute('aria-disabled'); else a.setAttribute('aria-disabled', 'true');
+      }
+    });
   }
 
   elBundles.addEventListener('click', function(e){
