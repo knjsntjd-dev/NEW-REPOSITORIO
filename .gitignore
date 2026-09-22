@@ -1,0 +1,3 @@
+# Contém credenciais reais (token da API de Conversões da Meta) — nunca commitar.
+# Enviar manualmente por FTP/painel de hospedagem, fora do Git.
+**/capi-config.php
