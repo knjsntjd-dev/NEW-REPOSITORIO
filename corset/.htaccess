@@ -1,0 +1,51 @@
+# ═══════════════════════════════════════════════════════════════
+#  Protege as credenciais da API de Conversões
+# ═══════════════════════════════════════════════════════════════
+#  Impede que capi-config.php (onde está o token) seja aberto
+#  diretamente no navegador — inclusive se o PHP deixar de correr
+#  no servidor, caso em que o ficheiro seria servido como texto.
+
+<Files "capi-config.php">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</Files>
+
+# Sem listagem de pastas (evita expor img/ e video/ como índice)
+Options -Indexes
+
+# Serve flexfit.html quando alguém acessa a pasta sem indicar o
+# ficheiro (ex: /promo/) — sem isto, com "Options -Indexes" acima
+# e nenhum index.html presente, o servidor devolve 403.
+DirectoryIndex flexfit.html
+
+# ═══════════════════════════════════════════════════════════════
+#  Velocidade: compressão e cache
+# ═══════════════════════════════════════════════════════════════
+#  A maioria das hospedagens já liga isto por padrão, mas garantir
+#  aqui evita depender da configuração do servidor.
+
+# Comprime texto antes de enviar (o HTML desta página cai de ~100KB
+# para ~25KB transferidos; PageSpeed penalizava isto)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Cache no navegador do visitante — na segunda visita (ou ao navegar
+# entre páginas da promoção) as fotos e vídeos nem chegam a pedir
+# de novo ao servidor.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg    "access plus 30 days"
+    ExpiresByType image/webp    "access plus 30 days"
+    ExpiresByType video/mp4     "access plus 30 days"
+    ExpiresByType text/css      "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType text/html     "access plus 0 seconds"
+</IfModule>
