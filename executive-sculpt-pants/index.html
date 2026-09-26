@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="pt_PT">
+<link rel="preload" as="image" href="assets/img/hero-1-800.webp" imagesrcset="assets/img/hero-1-480.webp 480w, assets/img/hero-1-800.webp 800w, assets/img/hero-1.webp 1254w" imagesizes="(min-width: 1180px) 575px, (min-width: 920px) 50vw, calc(100vw - 36px)" fetchpriority="high">
+<link rel="preconnect" href="https://cdn.shopify.com">
 </head>
 <body>
 <script>
@@ -30,10 +32,10 @@ const LOJA = {
      "Esgotado" e desativa a compra nessa cor — mude para true quando a cor
      voltar a ter stock na Shopify. hex = cor da bolinha (ajuste à vontade). */
   cores: [
-    { nome: 'Brown',  pt: 'Castanho',     hex: '#6B4A36', variantes: { S: '65999605399901', M: '66000036430173', L: '66000036462941', XL: '66000036495709', XXL: '66000036528477' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113', disponivel: true  },
-    { nome: 'Navy',   pt: 'Azul-marinho', hex: '#1F2A44', variantes: { S: '65999605432669', M: '66000036561245', L: '66000036594013', XL: '66000036626781', XXL: '66000036659549' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/1f9adc8b-c2cb-4189-96f5-e871b9010116.png?v=1790112125', disponivel: true  },
-    { nome: 'Silver', pt: 'Prateado',     hex: '#BFC1C2', variantes: { S: '65999605465437', M: '66000036692317', L: '66000036725085', XL: '66000036757853', XXL: '66000036790621' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972', disponivel: true  },
-    { nome: 'Black',  pt: 'Preto',        hex: '#161616', variantes: { S: '65999605498205', M: '66000036823389', L: '66000036856157', XL: '66000036888925', XXL: '66000036921693' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/23205ea5-6141-47fb-9c2f-8602389a9e50.png?v=1790112146', disponivel: true  }
+    { nome: 'Brown',  pt: 'Castanho',     hex: '#6B4A36', variantes: { S: '65999605399901', M: '66000036430173', L: '66000036462941', XL: '66000036495709', XXL: '66000036528477' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/a13a55f3-633a-4632-b402-96b4fd8b1091.png?v=1790112113&width=900', disponivel: true  },
+    { nome: 'Navy',   pt: 'Azul-marinho', hex: '#1F2A44', variantes: { S: '65999605432669', M: '66000036561245', L: '66000036594013', XL: '66000036626781', XXL: '66000036659549' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/1f9adc8b-c2cb-4189-96f5-e871b9010116.png?v=1790112125&width=900', disponivel: true  },
+    { nome: 'Silver', pt: 'Prateado',     hex: '#BFC1C2', variantes: { S: '65999605465437', M: '66000036692317', L: '66000036725085', XL: '66000036757853', XXL: '66000036790621' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/eb59717b-0033-44e7-afeb-1cef0d3e7456.png?v=1790111972&width=900', disponivel: true  },
+    { nome: 'Black',  pt: 'Preto',        hex: '#161616', variantes: { S: '65999605498205', M: '66000036823389', L: '66000036856157', XL: '66000036888925', XXL: '66000036921693' }, img: 'https://cdn.shopify.com/s/files/1/0973/8620/1437/files/23205ea5-6141-47fb-9c2f-8602389a9e50.png?v=1790112146&width=900', disponivel: true  }
   ],
 
   /* Tamanhos, pela ordem da Shopify. cod = chave em "variantes" acima. */
@@ -469,22 +471,22 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
 <section class="hero" id="comprar">
   <div class="wrap hero-grid">
 
-    <div class="gallery rv">
+    <div class="gallery">
       <div style="position:relative">
         <span class="badge-hero" style="display:none">-27% OFF</span>
         <figure class="shot" id="mainShot" style="margin:0">
-          <img id="mainImg" src="assets/img/hero-1.webp" alt="Executive Sculpt Pants — main photo" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
+          <img id="mainImg" src="assets/img/hero-1-800.webp" srcset="assets/img/hero-1-480.webp 480w, assets/img/hero-1-800.webp 800w, assets/img/hero-1.webp 1254w" sizes="(min-width: 1180px) 575px, (min-width: 920px) 50vw, calc(100vw - 36px)" width="1254" height="1254" alt="Executive Sculpt Pants — main photo" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
         </figure>
       </div>
       <div class="thumbs" id="thumbs">
-        <figure class="shot" data-src="assets/img/hero-1.webp" data-ph="1" aria-current="true" style="margin:0"><img src="assets/img/hero-1.webp" alt="View 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
-        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/bf7f3d08-5684-4954-b690-5d0980e8b4a8.png?v=1790111972" data-ph="2" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/bf7f3d08-5684-4954-b690-5d0980e8b4a8.png?v=1790111972" alt="View 2" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
-        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/d4ba0d19-f27a-44d5-82e7-e0bb2d4aada4.png?v=1790111972" data-ph="3" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/d4ba0d19-f27a-44d5-82e7-e0bb2d4aada4.png?v=1790111972" alt="View 3" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
-        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/e33c6bc9-6ede-4f17-82f9-17da07c91d5e.png?v=1790111972" data-ph="4" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/e33c6bc9-6ede-4f17-82f9-17da07c91d5e.png?v=1790111972" alt="View 4" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+        <figure class="shot" data-src="assets/img/hero-1-800.webp" data-ph="1" aria-current="true" style="margin:0"><img src="assets/img/hero-1-200.webp" width="200" height="200" alt="View 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/bf7f3d08-5684-4954-b690-5d0980e8b4a8.png?v=1790111972&width=900" data-ph="2" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/bf7f3d08-5684-4954-b690-5d0980e8b4a8.png?v=1790111972&width=200" width="200" height="200" alt="View 2" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/d4ba0d19-f27a-44d5-82e7-e0bb2d4aada4.png?v=1790111972&width=900" data-ph="3" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/d4ba0d19-f27a-44d5-82e7-e0bb2d4aada4.png?v=1790111972&width=200" width="200" height="200" alt="View 3" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+        <figure class="shot" data-src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/e33c6bc9-6ede-4f17-82f9-17da07c91d5e.png?v=1790111972&width=900" data-ph="4" style="margin:0"><img src="https://cdn.shopify.com/s/files/1/0973/8620/1437/files/e33c6bc9-6ede-4f17-82f9-17da07c91d5e.png?v=1790111972&width=200" width="200" height="200" alt="View 4" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
       </div>
     </div>
 
-    <div class="buy rv">
+    <div class="buy">
       <span class="eyebrow" data-i18n="hero-eyebrow">Tailored look. Everyday comfort.</span>
       <h1 style="margin-top:10px">Executive Sculpt Pants</h1>
 
@@ -593,34 +595,34 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     <div class="ugc-shell rv">
     <div class="ugc-row" id="ugcRow">
       <div class="reel" data-video="assets/video/ugc-1.mp4">
-        <div class="shot" data-ph="Video 1 · assets/video/ugc-1.mp4 · 576x1024"><img src="assets/video/ugc-poster-1.jpg" alt="Executive Sculpt Pants — video 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shot" data-ph="Video 1 · assets/video/ugc-1.mp4 · 576x1024"><img src="assets/video/ugc-poster-1.webp" width="400" height="711" alt="Executive Sculpt Pants — video 1" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
         <div class="reel-play"><span>▶</span></div>
-        <video preload="none" playsinline loop poster="assets/video/ugc-poster-1.jpg" style="display:none"></video>
+        <video preload="none" playsinline loop poster="assets/video/ugc-poster-1.webp" style="display:none"></video>
       </div>
       <div class="reel" data-video="assets/video/ugc-2.mp4">
-        <div class="shot" data-ph="Video 2 · assets/video/ugc-2.mp4 · 576x1024"><img src="assets/video/ugc-poster-2.jpg" alt="Executive Sculpt Pants — video 2" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shot" data-ph="Video 2 · assets/video/ugc-2.mp4 · 576x1024"><img src="assets/video/ugc-poster-2.webp" width="400" height="711" alt="Executive Sculpt Pants — video 2" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
         <div class="reel-play"><span>▶</span></div>
-        <video preload="none" playsinline loop poster="assets/video/ugc-poster-2.jpg" style="display:none"></video>
+        <video preload="none" playsinline loop poster="assets/video/ugc-poster-2.webp" style="display:none"></video>
       </div>
       <div class="reel" data-video="assets/video/ugc-3.mp4">
-        <div class="shot" data-ph="Video 3 · assets/video/ugc-3.mp4 · 576x1024"><img src="assets/video/ugc-poster-3.jpg" alt="Executive Sculpt Pants — video 3" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shot" data-ph="Video 3 · assets/video/ugc-3.mp4 · 576x1024"><img src="assets/video/ugc-poster-3.webp" width="400" height="711" alt="Executive Sculpt Pants — video 3" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
         <div class="reel-play"><span>▶</span></div>
-        <video preload="none" playsinline loop poster="assets/video/ugc-poster-3.jpg" style="display:none"></video>
+        <video preload="none" playsinline loop poster="assets/video/ugc-poster-3.webp" style="display:none"></video>
       </div>
       <div class="reel" data-video="assets/video/ugc-4.mp4">
-        <div class="shot" data-ph="Video 4 · assets/video/ugc-4.mp4 · 576x1024"><img src="assets/video/ugc-poster-4.jpg" alt="Executive Sculpt Pants — video 4" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shot" data-ph="Video 4 · assets/video/ugc-4.mp4 · 576x1024"><img src="assets/video/ugc-poster-4.webp" width="400" height="711" alt="Executive Sculpt Pants — video 4" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
         <div class="reel-play"><span>▶</span></div>
-        <video preload="none" playsinline loop poster="assets/video/ugc-poster-4.jpg" style="display:none"></video>
+        <video preload="none" playsinline loop poster="assets/video/ugc-poster-4.webp" style="display:none"></video>
       </div>
       <div class="reel" data-video="assets/video/ugc-5.mp4">
-        <div class="shot" data-ph="Video 5 · assets/video/ugc-5.mp4 · 576x1024"><img src="assets/video/ugc-poster-5.jpg" alt="Executive Sculpt Pants — video 5" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shot" data-ph="Video 5 · assets/video/ugc-5.mp4 · 576x1024"><img src="assets/video/ugc-poster-5.webp" width="400" height="711" alt="Executive Sculpt Pants — video 5" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
         <div class="reel-play"><span>▶</span></div>
-        <video preload="none" playsinline loop poster="assets/video/ugc-poster-5.jpg" style="display:none"></video>
+        <video preload="none" playsinline loop poster="assets/video/ugc-poster-5.webp" style="display:none"></video>
       </div>
       <div class="reel" data-video="assets/video/ugc-6.mp4">
-        <div class="shot" data-ph="Video 6 · assets/video/ugc-6.mp4 · 576x1024"><img src="assets/video/ugc-poster-6.jpg" alt="Executive Sculpt Pants — video 6" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shot" data-ph="Video 6 · assets/video/ugc-6.mp4 · 576x1024"><img src="assets/video/ugc-poster-6.webp" width="400" height="711" alt="Executive Sculpt Pants — video 6" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
         <div class="reel-play"><span>▶</span></div>
-        <video preload="none" playsinline loop poster="assets/video/ugc-poster-6.jpg" style="display:none"></video>
+        <video preload="none" playsinline loop poster="assets/video/ugc-poster-6.webp" style="display:none"></video>
       </div>
     </div>
     </div>
@@ -637,7 +639,7 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
       <a href="#comprar" class="cta vs-cta" data-i18n="vs-cta">Choose your pair</a>
     </div>
     <figure class="vs-img rv">
-      <img src="assets/img/nos-contra-eles.webp" width="1448" height="1086" loading="lazy" decoding="async"
+      <img src="assets/img/nos-contra-eles.webp" width="1100" height="825" loading="lazy" decoding="async"
            alt="Comparison: Executive Sculpt Pants vs. ordinary dress trousers vs. uncomfortable office trousers — all-day comfort, flattering high waist, functional pockets, work to dinner, elegant straight cut, easy to style"
            data-i18n-alt="vs-img-alt">
     </figure>
@@ -655,21 +657,21 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     <div class="p-grid">
       <article class="p-card rv">
         <figure class="shot" style="margin:0">
-          <img src="assets/img/beneficio-1.webp" alt="Executive Sculpt Pants — office hours" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="assets/img/beneficio-1.webp" width="800" height="800" alt="Executive Sculpt Pants — office hours" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </figure>
         <h3 data-i18n="pillar-1-t">Office hours</h3>
         <p data-i18n="pillar-1-d">A tailored silhouette that looks put-together in meetings, without the stiffness of classic suit trousers.</p>
       </article>
       <article class="p-card rv">
         <figure class="shot" style="margin:0">
-          <img src="assets/img/beneficio-2.webp" alt="Executive Sculpt Pants — after-hours" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="assets/img/beneficio-2.webp" width="800" height="800" alt="Executive Sculpt Pants — after-hours" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </figure>
         <h3 data-i18n="pillar-2-t">After-hours</h3>
         <p data-i18n="pillar-2-d">Swap trainers for heels or loafers and go straight to dinner. No change needed.</p>
       </article>
       <article class="p-card rv">
         <figure class="shot" style="margin:0">
-          <img src="assets/img/beneficio-3.webp" alt="Executive Sculpt Pants — everyday fit" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="assets/img/beneficio-3.webp" width="800" height="800" alt="Executive Sculpt Pants — everyday fit" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </figure>
         <h3 data-i18n="pillar-3-t">Everything in between</h3>
         <p data-i18n="pillar-3-d">Travel days, errands, weekends. High waist, straight leg and practical pockets that keep up with you.</p>
@@ -1226,8 +1228,12 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
   /* ── Galeria ── */
   var mainShot = document.getElementById('mainShot');
   var mainImg  = document.getElementById('mainImg');
+  var srcInicial = mainImg.getAttribute('src');
+  var srcsetInicial = mainImg.getAttribute('srcset');
   function trocarFoto(src){
     if (!src) return;
+    if (src === srcInicial) mainImg.setAttribute('srcset', srcsetInicial);
+    else mainImg.removeAttribute('srcset');
     mainImg.src = src;
   }
   document.getElementById('thumbs').addEventListener('click', function(e){
