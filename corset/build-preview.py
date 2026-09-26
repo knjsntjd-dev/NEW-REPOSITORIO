@@ -14,3 +14,13 @@ csp = ("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self
 html = html.replace('<head>', '<head>\n' + csp, 1)
 (d / 'preview.html').write_text(html, encoding='utf-8')
 print('preview.html', round(len(html) / 1e6, 1), 'MB')
+
+# artifact.html: versão para o Artifact (prévia no painel do Claude). O Artifact já põe
+# <!doctype>/<head>/<body> e bloqueia scripts externos (o fbevents.js não carrega);
+# aqui só tiramos o esqueleto e desligamos o envio ao capi.php.
+src = (d / 'flexfit.html').read_text(encoding='utf-8')
+src = re.sub(r"(?s)\A.*?<body>\s*", "", src)
+src = re.sub(r"(?s)</body>\s*</html>\s*\Z", "", src)
+src = src.replace("capiUrl: 'capi.php'", "capiUrl: ''", 1)
+(d / 'artifact.html').write_text(src, encoding='utf-8')
+print('artifact.html pronto')
