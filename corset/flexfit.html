@@ -350,6 +350,31 @@ header.top{
 .reel:hover .reel-play span{transform:scale(1.08)}
 .reel video{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
 
+/* ═══════════ COMPARAÇÃO ═══════════ */
+.compare{padding:var(--gut) 0;background:var(--ground);border-block:1px solid var(--line)}
+.compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.compare-table{width:100%;min-width:560px;border-collapse:separate;border-spacing:0;margin:0 auto}
+.compare-table th,.compare-table td{padding:16px 14px;text-align:center;vertical-align:middle}
+.compare-table thead th{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding-bottom:18px;border-bottom:1px solid var(--line)}
+.compare-table tbody th{text-align:left;font-size:14.5px;font-weight:600;color:var(--ink);white-space:nowrap;padding-left:4px}
+.compare-table tbody tr td,.compare-table tbody tr th{border-bottom:1px solid var(--line)}
+.compare-table tbody tr:last-child td,.compare-table tbody tr:last-child th{border-bottom:0}
+.compare-table .hl{background:var(--ink);color:#F2EFE9;border-bottom:1px solid rgba(255,255,255,.12)!important}
+.compare-table thead th.hl{border-radius:16px 16px 0 0;padding-top:18px}
+.compare-table tbody tr:last-child td.hl{border-radius:0 0 16px 16px}
+.compare-brand{display:flex;flex-direction:column;gap:2px;font-family:var(--font)}
+.compare-brand b{font-size:15px;font-weight:800;letter-spacing:.02em;color:#fff}
+.compare-brand span{font-size:9.5px;font-weight:600;letter-spacing:.18em;color:var(--amber)}
+.compare-badge{display:inline-flex;width:26px;height:26px;border-radius:50%;align-items:center;justify-content:center;font-size:13px;line-height:1}
+.compare-badge.ok{background:var(--amber);color:#1B1400;font-weight:800}
+.compare-badge.mid{background:transparent;color:var(--ink-3);border:1.5px solid var(--line-2);font-weight:700}
+.hl .compare-badge.mid{border-color:rgba(255,255,255,.3);color:#B9B3A8}
+.compare-badge.no{background:var(--wine);color:#fff;font-weight:800}
+.compare-stars{display:inline-flex;gap:2px;font-size:14px;letter-spacing:1px}
+.compare-stars .on{color:var(--amber)}
+.compare-stars .off{color:var(--line-2)}
+.hl .compare-stars .off{color:rgba(255,255,255,.25)}
+
 /* ═══════════ DEPOIMENTOS ═══════════ */
 .reviews{padding:var(--gut) 0;background:var(--ground);border-block:1px solid var(--line)}
 .r-grid{display:grid;grid-template-columns:1fr;gap:14px}
@@ -636,6 +661,67 @@ dialog::backdrop{background:rgba(17,17,17,.5)}
         <video preload="none" playsinline loop poster="assets/video/ugc-poster-2.jpg" style="display:none"></video>
       </div>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 4B · COMPARAÇÃO ═══════════ -->
+<section class="compare">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Nós contra eles</span>
+      <h2>Porque escolher a FlexFit</h2>
+      <p class="lead">A maioria das cintas obriga a escolher: aperta o suficiente para modelar ou é confortável o dia todo. A FlexFit foi pensada para não teres de escolher.</p>
+    </div>
+    <div class="compare-wrap rv">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col" class="hl"><span class="compare-brand"><b>FlexFit</b><span>USE RODRIGUES</span></span></th>
+            <th scope="col">Cinta comum</th>
+            <th scope="col">Cinta desconfortável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Conforto o dia todo</th>
+            <td class="hl"><span class="compare-stars" aria-label="5 de 5 estrelas"><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="on">★</span></span></td>
+            <td><span class="compare-stars" aria-label="3 de 5 estrelas"><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="off">★</span><span class="off">★</span></span></td>
+            <td><span class="compare-stars" aria-label="2 de 5 estrelas"><span class="on">★</span><span class="on">★</span><span class="off">★</span><span class="off">★</span><span class="off">★</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row">9 hastes flexíveis</th>
+            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
+            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
+            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
+          </tr>
+          <tr>
+            <th scope="row">3 níveis de ajuste</th>
+            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
+            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
+            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Invisível sob a roupa</th>
+            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
+            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
+            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Modela com conforto</th>
+            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
+            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
+            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Uso diário</th>
+            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
+            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
+            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
