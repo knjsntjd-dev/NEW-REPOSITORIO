@@ -337,41 +337,13 @@ header.top{
 .p-card p{font-size:14px;color:var(--ink-2);line-height:1.7}
 
 /* ═══════════ NÓS VS. ELES ═══════════ */
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .vs{padding:var(--gut) 0;border-top:1px solid var(--line)}
 .vs-grid{display:grid;gap:clamp(28px,4vw,56px);align-items:center}
 @media (min-width:920px){.vs-grid{grid-template-columns:.8fr 1.2fr}}
 .vs-head h2{margin:12px 0 14px}
 .vs-cta{display:inline-block;width:auto;margin-top:26px;padding:15px 30px}
-.vs-table table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:14.5px}
-.vs-table col.c-feat{width:40%}
-.vs-table th,.vs-table td{padding:15px 10px;text-align:center;vertical-align:middle;border-bottom:1px solid var(--line)}
-.vs-table tbody th{text-align:left;font-weight:600;color:var(--ink);padding-left:0;line-height:1.35}
-.vs-table thead th{
-  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
-  line-height:1.35;padding-top:18px;padding-bottom:18px;vertical-align:bottom;
-}
-.vs-table .us{background:var(--ink);color:#fff;border-bottom-color:rgba(255,255,255,.12)}
-.vs-table thead .us{color:#fff;font-size:12px;letter-spacing:.06em;border-radius:var(--r) var(--r) 0 0}
-.vs-table tbody tr:last-child .us{border-radius:0 0 var(--r) var(--r);border-bottom-color:transparent}
-.vs-table tbody tr:last-child th,.vs-table tbody tr:last-child td{border-bottom:0}
-.ic{width:22px;height:22px;display:inline-block;vertical-align:middle}
-.ic circle{fill:currentColor}
-.ic path{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.ic.yes{color:var(--ink)}
-.ic.no{color:#B8B2A7}
-.us .ic.yes{color:#fff}
-.us .ic.yes path{stroke:var(--ink)}
-.vs-var{font-size:12px;font-weight:600;color:var(--ink-3)}
-@media (max-width:600px){
-  .vs-table table{font-size:12.5px}
-  .vs-table col.c-feat{width:34%}
-  .vs-table th,.vs-table td{padding:12px 4px}
-  .vs-table thead th{font-size:9.5px;letter-spacing:.05em}
-  .vs-table thead .us{font-size:10px}
-  .ic{width:19px;height:19px}
-  .vs-var{font-size:11px}
-}
+.vs-img{margin:0}
+.vs-img img{width:100%;height:auto;display:block}
 
 /* ═══════════ DEPOIMENTOS ═══════════ */
 .reviews{padding:var(--gut) 0;background:var(--ground);border-block:1px solid var(--line)}
@@ -698,22 +670,11 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
       <p class="lead" data-i18n="vs-lead">Most trousers make you choose: smart or comfortable. Executive Sculpt Pants are designed so you don’t have to — a combination that’s hard to find in one pair.</p>
       <a href="#comprar" class="cta vs-cta" data-i18n="vs-cta">Choose your pair</a>
     </div>
-    <div class="vs-table rv">
-      <table>
-        <colgroup><col class="c-feat"><col><col><col></colgroup>
-        <thead>
-          <tr><th scope="col"><span class="sr" data-i18n="vs-feat">Feature</span></th><th scope="col" class="us">Executive Sculpt Pants</th><th scope="col" data-i18n="vs-col-suit">Classic suit trousers</th><th scope="col" data-i18n="vs-col-legg">Leggings &amp; joggers</th></tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row" data-i18n="vs-r1">Polished enough for the office</th><td class="us"><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><svg class="ic no" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg><span class="sr" data-i18n="vs-no">No</span></td></tr>
-          <tr><th scope="row" data-i18n="vs-r2">Easy to wear all day</th><td class="us"><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><svg class="ic no" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg><span class="sr" data-i18n="vs-no">No</span></td><td><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td></tr>
-          <tr><th scope="row" data-i18n="vs-r3">High waist, straight leg</th><td class="us"><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><span class="vs-var" data-i18n="vs-varies">Varies</span></td><td><svg class="ic no" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg><span class="sr" data-i18n="vs-no">No</span></td></tr>
-          <tr><th scope="row" data-i18n="vs-r4">Practical pockets</th><td class="us"><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><span class="vs-var" data-i18n="vs-varies">Varies</span></td></tr>
-          <tr><th scope="row" data-i18n="vs-r5">Office to dinner in one pair</th><td class="us"><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><span class="vs-var" data-i18n="vs-varies">Varies</span></td><td><svg class="ic no" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg><span class="sr" data-i18n="vs-no">No</span></td></tr>
-          <tr><th scope="row" data-i18n="vs-r6">Free shipping + 30-day exchange</th><td class="us"><svg class="ic yes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span class="sr" data-i18n="vs-yes">Yes</span></td><td><span class="vs-var" data-i18n="vs-varies">Varies</span></td><td><span class="vs-var" data-i18n="vs-varies">Varies</span></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <figure class="vs-img rv">
+      <img src="assets/img/nos-contra-eles.webp" width="1448" height="1086" loading="lazy" decoding="async"
+           alt="Comparison: Executive Sculpt Pants vs. ordinary dress trousers vs. uncomfortable office trousers — all-day comfort, flattering high waist, functional pockets, work to dinner, elegant straight cut, easy to style"
+           data-i18n-alt="vs-img-alt">
+    </figure>
   </div>
 </section>
 
@@ -925,18 +886,7 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     'vs-h2': 'Nós contra eles.',
     'vs-lead': 'A maioria das calças obriga-te a escolher: elegante ou confortável. As Executive Sculpt Pants foram pensadas para não teres de escolher — uma combinação difícil de encontrar num só par.',
     'vs-cta': 'Escolhe o teu par',
-    'vs-feat': 'Característica',
-    'vs-col-suit': 'Calças de fato clássicas',
-    'vs-col-legg': 'Leggings e joggers',
-    'vs-yes': 'Sim',
-    'vs-no': 'Não',
-    'vs-varies': 'Depende',
-    'vs-r1': 'Elegantes para o escritório',
-    'vs-r2': 'Fáceis de usar o dia todo',
-    'vs-r3': 'Cintura subida, perna reta',
-    'vs-r4': 'Bolsos práticos',
-    'vs-r5': 'Do escritório ao jantar com um só par',
-    'vs-r6': 'Envio grátis + 30 dias para troca',
+    'vs-img-alt': 'Comparação: a calça da Use Rodrigues vs. calça social comum vs. calça desconfortável de escritório — conforto o dia todo, cintura alta que valoriza, bolsos funcionais, do trabalho ao jantar, corte reto elegante, fácil de combinar',
     'reviews-eyebrow': 'Opiniões de clientes',
     'reviews-note': '',
     'review-years': 'anos',
@@ -985,6 +935,10 @@ footer{background:var(--ink);color:#A8A399;padding:clamp(40px,5vw,60px) 0 36px;f
     document.querySelectorAll('[data-i18n-html]').forEach(function(el){
       var k = el.getAttribute('data-i18n-html');
       if (I18N_PT_HTML[k] !== undefined) el.innerHTML = I18N_PT_HTML[k];
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-alt');
+      if (I18N_PT[k] !== undefined) el.alt = I18N_PT[k];
     });
     var note = document.querySelector('[data-i18n="reviews-note"]');
     if (note) note.style.display = 'none';
