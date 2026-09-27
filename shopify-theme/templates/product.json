@@ -220,59 +220,16 @@
             "margin_top": 0,
             "margin_bottom": 0
           }
-        },
-        "badges_hero01": {
-          "type": "badges",
-          "settings": {
-            "icon_1": "🧂",
-            "text_1": "1000 mg de sódio",
-            "bg_1": "#18181B",
-            "color_1": "#FFFFFF",
-            "icon_2": "🍉",
-            "text_2": "Sabor Melancia",
-            "bg_2": "#E11D2E",
-            "color_2": "#FFFFFF",
-            "margin_top": 12,
-            "margin_bottom": 12
-          }
-        },
-        "checklist_hero01": {
-          "type": "checklist",
-          "settings": {
-            "icon_color": "#E11D2E",
-            "label_1": "Substitui itens essenciais:",
-            "text_1": "Adequado às perdas reais dos corredores.",
-            "label_2": "Zero porcarias:",
-            "text_2": "Apenas eletrólitos — sem açúcar, sem corantes.",
-            "label_3": "Glicinato de magnésio:",
-            "text_3": "Não são necessários suplementos adicionais.",
-            "margin_top": 18,
-            "margin_bottom": 18
-          }
-        },
-        "delivery_row_hero01": {
-          "type": "delivery_row",
-          "settings": {
-            "delivery_text": "Receber por **Sexta-feira, 2 de outubro**",
-            "dot_color": "#2FA84F",
-            "shipping_text": "Envio **rápido** para o seu país",
-            "shipping_icon": "plane",
-            "margin_top": 15,
-            "margin_bottom": 15
-          }
         }
       },
       "block_order": [
         "rating_stars_KqJMmE",
         "title",
-        "badges_hero01",
         "price",
-        "checklist_hero01",
         "emoji_benefits_xFGiTn",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "delivery_row_hero01",
         "icon_with_text_w7ha4y",
         "sticky_atc_xbBkLM",
         "payment_badges_NNJJTd",
@@ -811,142 +768,6 @@
       "settings": {
         "include_margins": true
       }
-    },
-    "video_reviews_hero01": {
-      "type": "video-reviews",
-      "blocks": {
-        "v1": {
-          "type": "video",
-          "settings": {
-            "name": "Ana F.",
-            "verified": true
-          }
-        },
-        "v2": {
-          "type": "video",
-          "settings": {
-            "name": "Hanna G.",
-            "verified": true
-          }
-        },
-        "v3": {
-          "type": "video",
-          "settings": {
-            "name": "Kim C.",
-            "verified": true
-          }
-        },
-        "v4": {
-          "type": "video",
-          "settings": {
-            "name": "Paula D.",
-            "verified": true
-          }
-        },
-        "v5": {
-          "type": "video",
-          "settings": {
-            "name": "Emily J.",
-            "verified": true
-          }
-        }
-      },
-      "block_order": [
-        "v1",
-        "v2",
-        "v3",
-        "v4",
-        "v5"
-      ],
-      "settings": {}
-    },
-    "comparison_table_hero01": {
-      "type": "comparison-table-pro",
-      "blocks": {
-        "c1": {
-          "type": "column",
-          "settings": {
-            "name": "Pro Eletrólito",
-            "price": "$ 59,99",
-            "highlight": true
-          }
-        },
-        "c2": {
-          "type": "column",
-          "settings": {
-            "name": "Outro 1",
-            "price": "$$$"
-          }
-        },
-        "c3": {
-          "type": "column",
-          "settings": {
-            "name": "Outros 2",
-            "price": "$"
-          }
-        },
-        "r1": {
-          "type": "row",
-          "settings": {
-            "label": "Comparação de preços",
-            "style": "text",
-            "value_1": "$ 59,99",
-            "value_2": "$$$",
-            "value_3": "$"
-          }
-        },
-        "r2": {
-          "type": "row",
-          "settings": {
-            "label": "Sem açúcar",
-            "style": "check",
-            "check_1": true,
-            "check_2": true,
-            "check_3": false
-          }
-        },
-        "r3": {
-          "type": "row",
-          "settings": {
-            "label": "Sabores refrescantes",
-            "style": "check",
-            "check_1": true,
-            "check_2": false,
-            "check_3": false
-          }
-        },
-        "r4": {
-          "type": "row",
-          "settings": {
-            "label": "Testado por laboratórios terceirizados",
-            "style": "check",
-            "check_1": true,
-            "check_2": false,
-            "check_3": false
-          }
-        },
-        "r5": {
-          "type": "row",
-          "settings": {
-            "label": "100% rastreável até a origem",
-            "style": "check",
-            "check_1": true,
-            "check_2": false,
-            "check_3": false
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2",
-        "c3",
-        "r1",
-        "r2",
-        "r3",
-        "r4",
-        "r5"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -954,11 +775,9 @@
     "product_video_gallery_GD9ein",
     "image_with_text_6NJQ98",
     "multicolumn_GqbapF",
-    "comparison_table_hero01",
     "image_with_text_8wqzxh",
     "results_bTnYR4",
     "rich_text_d7MAiq",
-    "video_reviews_hero01",
     "ds_testimonials_i86BLn",
     "collapsible_content_ea4B3M",
     "ds_icon_bar_jE6Bhj",

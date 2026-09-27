@@ -23,6 +23,8 @@
   .ctp__check{color:#4c9a2a}
   .ctp__x{color:#e0a1a1}
   .ctp__check svg,.ctp__x svg{width:2rem;height:2rem}
+  .ctp__stars{display:inline-flex;gap:.1rem;font-size:1.6rem;line-height:1;color:rgba(0,0,0,.18)}
+  .ctp__star--on{color:#ffb400}
   .ctp__col--hl{position:relative;background:rgba(var(--ctp-accent-rgb),.07);border-left:.1rem solid rgba(var(--ctp-accent-rgb),.35);border-right:.1rem solid rgba(var(--ctp-accent-rgb),.35)}
   .ctp__col--hl.ctp__head{border-top:.1rem solid rgba(var(--ctp-accent-rgb),.35);border-radius:1.2rem 1.2rem 0 0;padding-top:1.6rem}
   .ctp__col--hl.ctp__cell:not(.ctp__head){border-top-color:rgba(var(--ctp-accent-rgb),.2)}
@@ -77,6 +79,16 @@
                   {%- else -%}
                     <span class="ctp__x">{% render 'icon', name: 'x', stroke: 3 %}</span>
                   {%- endif -%}
+                {%- elsif rb.style == 'stars' -%}
+                  {%- liquid
+                    assign skey = 'stars_' | append: idx
+                    assign starval = rb[skey]
+                  -%}
+                  <span class="ctp__stars" aria-label="{{ starval }} de 5 estrelas">
+                    {%- for i in (1..5) -%}
+                      {%- if i <= starval -%}<span class="ctp__star ctp__star--on">★</span>{%- else -%}<span class="ctp__star">★</span>{%- endif -%}
+                    {%- endfor -%}
+                  </span>
                 {%- else -%}
                   {{ val | escape }}
                 {%- endif -%}
@@ -230,19 +242,24 @@
           "label": "Tipo de valor",
           "options": [
             { "value": "check", "label": "Certo / Errado" },
-            { "value": "text", "label": "Texto" }
+            { "value": "text", "label": "Texto" },
+            { "value": "stars", "label": "Estrelas (0-5)" }
           ],
           "default": "check"
         },
         { "type": "header", "content": "Valores por coluna (na ordem das colunas)" },
         { "type": "checkbox", "id": "check_1", "label": "Coluna 1 — certo", "default": true },
         { "type": "text", "id": "value_1", "label": "Coluna 1 — texto" },
+        { "type": "range", "id": "stars_1", "label": "Coluna 1 — estrelas", "min": 0, "max": 5, "step": 1, "default": 5 },
         { "type": "checkbox", "id": "check_2", "label": "Coluna 2 — certo", "default": false },
         { "type": "text", "id": "value_2", "label": "Coluna 2 — texto" },
+        { "type": "range", "id": "stars_2", "label": "Coluna 2 — estrelas", "min": 0, "max": 5, "step": 1, "default": 3 },
         { "type": "checkbox", "id": "check_3", "label": "Coluna 3 — certo", "default": false },
         { "type": "text", "id": "value_3", "label": "Coluna 3 — texto" },
+        { "type": "range", "id": "stars_3", "label": "Coluna 3 — estrelas", "min": 0, "max": 5, "step": 1, "default": 2 },
         { "type": "checkbox", "id": "check_4", "label": "Coluna 4 — certo", "default": false },
-        { "type": "text", "id": "value_4", "label": "Coluna 4 — texto" }
+        { "type": "text", "id": "value_4", "label": "Coluna 4 — texto" },
+        { "type": "range", "id": "stars_4", "label": "Coluna 4 — estrelas", "min": 0, "max": 5, "step": 1, "default": 0 }
       ]
     }
   ],

@@ -1,0 +1,189 @@
+{%- liquid
+  assign s = section.settings
+  assign rows = section.blocks | where: 'type', 'row'
+-%}
+<style>
+  .szc .section-header{max-width:56rem;text-align:left;margin:0 0 3.2rem}
+  .szc .section-header h2{margin:0}
+  .szc__sub{margin:1rem 0 0;font-size:1.6rem;line-height:1.5;opacity:.72}
+  .szc__wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .szc__table{width:100%;border-collapse:collapse;font-size:1.5rem}
+  .szc__table th,.szc__table td{padding:1.2rem 1.6rem;text-align:left;border-bottom:.1rem solid rgba(0,0,0,.08)}
+  .szc__table th{font-weight:700}
+  .szc__table td.szc__num,.szc__table th.szc__num{text-align:right}
+  .szc__note{margin:1.6rem 0 0;font-size:1.4rem;line-height:1.6;opacity:.72}
+</style>
+
+<div {% render 'section-style', s: s, extra: 'szc' %}>
+  <div class="page-width">
+    {%- if s.heading != blank or s.text != blank -%}
+      <div class="section-header">
+        {%- if s.heading != blank -%}<h2 class="{{ s.heading_size }}">{{ s.heading | escape }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<p class="szc__sub">{{ s.text }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if rows.size > 0 -%}
+      <div class="szc__wrap">
+        <table class="szc__table">
+          <thead>
+            <tr>
+              <th>{{ s.col_1_label | default: 'Tamanho' }}</th>
+              <th class="szc__num">{{ s.col_2_label | default: 'Medida' }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for row in rows -%}
+              <tr {{ row.shopify_attributes }}>
+                <td>{{ row.settings.label | escape }}</td>
+                <td class="szc__num">{{ row.settings.value | escape }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- endif -%}
+
+    {%- if s.note != blank -%}
+      <p class="szc__note">{{ s.note }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Tabela de tamanhos",
+  "tag": "section",
+  "class": "section-size-chart",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Encontre o seu tamanho"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamanho do título",
+      "options": [
+        { "value": "h2", "label": "Pequeno" },
+        { "value": "h1", "label": "Médio" },
+        { "value": "h0", "label": "Grande" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Meça-se e escolha o tamanho certo.</p>"
+    },
+    {
+      "type": "text",
+      "id": "col_1_label",
+      "label": "Cabeçalho coluna 1",
+      "default": "Tamanho"
+    },
+    {
+      "type": "text",
+      "id": "col_2_label",
+      "label": "Cabeçalho coluna 2",
+      "default": "Medida"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Nota abaixo da tabela"
+    },
+    {
+      "type": "header",
+      "content": "Cores e espaçamento"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        { "value": "accent-1", "label": "t:sections.all.colors.accent_1.label" },
+        { "value": "accent-2", "label": "t:sections.all.colors.accent_2.label" },
+        { "value": "background-1", "label": "t:sections.all.colors.background_1.label" },
+        { "value": "background-2", "label": "t:sections.all.colors.background_2.label" },
+        { "value": "inverse", "label": "t:sections.all.colors.inverse.label" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "background-1"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "label": "Cor de fundo (Custom)",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradiente de fundo (Custom)"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "label": "Cor do texto (Custom)",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.all.padding.padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.all.padding.padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Linha (tamanho + medida)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tamanho",
+          "default": "M"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Medida",
+          "default": "68 – 74 cm"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabela de tamanhos",
+      "blocks": [
+        { "type": "row", "settings": { "label": "S", "value": "62 – 68 cm" } },
+        { "type": "row", "settings": { "label": "M", "value": "68 – 74 cm" } },
+        { "type": "row", "settings": { "label": "L", "value": "74 – 80 cm" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
