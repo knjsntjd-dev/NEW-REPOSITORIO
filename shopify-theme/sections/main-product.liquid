@@ -1425,6 +1425,22 @@
           "default": "accent-1"
         },
         {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+            {
+              "value": "row",
+              "label": "Lista (label + preço lado a lado)"
+            },
+            {
+              "value": "grid",
+              "label": "Cards lado a lado (só texto, sem imagem)"
+            }
+          ],
+          "default": "row"
+        },
+        {
           "type": "header",
           "content": "Quantity option #1"
         },
@@ -3389,6 +3405,325 @@
           ],
           "default": "accent-1",
           "label": "Color"
+        },
+        {
+          "type": "header",
+          "content": "Block margin"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "unit": "px",
+          "label": "Top margin",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "unit": "px",
+          "label": "Bottom margin",
+          "default": 15
+        }
+      ]
+    },
+    {
+      "type": "badges",
+      "name": "Selos (pills)",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Selo 1"
+        },
+        {
+          "type": "text",
+          "id": "icon_1",
+          "label": "Ícone (emoji)",
+          "default": "🧂"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Texto",
+          "default": "1000 mg de sódio"
+        },
+        {
+          "type": "color",
+          "id": "bg_1",
+          "label": "Cor de fundo",
+          "default": "#18181B"
+        },
+        {
+          "type": "color",
+          "id": "color_1",
+          "label": "Cor do texto",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Selo 2"
+        },
+        {
+          "type": "text",
+          "id": "icon_2",
+          "label": "Ícone (emoji)",
+          "default": "🍉"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Texto",
+          "default": "Sabor Melancia"
+        },
+        {
+          "type": "color",
+          "id": "bg_2",
+          "label": "Cor de fundo",
+          "default": "#E11D2E"
+        },
+        {
+          "type": "color",
+          "id": "color_2",
+          "label": "Cor do texto",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Selo 3 (opcional)"
+        },
+        {
+          "type": "text",
+          "id": "icon_3",
+          "label": "Ícone (emoji)"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Texto"
+        },
+        {
+          "type": "color",
+          "id": "bg_3",
+          "label": "Cor de fundo",
+          "default": "#18181B"
+        },
+        {
+          "type": "color",
+          "id": "color_3",
+          "label": "Cor do texto",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Selo 4 (opcional)"
+        },
+        {
+          "type": "text",
+          "id": "icon_4",
+          "label": "Ícone (emoji)"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Texto"
+        },
+        {
+          "type": "color",
+          "id": "bg_4",
+          "label": "Cor de fundo",
+          "default": "#18181B"
+        },
+        {
+          "type": "color",
+          "id": "color_4",
+          "label": "Cor do texto",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Block margin"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "unit": "px",
+          "label": "Top margin",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "unit": "px",
+          "label": "Bottom margin",
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "checklist",
+      "name": "Lista de benefícios",
+      "settings": [
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Cor do ícone",
+          "default": "#E11D2E"
+        },
+        {
+          "type": "header",
+          "content": "Item 1"
+        },
+        {
+          "type": "text",
+          "id": "label_1",
+          "label": "Título (negrito)",
+          "default": "Substitui itens essenciais:"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Descrição",
+          "default": "Adequado às perdas reais dos corredores."
+        },
+        {
+          "type": "header",
+          "content": "Item 2"
+        },
+        {
+          "type": "text",
+          "id": "label_2",
+          "label": "Título (negrito)",
+          "default": "Zero porcarias:"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Descrição",
+          "default": "Apenas eletrólitos — sem açúcar, sem corantes."
+        },
+        {
+          "type": "header",
+          "content": "Item 3"
+        },
+        {
+          "type": "text",
+          "id": "label_3",
+          "label": "Título (negrito)",
+          "default": "Glicinato de magnésio:"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Descrição",
+          "default": "Não são necessários suplementos adicionais."
+        },
+        {
+          "type": "header",
+          "content": "Item 4 (opcional)"
+        },
+        {
+          "type": "text",
+          "id": "label_4",
+          "label": "Título (negrito)"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Descrição"
+        },
+        {
+          "type": "header",
+          "content": "Item 5 (opcional)"
+        },
+        {
+          "type": "text",
+          "id": "label_5",
+          "label": "Título (negrito)"
+        },
+        {
+          "type": "text",
+          "id": "text_5",
+          "label": "Descrição"
+        },
+        {
+          "type": "header",
+          "content": "Block margin"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "unit": "px",
+          "label": "Top margin",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "unit": "px",
+          "label": "Bottom margin",
+          "default": 18
+        }
+      ]
+    },
+    {
+      "type": "delivery_row",
+      "name": "Linha de entrega",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "delivery_text",
+          "label": "Texto de entrega",
+          "default": "Receber por **Sexta-feira, 2 de outubro**"
+        },
+        {
+          "type": "color",
+          "id": "dot_color",
+          "label": "Cor do indicador",
+          "default": "#2FA84F"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "shipping_text",
+          "label": "Texto de envio",
+          "default": "Envio **rápido** para Portugal"
+        },
+        {
+          "type": "select",
+          "id": "shipping_icon",
+          "label": "Ícone de envio",
+          "options": [
+            {
+              "value": "truck",
+              "label": "Caminhão"
+            },
+            {
+              "value": "plane",
+              "label": "Avião"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Raio"
+            }
+          ],
+          "default": "plane"
         },
         {
           "type": "header",
