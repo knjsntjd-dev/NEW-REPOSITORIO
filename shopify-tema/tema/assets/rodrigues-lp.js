@@ -56,7 +56,7 @@
     return { v: b.getAttribute('data-cor'), nome: b.getAttribute('data-nome') };
   });
   var TAMANHOS = [].map.call(document.querySelectorAll('#tamanhos [data-size]'), function(b){
-    return b.getAttribute('data-size');
+    return { v: b.getAttribute('data-size'), nome: b.getAttribute('data-nome') || b.getAttribute('data-size') };
   });
   var maxPecas = LOJA.bundles.reduce(function(m, b){ return Math.max(m, b.q); }, 1);
   for (var iP = 0; iP < maxPecas; iP++){
@@ -75,13 +75,17 @@
         CORES.map(function(c){ return '<option value="' + c.v + '">' + c.nome + '</option>'; }).join('') +
       '</select>' +
       '<select data-campo="size" data-peca="' + n + '" aria-label="Tamanho da peça ' + (n + 1) + '">' +
-        TAMANHOS.map(function(t){ return '<option value="' + t + '">' + t + '</option>'; }).join('') +
+        TAMANHOS.map(function(t){ return '<option value="' + t.v + '">' + t.nome + '</option>'; }).join('') +
       '</select>';
     elPecas.appendChild(linha);
   }
 
   function nomeCor(v){
     for (var i = 0; i < CORES.length; i++){ if (CORES[i].v === v) return CORES[i].nome; }
+    return v;
+  }
+  function nomeTam(v){
+    for (var i = 0; i < TAMANHOS.length; i++){ if (TAMANHOS[i].v === v) return TAMANHOS[i].nome; }
     return v;
   }
 
@@ -164,15 +168,15 @@
   }
 
   function resumoPecas(b){
-    if (b.q === 1) return estado.corNome + ' · ' + estado.size + ' · 1 peça';
+    if (b.q === 1) return estado.corNome + ' · ' + nomeTam(estado.size) + ' · 1 peça';
     var iguais = true, partes = [];
     for (var i = 0; i < b.q; i++){
       var p = estado.pecas[i];
       if (p.cor !== estado.pecas[0].cor || p.size !== estado.pecas[0].size) iguais = false;
-      partes.push(nomeCor(p.cor) + ' ' + p.size);
+      partes.push(nomeCor(p.cor) + ' ' + nomeTam(p.size));
     }
     return iguais
-      ? estado.corNome + ' · ' + estado.size + ' · ' + b.q + ' peças'
+      ? estado.corNome + ' · ' + nomeTam(estado.size) + ' · ' + b.q + ' peças'
       : partes.join(' + ');
   }
 

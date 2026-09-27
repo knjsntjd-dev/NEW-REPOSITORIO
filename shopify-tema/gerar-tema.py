@@ -313,7 +313,8 @@ SEC1 = r'''{%- liquid
         <div class="sizes" id="tamanhos">
           {%- if tam_idx >= 0 -%}
           {%- for val in p.options_with_values[tam_idx].values -%}
-          <button type="button" class="size" data-size="{{ val.name | escape }}" aria-pressed="{% if val.name == v0.options[tam_idx] %}true{% else %}false{% endif %}">{{ val.name }}</button>
+          {%- assign tam_label = val.name | split: ' ' | first -%}
+          <button type="button" class="size" data-size="{{ val.name | escape }}" data-nome="{{ tam_label | escape }}" aria-pressed="{% if val.name == v0.options[tam_idx] %}true{% else %}false{% endif %}">{{ tam_label }}</button>
           {%- endfor -%}
           {%- else -%}
           <button type="button" class="size" data-size="unico" aria-pressed="true">Único</button>
