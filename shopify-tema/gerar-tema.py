@@ -489,7 +489,8 @@ SEC3 = '''{%- liquid
 -%}
 <div class="rlp">
 {%- assign tabela_txt = ''' + M('tabela_medidas', TABELA_PADRAO)[2:-2].strip() + ''' -%}
-{%- if tabela_txt != blank -%}
+{%- assign esconder_tam = product.metafields.rlp.esconder_tamanhos -%}
+{%- if tabela_txt != blank and esconder_tam != 'sim' -%}
 <section class="sizing">
   <div class="wrap">
     <div class="sec-head rv">

@@ -9,7 +9,8 @@ L | 74 – 80 cm
 XL | 80 – 86 cm
 XXL | 86 – 92 cm
 3XL | 92 – 98 cm' -%}
-{%- if tabela_txt != blank -%}
+{%- assign esconder_tam = product.metafields.rlp.esconder_tamanhos -%}
+{%- if tabela_txt != blank and esconder_tam != 'sim' -%}
 <section class="rlp-sizing">
   <div class="rlp-wrap">
     <div class="rlp-sec-head rlp-rv">
