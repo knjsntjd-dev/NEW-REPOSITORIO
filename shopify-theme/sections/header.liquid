@@ -163,11 +163,17 @@
 {%- endif -%}
 
 {%- if request.page_type == 'index' -%}
+  {%- liquid
+    assign search_action_target = request.origin | append: routes.search_url | append: '?q='
+    assign ob = '{'
+    assign cb = '}'
+    assign search_action_target = search_action_target | append: ob | append: 'search_term_string' | append: cb
+  -%}
   <script type="application/ld+json">
     {"@context":"http://schema.org","@type":"Organization","name":{{ shop.name | json }},{% if settings.logo %}"logo":{{ settings.logo | image_url: width: 500 | prepend: 'https:' | json }},{% endif %}"url":{{ request.origin | append: page.url | json }}}
   </script>
   <script type="application/ld+json">
-    {"@context":"http://schema.org","@type":"WebSite","name":{{ shop.name | json }},"potentialAction":{"@type":"SearchAction","target":{{ request.origin | append: routes.search_url | append: '?q={search_term_string}' | json }},"query-input":"required name=search_term_string"},"url":{{ request.origin | json }}}
+    {"@context":"http://schema.org","@type":"WebSite","name":{{ shop.name | json }},"potentialAction":{"@type":"SearchAction","target":{{ search_action_target | json }},"query-input":"required name=search_term_string"},"url":{{ request.origin | json }}}
   </script>
 {%- endif -%}
 
