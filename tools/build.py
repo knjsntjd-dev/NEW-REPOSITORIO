@@ -43,9 +43,11 @@ def run(cmd):
 def minify():
     run([os.path.join(BIN, 'terser'), 'src/theme.js', '--compress', 'passes=2', '--mangle', '--ecma', '2020',
          '-o', 'shopify-theme/assets/theme.js'])
+    run([os.path.join(BIN, 'terser'), 'src/video-reviews.js', '--compress', 'passes=2', '--mangle', '--ecma', '2020',
+         '-o', 'shopify-theme/assets/video-reviews.js'])
     run([os.path.join(BIN, 'lightningcss'), '--minify', '--targets', '>= 0.5%, not dead',
          'src/theme.css', '-o', 'shopify-theme/assets/theme.css'])
-    for f in ('theme.js', 'theme.css'):
+    for f in ('theme.js', 'theme.css', 'video-reviews.js'):
         p = os.path.join(THEME, 'assets', f)
         print(f'{f}: {os.path.getsize(p) / 1024:.1f} KB')
 
