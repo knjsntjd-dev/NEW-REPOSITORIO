@@ -1,0 +1,258 @@
+{
+  "name": "Bundle deals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Bundle deals",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "background-1",
+      "label": "Color scheme",
+      "info": "Custom color scheme is edited at the bottom of section settings."
+    },
+    {
+      "type": "header",
+      "content": "Bundles"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "",
+          "label": "Vertical"
+        },
+        {
+          "value": "horizontal-images-left",
+          "label": "Horizontal - Images left"
+        },
+        {
+          "value": "horizontal-images-right",
+          "label": "Horizontal - Images right"
+        }
+      ],
+      "default": "horizontal-images-left",
+      "label": "Desktop layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_price_changes",
+      "label": "Enable dynamic price changes",
+      "info": "Enables live changes to item and total prices after variant/checkbox change. CAUTION: Due to the way Liquid works, after a change, new price will NOT work with currency converters.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "skip_cart",
+      "label": "Skip cart",
+      "default": false,
+      "info": "Your customers will be sent directly to checkout after click the Add to Cart button."
+    },
+    {
+      "type": "text",
+      "id": "total_price_label",
+      "label": "Total price label",
+      "default": "Total Price:"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Add to cart button label",
+      "default": "Add selected to cart"
+    },
+    {
+      "type": "header",
+      "content": "Discounts"
+    },
+    {
+      "type": "text",
+      "id": "percentage_discount",
+      "label": "Percentage discount",
+      "default": "0",
+      "info": "Percentae to be discounted from the total price, WITHOUT the % symbol."
+    },
+    {
+      "type": "text",
+      "id": "fixed_amount_discount",
+      "label": "Fixed amount discount",
+      "default": "0",
+      "info": "Fixed amount of money to be discounted from the total price, WITHOUT the currency symbol."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Custom color scheme",
+      "info": "Applied if Color scheme setting is set to Custom."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradient background",
+      "info": "If added, replaces Background color when applicable."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "default": "#2E2A39",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_accent",
+      "default": "#dd1d1d",
+      "label": "Accents"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_solid_button_background",
+      "default": "#dd1d1d",
+      "label": "Solid button background"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_solid_button_text",
+      "default": "#ffffff",
+      "label": "Solid button label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "percentage_discount",
+          "label": "Percentage discount",
+          "default": "0",
+          "info": "Percentae to be discounted from the total price, WITHOUT the % symbol."
+        },
+        {
+          "type": "text",
+          "id": "fixed_amount_discount",
+          "label": "Fixed amount discount",
+          "default": "0",
+          "info": "Fixed amount of money to be discounted from the total price, WITHOUT the currency symbol."
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Checkbox locked",
+          "info": "When enabled, prevents this product from being removed from the selection."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle deals",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}

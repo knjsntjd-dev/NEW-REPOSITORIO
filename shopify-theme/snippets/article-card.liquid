@@ -1,0 +1,15 @@
+{%- comment -%} Parâmetros: article, show_image (default true), show_date, show_author, sizes {%- endcomment -%}
+{%- assign sizes = sizes | default: '(min-width: 990px) 33vw, 100vw' -%}
+<article class="article-card">
+  {%- if show_image != false and article.image -%}
+    <div class="article-card__media">{{ article.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,450,600,900', sizes: sizes }}</div>
+  {%- endif -%}
+  {%- if show_date or show_author -%}
+    <p class="article-card__meta">
+      {%- if show_date -%}{{ article.published_at | time_tag: format: 'date' }}{%- endif -%}
+      {%- if show_author -%}{% if show_date %} · {% endif %}{{ article.author }}{%- endif -%}
+    </p>
+  {%- endif -%}
+  <h3><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+  {%- if article.excerpt != blank -%}<div class="rte" style="font-size:1.4rem">{{ article.excerpt | strip_html | truncatewords: 26 }}</div>{%- endif -%}
+</article>

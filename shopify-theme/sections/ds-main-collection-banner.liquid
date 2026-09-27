@@ -1,0 +1,68 @@
+{%- assign s = section.settings -%}
+{%- assign show_img = false -%}
+{%- if s.show_collection_image and collection.image -%}{%- assign show_img = true -%}{%- endif -%}
+<div class="collection-hero color-{{ s.color_scheme | default: 'background-1' }}">
+  <div class="page-width collection-hero__inner{% if show_img %} collection-hero__inner--img{% endif %}">
+    <div>
+      <h1 class="h1">{{ collection.title | escape }}</h1>
+      {%- if s.show_collection_description and collection.description != blank -%}<div class="rte">{{ collection.description }}</div>{%- endif -%}
+    </div>
+    {%- if show_img -%}
+      <div class="collection-hero__img media" style="aspect-ratio:{{ collection.image.aspect_ratio }}">{{ collection.image | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '375,550,750,1000,1200', sizes: '(min-width: 750px) 50vw, 100vw' }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
+      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    }
+  ]
+}
+{% endschema %}

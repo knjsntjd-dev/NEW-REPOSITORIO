@@ -1,0 +1,565 @@
+{% doc %}
+  @prompt
+    <style>
+      .yt-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 40px 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      @media screen and (max-width: 768px) {
+        .yt-gallery { 
+          grid-template-columns: 1fr; 
+        }
+      }
+      .yt-video-wrap {
+        position: relative;
+        padding-bottom: 177%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        background: #000;
+      }
+      .yt-video-wrap iframe {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        border: 0;
+      }
+      .yt-title {
+        text-align: center;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+    </style>
+    , ao inves de passa um para baixo do outro coloque em modelo lateral com uma seta indicativa, coloque tbm auto play , eu quero alto play nos videos e nao nas setas. preciso tbm que libere o link para short do youtube, tire o alto play das setas e coloque alto play nos videos , muito bem. agora preciso que tire o titulo os titulos do youtube e tbm a foto de perfil do canal do youtube. deixe o video correr limpo , preciso que voce deixe assim sem botao de play sem textos deixe somente o video rolando 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-yt-gallery-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+    box-sizing: border-box;
+    background-color: {{ block.settings.background_color }};
+    position: relative;
+  }
+
+  .ai-yt-gallery-container-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-yt-gallery-grid-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.gap }}px;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+
+  .ai-yt-video-item-{{ ai_gen_id }} {
+    flex: 0 0 calc((100% - ({{ block.settings.columns_desktop | minus: 1 }} * {{ block.settings.gap }}px)) / {{ block.settings.columns_desktop }});
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-yt-video-wrap-{{ ai_gen_id }} {
+    position: relative;
+    padding-bottom: {{ block.settings.aspect_ratio }}%;
+    height: 0;
+    overflow: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+    background: #000000;
+  }
+
+  .ai-yt-video-wrap-{{ ai_gen_id }} iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .ai-yt-nav-button-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: {{ block.settings.arrow_background }};
+    color: {{ block.settings.arrow_color }};
+    border: none;
+    width: {{ block.settings.arrow_size }}px;
+    height: {{ block.settings.arrow_size }}px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: {{ block.settings.arrow_opacity | divided_by: 100.0 }};
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-yt-nav-button-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-yt-nav-button-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-yt-nav-button-{{ ai_gen_id }}.ai-yt-prev-{{ ai_gen_id }} {
+    left: {{ block.settings.arrow_offset }}px;
+  }
+
+  .ai-yt-nav-button-{{ ai_gen_id }}.ai-yt-next-{{ ai_gen_id }} {
+    right: {{ block.settings.arrow_offset }}px;
+  }
+
+  .ai-yt-nav-button-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-yt-video-item-{{ ai_gen_id }} {
+      flex: 0 0 calc((100% - ({{ block.settings.columns_mobile | minus: 1 }} * {{ block.settings.gap }}px)) / {{ block.settings.columns_mobile }});
+    }
+
+    .ai-yt-nav-button-{{ ai_gen_id }} {
+      width: {{ block.settings.arrow_size | times: 0.8 }}px;
+      height: {{ block.settings.arrow_size | times: 0.8 }}px;
+    }
+
+    .ai-yt-nav-button-{{ ai_gen_id }}.ai-yt-prev-{{ ai_gen_id }} {
+      left: {{ block.settings.arrow_offset | times: 0.5 }}px;
+    }
+
+    .ai-yt-nav-button-{{ ai_gen_id }}.ai-yt-next-{{ ai_gen_id }} {
+      right: {{ block.settings.arrow_offset | times: 0.5 }}px;
+    }
+  }
+{% endstyle %}
+
+<youtube-gallery-{{ ai_gen_id }} class="ai-yt-gallery-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-yt-gallery-container-{{ ai_gen_id }}">
+    <div class="ai-yt-gallery-grid-{{ ai_gen_id }}">
+      {% for i in (1..6) %}
+        {% liquid
+          assign video_url_key = 'video_url_' | append: i
+          assign video_url = block.settings[video_url_key]
+        %}
+
+        {% if video_url != blank %}
+          <div class="ai-yt-video-item-{{ ai_gen_id }}">
+            <div class="ai-yt-video-wrap-{{ ai_gen_id }}">
+              <iframe
+                src="{{ video_url }}"
+                title="Video {{ i }}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if block.settings.show_arrows %}
+      <button class="ai-yt-nav-button-{{ ai_gen_id }} ai-yt-prev-{{ ai_gen_id }}" aria-label="Previous videos">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="ai-yt-nav-button-{{ ai_gen_id }} ai-yt-next-{{ ai_gen_id }}" aria-label="Next videos">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+</youtube-gallery-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class YoutubeGallery{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentIndex = 0;
+      }
+
+      connectedCallback() {
+        this.convertYoutubeLinks();
+        this.setupNavigation();
+      }
+
+      convertYoutubeLinks() {
+        const iframes = this.querySelectorAll('iframe');
+        iframes.forEach((iframe) => {
+          let src = iframe.getAttribute('src');
+          const autoplay = {{ block.settings.enable_autoplay | json }};
+          const mute = {{ block.settings.mute_videos | json }};
+          
+          let embedUrl = '';
+          let videoId = '';
+          
+          if (src && src.includes('youtube.com/watch?v=')) {
+            videoId = new URL(src).searchParams.get('v');
+            if (videoId) {
+              embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            }
+          } else if (src && src.includes('youtu.be/')) {
+            videoId = src.split('youtu.be/')[1].split('?')[0].split('/')[0];
+            if (videoId) {
+              embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            }
+          } else if (src && src.includes('youtube.com/shorts/')) {
+            videoId = src.split('youtube.com/shorts/')[1].split('?')[0].split('/')[0];
+            if (videoId) {
+              embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            }
+          } else if (src && src.includes('youtube.com/embed/')) {
+            embedUrl = src.split('?')[0];
+            videoId = embedUrl.split('/').pop();
+          }
+
+          if (embedUrl && videoId) {
+            const params = new URLSearchParams();
+            if (autoplay) params.append('autoplay', '1');
+            if (mute) params.append('mute', '1');
+            params.append('loop', '1');
+            params.append('playlist', videoId);
+            params.append('modestbranding', '1');
+            params.append('showinfo', '0');
+            params.append('rel', '0');
+            params.append('controls', '0');
+            params.append('iv_load_policy', '3');
+            params.append('disablekb', '1');
+            params.append('fs', '0');
+            
+            iframe.setAttribute('src', `${embedUrl}?${params.toString()}`);
+          }
+        });
+      }
+
+      setupNavigation() {
+        const grid = this.querySelector('.ai-yt-gallery-grid-{{ ai_gen_id }}');
+        const prevButton = this.querySelector('.ai-yt-prev-{{ ai_gen_id }}');
+        const nextButton = this.querySelector('.ai-yt-next-{{ ai_gen_id }}');
+        const items = this.querySelectorAll('.ai-yt-video-item-{{ ai_gen_id }}');
+        
+        if (!grid || !prevButton || !nextButton || items.length === 0) return;
+
+        const columnsDesktop = {{ block.settings.columns_desktop }};
+        const columnsMobile = {{ block.settings.columns_mobile }};
+        const gap = {{ block.settings.gap }};
+
+        const updateButtons = () => {
+          const isMobile = window.innerWidth <= 749;
+          const columns = isMobile ? columnsMobile : columnsDesktop;
+          const maxIndex = Math.max(0, items.length - columns);
+          
+          prevButton.disabled = this.currentIndex === 0;
+          nextButton.disabled = this.currentIndex >= maxIndex;
+        };
+
+        const slide = () => {
+          const isMobile = window.innerWidth <= 749;
+          const columns = isMobile ? columnsMobile : columnsDesktop;
+          const itemWidth = items[0].offsetWidth;
+          const offset = -(this.currentIndex * (itemWidth + gap));
+          
+          grid.style.transform = `translateX(${offset}px)`;
+          updateButtons();
+        };
+
+        prevButton.addEventListener('click', () => {
+          if (this.currentIndex > 0) {
+            this.currentIndex--;
+            slide();
+          }
+        });
+
+        nextButton.addEventListener('click', () => {
+          const isMobile = window.innerWidth <= 749;
+          const columns = isMobile ? columnsMobile : columnsDesktop;
+          const maxIndex = Math.max(0, items.length - columns);
+          
+          if (this.currentIndex < maxIndex) {
+            this.currentIndex++;
+            slide();
+          }
+        });
+
+        window.addEventListener('resize', () => {
+          slide();
+        });
+
+        updateButtons();
+      }
+    }
+
+    customElements.define('youtube-gallery-{{ ai_gen_id }}', YoutubeGallery{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "YouTube gallery",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between videos",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Navigation arrows"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "arrow_size",
+      "label": "Arrow size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "arrow_offset",
+      "label": "Arrow offset from edge",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "arrow_opacity",
+      "label": "Arrow opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "arrow_background",
+      "label": "Arrow background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Video autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable video autoplay",
+      "default": true,
+      "info": "Videos will play automatically when loaded"
+    },
+    {
+      "type": "checkbox",
+      "id": "mute_videos",
+      "label": "Mute videos",
+      "default": true,
+      "info": "Recommended when autoplay is enabled"
+    },
+    {
+      "type": "header",
+      "content": "Video style"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        { "value": "56", "label": "16:9 (Horizontal)" },
+        { "value": "75", "label": "4:3" },
+        { "value": "100", "label": "1:1 (Square)" },
+        { "value": "125", "label": "4:5" },
+        { "value": "177", "label": "9:16 (Vertical)" }
+      ],
+      "default": "177",
+      "info": "Choose the video aspect ratio"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Video 1"
+    },
+    {
+      "type": "url",
+      "id": "video_url_1",
+      "label": "YouTube URL",
+      "info": "Supports regular videos, Shorts, and youtu.be links"
+    },
+    {
+      "type": "header",
+      "content": "Video 2"
+    },
+    {
+      "type": "url",
+      "id": "video_url_2",
+      "label": "YouTube URL",
+      "info": "Supports regular videos, Shorts, and youtu.be links"
+    },
+    {
+      "type": "header",
+      "content": "Video 3"
+    },
+    {
+      "type": "url",
+      "id": "video_url_3",
+      "label": "YouTube URL",
+      "info": "Supports regular videos, Shorts, and youtu.be links"
+    },
+    {
+      "type": "header",
+      "content": "Video 4"
+    },
+    {
+      "type": "url",
+      "id": "video_url_4",
+      "label": "YouTube URL",
+      "info": "Supports regular videos, Shorts, and youtu.be links"
+    },
+    {
+      "type": "header",
+      "content": "Video 5"
+    },
+    {
+      "type": "url",
+      "id": "video_url_5",
+      "label": "YouTube URL",
+      "info": "Supports regular videos, Shorts, and youtu.be links"
+    },
+    {
+      "type": "header",
+      "content": "Video 6"
+    },
+    {
+      "type": "url",
+      "id": "video_url_6",
+      "label": "YouTube URL",
+      "info": "Supports regular videos, Shorts, and youtu.be links"
+    }
+  ],
+  "presets": [
+    {
+      "name": "YouTube gallery"
+    }
+  ]
+}
+{% endschema %}

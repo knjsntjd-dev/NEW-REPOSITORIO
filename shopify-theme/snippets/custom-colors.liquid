@@ -1,0 +1,10 @@
+{%- comment -%}
+  Saída: variáveis CSS para o esquema "custom" das seções DS.
+  Parâmetros: bg, grad, text, btn, btn_text, outline, accent (valores de settings color / color_background)
+{%- endcomment -%}
+{%- if bg != blank -%}--bg:{{ bg.red }},{{ bg.green }},{{ bg.blue }};--grad:{% if grad != blank %}{{ grad }}{% else %}{{ bg }}{% endif %};{%- endif -%}
+{%- if text != blank -%}--fg:{{ text.red }},{{ text.green }},{{ text.blue }};--link:{{ text.red }},{{ text.green }},{{ text.blue }};{%- endif -%}
+{%- if btn != blank -%}--btn:{{ btn.red }},{{ btn.green }},{{ btn.blue }};{%- endif -%}
+{%- if btn_text != blank -%}--btn-fg:{{ btn_text.red }},{{ btn_text.green }},{{ btn_text.blue }};{%- endif -%}
+{%- if outline != blank -%}--link:{{ outline.red }},{{ outline.green }},{{ outline.blue }};{%- endif -%}
+{%- if accent != blank -%}--acc:{{ accent.red }},{{ accent.green }},{{ accent.blue }};{%- endif -%}

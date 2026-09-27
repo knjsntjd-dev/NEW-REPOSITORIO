@@ -1,0 +1,44 @@
+{%- comment -%}
+  Um item da galeria. Só a primeira imagem é eager + fetchpriority=high (LCP).
+  Vídeos: só o poster é carregado; o vídeo é injetado no clique.
+{%- endcomment -%}
+{%- liquid
+  assign loading = 'lazy'
+  assign priority = 'auto'
+  if index == 0 and is_first
+    assign loading = 'eager'
+    assign priority = 'high'
+  endif
+  assign alt = media.alt | default: product.title
+-%}
+<li class="gallery__item{% if media.media_type == 'video' or media.media_type == 'external_video' %} gallery__item--video{% endif %}" data-media-id="{{ media.id }}">
+  {%- case media.media_type -%}
+    {%- when 'image' -%}
+      {{ media | image_url: width: 1500 | image_tag: loading: loading, fetchpriority: priority, widths: '375,550,750,1000,1250,1500', sizes: sizes, alt: alt }}
+    {%- when 'video', 'external_video' -%}
+      {{ media.preview_image | image_url: width: 1100 | image_tag: loading: loading, fetchpriority: priority, widths: '375,550,750,1100', sizes: sizes, alt: alt }}
+      {%- if section.settings.video_player == 'autoplay' and media.media_type == 'video' -%}
+        {%- assign vsrc = '' -%}
+        {%- for source in media.sources -%}
+          {%- if source.mime_type == 'video/mp4' -%}
+            {%- assign vsrc = source.url -%}
+            {%- if source.height <= 1080 -%}{%- break -%}{%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <video muted loop playsinline preload="none" data-lazy-autoplay data-src="{{ vsrc }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:var(--fit,contain)"></video>
+      {%- else -%}
+        <button type="button" data-deferred-media aria-label="{{ 'products.product.media.play_video' | t }}">
+          <span class="gallery__play color-{{ section.settings.play_btn_color_scheme }}" style="background:rgb(var(--bg));color:rgb(var(--fg))">{% render 'icon', name: 'play' %}</span>
+        </button>
+        <template>
+          {%- if media.media_type == 'video' -%}
+            {{ media | video_tag: image_size: '1100x', autoplay: true, loop: section.settings.enable_video_looping, controls: true, muted: false, playsinline: true }}
+          {%- else -%}
+            {{ media | external_video_url: autoplay: true, loop: section.settings.enable_video_looping, playlist: media.external_id | external_video_tag: loading: 'lazy' }}
+          {%- endif -%}
+        </template>
+      {%- endif -%}
+    {%- else -%}
+      {{ media.preview_image | image_url: width: 1100 | image_tag: loading: loading, widths: '375,550,750,1100', sizes: sizes, alt: alt }}
+  {%- endcase -%}
+</li>

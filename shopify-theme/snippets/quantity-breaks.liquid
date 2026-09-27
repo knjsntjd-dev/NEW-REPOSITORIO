@@ -1,0 +1,90 @@
+{%- comment -%}
+  Ofertas por quantidade (quantity breaks). Preços recalculados no JS ao trocar variante.
+  Parâmetros: product, block, form_id
+  Obs.: o desconto exibido é visual — configure o desconto automático correspondente no Shopify.
+{%- endcomment -%}
+{%- liquid
+  assign b = block.settings
+  assign v = product.selected_or_first_available_variant
+  assign price = v.price
+  assign show_selectors = false
+  if product.has_only_default_variant == false and b.enable_variant_selectors
+    assign show_selectors = true
+  endif
+-%}
+<div class="qb product__block" id="quantity-breaks-{{ section.id }}" style="--acc:var(--c-{{ b.color_scheme }});--mt:{{ b.margin_top | divided_by: 10.0 }}rem;--mb:{{ b.margin_bottom | divided_by: 10.0 }}rem" {{ block.shopify_attributes }}>
+  {%- if b.headline != blank -%}<p class="qb__title">{{ b.headline }}</p>{%- endif -%}
+  <div class="qb__list" role="radiogroup">
+    {%- for n in (1..4) -%}
+      {%- liquid
+        assign k = 'option_' | append: n
+        assign k_benefit = k | append: '_benefit'
+        assign k_caption = k | append: '_caption'
+        assign k_compare_price = k | append: '_compare_price'
+        assign k_fixed_amount_off = k | append: '_fixed_amount_off'
+        assign k_label = k | append: '_label'
+        assign k_percentage_off_text = k | append: '_percentage_off_text'
+        assign k_quantity = k | append: '_quantity'
+        assign q = b[k_quantity] | default: 0
+        if q == 0
+          continue
+        endif
+        assign pct_off = b[k_percentage_off_text] | plus: 0
+        assign pct_left = 100 | minus: pct_off | divided_by: 100.0
+        assign fixed = b[k_fixed_amount_off] | plus: 0 | times: 100
+        assign opt_price = price | times: q | times: pct_left | minus: fixed | round
+        assign cmp_mode = b[k_compare_price]
+        assign base = price
+        if cmp_mode == 'compare_price' and v.compare_at_price > price
+          assign base = v.compare_at_price
+        endif
+        assign opt_compare = base | times: q
+        assign saved = opt_compare | minus: opt_price
+        assign saved_rounded = saved | divided_by: 100.0 | round | times: 100
+        assign label = b[k_label]
+        assign benefit = b[k_benefit]
+        assign caption = b[k_caption]
+        assign input_id = 'qb-' | append: section.id | append: '-' | append: n
+      -%}
+      <div class="qb__opt" data-qb-option data-q="{{ q }}" data-pct="{{ pct_left }}" data-fixed="{{ fixed }}" data-cmp="{{ cmp_mode }}">
+        <input type="radio" id="{{ input_id }}" name="quantity" value="{{ q }}" form="{{ form_id }}"{% if b.preselected == k %} checked{% endif %}>
+        <label for="{{ input_id }}" class="qb__card">
+          {%- if b.display_badge == k and b.badge_text != blank -%}<span class="qb__badge">{{ b.badge_text }}</span>{%- endif -%}
+          <span class="qb__row">
+            <span class="qb__left">
+              <span class="qb__label">
+                <span>{% if label != blank %}{{ label }}{% else %}{{ q }}x{% endif %}</span>
+                {%- if benefit != blank -%}<span class="qb__benefit">{{ benefit }}</span>{%- endif -%}
+              </span>
+              {%- if caption != blank -%}
+                {%- capture m1 -%}{{ saved | money_without_trailing_zeros }}{%- endcapture -%}
+                {%- capture m2 -%}{{ saved_rounded | money_without_trailing_zeros }}{%- endcapture -%}
+                <span class="qb__caption" data-qb-caption data-text="{{ caption | escape }}">{{ caption | replace: '[amount_saved_rounded]', m2 | replace: '[amount_saved]', m1 }}</span>
+              {%- endif -%}
+            </span>
+            <span class="qb__right">
+              <span class="qb__price" data-qb-price>{{ opt_price | money_without_trailing_zeros }}</span>
+              <span class="qb__compare" data-qb-compare>{% if opt_compare > opt_price %}{{ opt_compare | money_without_trailing_zeros }}{% endif %}</span>
+            </span>
+          </span>
+          {%- if show_selectors and q > 1 -%}
+            <span class="qb__variants">
+              {%- for u in (1..q) -%}
+                <span class="qb__variant" data-qb-unit data-variant-id="{{ v.id }}">
+                  <span>#{{ u }}</span>
+                  {%- for option in product.options_with_values -%}
+                    <select class="select select--small" aria-label="{{ option.name | escape }} #{{ u }}">
+                      {%- for value in option.values -%}
+                        <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
+                      {%- endfor -%}
+                    </select>
+                  {%- endfor -%}
+                </span>
+              {%- endfor -%}
+            </span>
+          {%- endif -%}
+        </label>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>

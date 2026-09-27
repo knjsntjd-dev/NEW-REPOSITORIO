@@ -1,0 +1,146 @@
+<article class="section page-width" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+        {%- when 'featured_image' -%}
+          {%- if article.image -%}
+            <div class="article__hero media" style="{% case block.settings.image_height %}{% when 'small' %}aspect-ratio:2.4{% when 'medium' %}aspect-ratio:1.8{% when 'large' %}aspect-ratio:1.3{% else %}aspect-ratio:{{ article.image.aspect_ratio }}{% endcase %}" {{ block.shopify_attributes }}>
+              {{ article.image | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '375,750,1100,1600', sizes: '(min-width: 800px) 780px, 100vw' }}
+            </div>
+          {%- endif -%}
+        {%- when 'title' -%}
+          <header {{ block.shopify_attributes }}>
+            <h1 class="h1" itemprop="headline">{{ article.title | escape }}</h1>
+            <p class="article__meta">
+              {%- if block.settings.blog_show_date -%}{{ article.published_at | time_tag: format: 'date' }}{%- endif -%}
+              {%- if block.settings.blog_show_author -%} · <span itemprop="author">{{ article.author }}</span>{%- endif -%}
+            </p>
+          </header>
+        {%- when 'content' -%}
+          <div class="rte" itemprop="articleBody" {{ block.shopify_attributes }}>{{ article.content }}</div>
+        {%- when 'share' -%}
+          <div style="margin-top:2rem" {{ block.shopify_attributes }}>
+            <button type="button" class="share-btn" data-share="{{ request.origin }}{{ article.url }}">{% render 'icon', name: 'share', class: 'icon--small' %}{{ block.settings.share_label | escape }}</button>
+            <span data-share-msg hidden>{{ 'general.share.success_message' | t }}</span>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {%- if blog.comments_enabled? -%}
+      <section class="comments">
+        {%- if article.comments_count > 0 -%}
+          <h2 class="h3">{{ 'blogs.article.comments' | t: count: article.comments_count }}</h2>
+          {%- paginate article.comments by 5 -%}
+            {%- for comment in article.comments -%}
+              <div class="comment"><div class="rte">{{ comment.content }}</div><p class="article__meta">{{ comment.author }} · {{ comment.created_at | time_tag: format: 'date' }}</p></div>
+            {%- endfor -%}
+            {% render 'pagination', paginate: paginate %}
+          {%- endpaginate -%}
+        {%- endif -%}
+        {%- form 'new_comment', article -%}
+          <h2 class="h3" style="margin-top:3rem">{{ 'blogs.article.comment_form_title' | t }}</h2>
+          {%- if form.errors -%}<div class="form-status form-status--error">{{ form.errors | default_errors }}</div>{%- endif -%}
+          {%- if form.posted_successfully? -%}<p class="form-status form-status--success">{% if blog.moderated? %}{{ 'blogs.article.success_moderated' | t }}{% else %}{{ 'blogs.article.success' | t }}{% endif %}</p>{%- endif -%}
+          <div class="grid" style="--cols:2;--cols-m:1">
+            <div class="field"><label for="CommentAuthor">{{ 'blogs.article.name' | t }}</label><input class="input" id="CommentAuthor" name="comment[author]" required value="{{ form.author }}"></div>
+            <div class="field"><label for="CommentEmail">{{ 'blogs.article.email' | t }}</label><input class="input" type="email" id="CommentEmail" name="comment[email]" required value="{{ form.email }}"></div>
+          </div>
+          <div class="field"><label for="CommentBody">{{ 'blogs.article.message' | t }}</label><textarea class="input" id="CommentBody" name="comment[body]" required>{{ form.body }}</textarea></div>
+          <button type="submit" class="btn">{{ 'blogs.article.post' | t }}</button>
+        {%- endform -%}
+      </section>
+    {%- endif -%}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "t:sections.main-article.name",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "t:sections.main-article.blocks.featured_image.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_height",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__1.label"
+            },
+            {
+              "value": "small",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__2.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__3.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__4.label"
+            }
+          ],
+          "default": "adapt",
+          "label": "t:sections.main-article.blocks.featured_image.settings.image_height.label",
+          "info": "t:sections.main-article.blocks.featured_image.settings.image_height.info"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main-article.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "blog_show_date",
+          "default": true,
+          "label": "t:sections.main-article.blocks.title.settings.blog_show_date.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_show_author",
+          "default": false,
+          "label": "t:sections.main-article.blocks.title.settings.blog_show_author.label"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.main-article.blocks.content.name",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "t:sections.main-article.blocks.share.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "share_label",
+          "label": "t:sections.main-article.blocks.share.settings.text.label",
+          "default": "t:sections.main-article.blocks.share.settings.text.default"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.main-article.blocks.share.settings.featured_image_info.content"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.main-article.blocks.share.settings.title_info.content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

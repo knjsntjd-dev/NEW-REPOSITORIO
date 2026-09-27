@@ -1,0 +1,66 @@
+<div class="section" style="--pt:{{ section.settings.padding_top }}px;--pb:{{ section.settings.padding_bottom }}px">
+  <div class="page-width customer customer--wide">
+    <p><a href="{{ routes.account_url }}" class="link">{{ 'customer.account.return' | t }}</a></p>
+    <h1 class="h1">{{ 'customer.order.title' | t: name: order.name }}</h1>
+    {%- assign order_date = order.created_at | time_tag: format: 'date_at_time' -%}
+    <p>{{ 'customer.order.date_html' | t: date: order_date }}</p>
+    {%- if order.cancelled -%}<p class="form-status form-status--error">{%- assign cancel_date = order.cancelled_at | time_tag: format: 'date_at_time' -%}{{ 'customer.order.cancelled_html' | t: date: cancel_date }} — {{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}</p>{%- endif -%}
+    <table role="table" style="margin-top:2rem">
+      <thead><tr><th>{{ 'customer.order.product' | t }}</th><th>{{ 'customer.order.sku' | t }}</th><th>{{ 'customer.order.price' | t }}</th><th>{{ 'customer.order.quantity' | t }}</th><th>{{ 'customer.order.total' | t }}</th></tr></thead>
+      <tbody>
+        {%- for li in order.line_items -%}
+          <tr>
+            <td data-label="{{ 'customer.order.product' | t }}">{{ li.title | link_to: li.product.url }}{%- if li.fulfillment -%}<br><small>{{ li.fulfillment.created_at | time_tag: format: 'date' }}{% if li.fulfillment.tracking_url %} · <a href="{{ li.fulfillment.tracking_url }}" class="link">{{ 'customer.order.track_shipment' | t }}</a>{% endif %}</small>{%- endif -%}</td>
+            <td data-label="{{ 'customer.order.sku' | t }}">{{ li.sku }}</td>
+            <td data-label="{{ 'customer.order.price' | t }}">{{ li.final_price | money }}</td>
+            <td data-label="{{ 'customer.order.quantity' | t }}">{{ li.quantity }}</td>
+            <td data-label="{{ 'customer.order.total' | t }}">{{ li.final_line_price | money }}</td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+      <tfoot>
+        <tr><td colspan="4">{{ 'customer.order.subtotal' | t }}</td><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+        {%- for d in order.cart_level_discount_applications -%}<tr><td colspan="4">{{ 'customer.order.discount' | t }} ({{ d.title }})</td><td>-{{ d.total_allocated_amount | money }}</td></tr>{%- endfor -%}
+        X
+        {%- for t in order.tax_lines -%}<tr><td colspan="4">{{ 'customer.order.tax' | t }} ({{ t.title }} {{ t.rate | times: 100 }}%)</td><td>{{ t.price | money }}</td></tr>{%- endfor -%}
+        <tr><td colspan="4"><strong>{{ 'customer.order.total' | t }}</strong></td><td><strong>{{ order.total_net_amount | money_with_currency }}</strong></td></tr>
+      </tfoot>
+    </table>
+    <div class="grid" style="--cols:2;--cols-m:1;margin-top:3rem">
+      <div><h2 class="h4">{{ 'customer.order.billing_address' | t }}</h2><p>{{ 'customer.order.payment_status' | t }}: {{ order.financial_status_label }}</p>{{ order.billing_address | format_address }}</div>
+      <div><h2 class="h4">{{ 'customer.order.shipping_address' | t }}</h2><p>{{ 'customer.order.fulfillment_status' | t }}: {{ order.fulfillment_status_label }}</p>{{ order.shipping_address | format_address }}</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-order.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,79 @@
+{%- comment -%} Slideshow compartilhado (slideshow e ds-slideshow). Scroll-snap nativo; autoplay opcional. {%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign count = section.blocks.size
+-%}
+<div class="slideshow{% if s.color_scheme %} color-{{ s.color_scheme }}{% endif %}" data-slider data-loop{% if s.auto_rotate %} data-autoplay="{{ s.change_slides_speed }}"{% endif %} role="region" aria-roledescription="carousel" aria-label="{{ s.accessibility_info | escape }}">
+  <div class="{% if s.layout == 'grid' %}page-width{% endif %}">
+    <ul class="slider" data-slider-track role="list" style="--slide-w:100%;gap:0">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign loading = 'lazy'
+          assign priority = 'auto'
+          if section.index == 1 and forloop.first
+            assign loading = 'eager'
+            assign priority = 'high'
+          endif
+          assign pos = b.box_align | split: '-'
+          case pos[0]
+            when 'top'
+              assign v = 'flex-start'
+            when 'bottom'
+              assign v = 'flex-end'
+            else
+              assign v = 'center'
+          endcase
+          case pos[1]
+            when 'left'
+              assign h = 'flex-start'
+            when 'right'
+              assign h = 'flex-end'
+            else
+              assign h = 'center'
+          endcase
+          assign height = s.slide_height | replace: 'adapt_image', 'adapt'
+          assign ratio = b.image.aspect_ratio | default: 1.78
+        -%}
+        <li class="banner banner--{{ height }}{% if s.show_text_below %} banner--below{% endif %} color-{{ b.color_scheme | default: 'background-1' }}" style="--overlay:{{ b.image_overlay_opacity | divided_by: 100.0 }};--v:{{ v }};--h:{{ h }};--align:{{ b.text_alignment }};--align-m:{{ b.text_alignment_mobile }}" {{ block.shopify_attributes }} aria-roledescription="slide" aria-label="{{ forloop.index }} / {{ count }}">
+          <div class="banner__media">
+            <div{% if height == 'adapt' %} style="aspect-ratio:{{ ratio }}"{% endif %}>
+              {%- if b.image != blank -%}
+                {%- if b.mobile_image != blank -%}
+                  <picture>
+                    <source media="(max-width: 749px)" srcset="{{ b.mobile_image | image_url: width: 750 }} 750w, {{ b.mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
+                    {{ b.image | image_url: width: 2400 | image_tag: loading: loading, fetchpriority: priority, widths: '750,1100,1500,2000,2400', sizes: '100vw' }}
+                  </picture>
+                {%- else -%}
+                  {{ b.image | image_url: width: 2400 | image_tag: loading: loading, fetchpriority: priority, widths: '375,750,1100,1500,2000,2400', sizes: '100vw' }}
+                {%- endif -%}
+              {%- else -%}
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          </div>
+          {%- if b.heading != blank or b.subheading != blank or b.button_label != blank -%}
+            <div class="banner__content">
+              <div class="banner__box{% if b.show_text_box %} banner__box--boxed{% endif %}">
+                {%- if b.heading != blank -%}<h2 class="{{ b.heading_size }}">{{ b.heading }}</h2>{%- endif -%}
+                {%- if b.subheading != blank -%}<p>{{ b.subheading }}</p>{%- endif -%}
+                {%- if b.button_label != blank -%}<div class="buttons" style="margin-top:1.6rem"><a class="btn{% if b.button_style_secondary %} btn--secondary{% endif %}" href="{{ b.link | default: '#' }}">{{ b.button_label | escape }}</a></div>{%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if count > 1 -%}
+      <div class="slider-nav">
+        <button type="button" class="slider-btn" data-slider-prev aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+        {%- if s.slider_visual == 'counter' -%}
+          <span><span data-slider-current>1</span> / {{ count }}</span>
+        {%- else -%}
+          <ul class="slider-dots" role="list" style="margin:0">{%- for block in section.blocks -%}<li><button type="button" class="slider-dot" data-slider-dot aria-label="{{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}>{% if s.slider_visual == 'numbers' %}<span class="visually-hidden">{{ forloop.index }}</span>{% endif %}</button></li>{%- endfor -%}</ul>
+        {%- endif -%}
+        <button type="button" class="slider-btn" data-slider-next aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

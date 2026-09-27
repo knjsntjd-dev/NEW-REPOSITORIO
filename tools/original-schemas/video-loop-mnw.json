@@ -1,0 +1,61 @@
+{
+  "name": "Video Loop",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "URL do Vídeo",
+      "default": "https://example.com/seu-video.mp4",
+      "info": "Insira o link do vídeo que deseja exibir."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Título do Vídeo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video-title",
+          "label": "Video Title",
+          "default": "Title Example",
+          "info": "Coloque o titulo do video"
+        },
+        {
+          "type": "checkbox",
+          "id": "centered-text",
+          "label": "Text Centered",
+          "default": true,
+          "info": "Centralizar texto"
+        },
+        {
+          "type": "checkbox",
+          "id": "text-top",
+          "label": "Text top",
+          "default": false,
+          "info": "Mude a posição do texto"
+        },
+        {
+          "type": "checkbox",
+          "id": "show-description",
+          "label": "Show Description",
+          "default": false,
+          "info": "Mostre a descrição"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Video Description",
+          "default": "Your Video Description",
+          "info": "Descreva seu video"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Video",
+      "name": "Video Loop"
+    }
+  ]
+}

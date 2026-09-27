@@ -1,0 +1,453 @@
+{%- liquid
+  assign s = section.settings
+  case s.logo_position
+    when 'middle-center'
+      assign layout = 'logo-center'
+    when 'top-left', 'top-center'
+      assign layout = 'logo-top'
+    else
+      assign layout = 'logo-left'
+  endcase
+  assign sticky = s.sticky_header_type
+  if sticky == 'reduce-logo-size'
+    assign sticky = 'always'
+  endif
+  if settings.cart_icon == 'bag'
+    assign cart_icon = 'bag'
+  else
+    assign cart_icon = 'cart'
+  endif
+-%}
+{%- if sticky != 'none' -%}
+  <style>#shopify-section-{{ section.id }}{position:sticky;top:0;z-index:30;transition:transform .25s}#shopify-section-{{ section.id }}.header-sticky--hidden{transform:translateY(-100%)}</style>
+{%- endif -%}
+<div class="header-wrapper color-{{ s.color_scheme }}{% if s.show_line_separator %} header-wrapper--line{% endif %}"{% if s.margin_bottom > 0 %} style="margin-bottom:{{ s.margin_bottom }}px"{% endif %}>
+  <header class="page-width header header--{{ layout }}{% if s.mobile_logo_position == 'left' %} header--m-left{% endif %}" style="--pt:{{ s.padding_top }}px;--pb:{{ s.padding_bottom }}px">
+    <div class="header__left">
+      <button type="button" class="header__icon header__burger" data-panel-open="MenuDrawer" aria-controls="MenuDrawer" aria-label="{{ s.mobile_menu_title | default: 'Menu' | escape }}">{% render 'icon', name: 'menu' %}</button>
+    </div>
+
+    {%- if request.page_type == 'index' -%}<h1 class="header__logo">{%- else -%}<div class="header__logo">{%- endif -%}
+      <a href="{{ s.logo_link | default: routes.root_url }}">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_h = settings.logo_width | divided_by: settings.logo.aspect_ratio | round -%}
+          {%- capture logo_widths -%}{{ settings.logo_width }},{{ settings.logo_width | times: 2 }}{%- endcapture -%}
+          {%- assign logo_sizes = settings.logo_width | append: 'px' -%}
+          {%- assign logo_style = '--logo-w:' | append: settings.logo_width | append: 'px' -%}
+          {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+          {{ settings.logo | image_url: width: 600 | image_tag: widths: logo_widths, width: settings.logo_width, height: logo_h, sizes: logo_sizes, alt: logo_alt, fetchpriority: 'high', style: logo_style }}
+        {%- else -%}
+          <span>{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    {%- if request.page_type == 'index' -%}</h1>{%- else -%}</div>{%- endif -%}
+
+    {%- if s.menu != blank -%}
+      <nav class="header__nav" aria-label="{{ 'sections.header.menu' | t }}">
+        <ul class="menu" role="list">
+          {%- for link in s.menu.links -%}
+            <li>
+              {%- if link.links != blank -%}
+                <details class="menu__item">
+                  <summary{% if link.child_active %} class="is-active"{% endif %}>{{ link.title | escape }}{% render 'icon', name: 'caret' %}</summary>
+                  {%- if s.menu_type_desktop == 'mega' -%}
+                    <div class="menu-mega color-{{ s.menu_color_scheme }}">
+                      <ul class="page-width menu-mega__grid" role="list">
+                        {%- for child in link.links -%}
+                          <li>
+                            <a class="menu-mega__title" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title | escape }}</a>
+                            {%- if child.links != blank -%}
+                              <ul role="list">{%- for g in child.links -%}<li><a href="{{ g.url }}"{% if g.current %} aria-current="page"{% endif %}>{{ g.title | escape }}</a></li>{%- endfor -%}</ul>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  {%- else -%}
+                    <ul class="menu__dropdown color-{{ s.menu_color_scheme }}" role="list">
+                      {%- for child in link.links -%}
+                        <li>
+                          <a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title | escape }}</a>
+                          {%- if child.links != blank -%}
+                            <ul class="menu__dropdown" role="list">{%- for g in child.links -%}<li><a href="{{ g.url }}">{{ g.title | escape }}</a></li>{%- endfor -%}</ul>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </details>
+              {%- else -%}
+                <a class="menu__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% if s.highlight_active_link %} style="color:rgb(var(--c-{{ s.highlighted_link_color_scheme }}))"{% endif %}{% endif %}>{{ link.title | escape }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="header__icons">
+      {%- if s.display_search -%}
+        <a href="{{ routes.search_url }}" class="header__icon header__search-d" data-search-open aria-label="{{ 'general.search.search' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- endif -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__icon header__account" aria-label="{{ 'customer.account_fallback' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="header__icon" id="cart-icon-bubble" data-cart-open aria-label="{{ 'templates.cart.cart' | t }}">
+        {% render 'icon', name: cart_icon %}
+        {%- if cart.item_count > 0 -%}<span class="cart-count" aria-hidden="true">{{ cart.item_count | at_most: 99 }}</span><span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>{%- endif -%}
+      </a>
+    </div>
+  </header>
+</div>
+
+{%- comment -%} Menu mobile (gaveta) {%- endcomment -%}
+<div id="MenuDrawer" class="drawer-menu" data-panel hidden>
+  <button type="button" class="overlay" data-panel-close tabindex="-1" aria-label="{{ 'accessibility.close' | t }}"></button>
+  <div class="drawer drawer--left color-{{ s.menu_color_scheme }}" role="dialog" aria-modal="true" aria-label="{{ s.mobile_menu_title | default: 'Menu' | escape }}">
+    <div class="drawer__head">
+      <h2>{{ s.mobile_menu_title | default: 'Menu' }}</h2>
+      <button type="button" class="drawer__close" data-panel-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <div class="drawer__body">
+      <ul class="mobile-nav" role="list">
+        {%- for link in s.menu.links -%}
+          <li>
+            {%- if link.links != blank -%}
+              <details>
+                <summary>{{ link.title | escape }}{% render 'icon', name: 'caret' %}</summary>
+                <ul role="list">
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}">{{ child.title | escape }}</a>
+                      {%- if child.links != blank -%}<ul role="list">{%- for g in child.links -%}<li><a href="{{ g.url }}">{{ g.title | escape }}</a></li>{%- endfor -%}</ul>{%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+        {%- for link in s.secondary_menu.links -%}
+          <li><a href="{{ link.url }}" style="font-size:1.5rem">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    {%- if shop.customer_accounts_enabled -%}
+      <div class="drawer__foot">
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">{% render 'icon', name: 'account' %}{% if customer %}{{ 'customer.account_fallback' | t }}{% else %}{{ 'customer.log_in' | t }}{% endif %}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if s.display_search -%}
+  <div id="SearchModal" class="search-modal color-{{ s.color_scheme }}" role="dialog" aria-label="{{ 'general.search.search' | t }}">
+    <div class="page-width">
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <input type="hidden" name="options[prefix]" value="last">
+        <label class="visually-hidden" for="SearchInput">{{ 'general.search.search' | t }}</label>
+        <input id="SearchInput" class="input" type="search" name="q" placeholder="{{ 'general.search.search' | t }}" autocomplete="off"{% if settings.predictive_search_enabled %} data-predictive-input{% endif %}>
+        <button type="submit" class="header__icon" aria-label="{{ 'general.search.search' | t }}">{% render 'icon', name: 'search' %}</button>
+        <button type="button" class="header__icon" data-search-close aria-label="{{ 'general.search.reset' | t }}">{% render 'icon', name: 'close' %}</button>
+        {%- if settings.predictive_search_enabled -%}<div class="predictive" data-predictive style="flex-basis:100%"></div>{%- endif -%}
+      </form>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if sticky != 'none' -%}
+  <script>
+    (function(){var el=document.getElementById('shopify-section-{{ section.id }}');if(!el)return;{% if sticky == 'on-scroll-up' %}var l=0;addEventListener('scroll',function(){var y=scrollY;el.classList.toggle('header-sticky--hidden',y>l&&y>200);l=y},{passive:true});{% endif %}})();
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'index' -%}
+  <script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"Organization","name":{{ shop.name | json }},{% if settings.logo %}"logo":{{ settings.logo | image_url: width: 500 | prepend: 'https:' | json }},{% endif %}"url":{{ request.origin | append: page.url | json }}}
+  </script>
+  <script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"WebSite","name":{{ shop.name | json }},"potentialAction":{"@type":"SearchAction","target":{{ request.origin | append: routes.search_url | append: '?q={search_term_string}' | json }},"query-input":"required name=search_term_string"},"url":{{ request.origin | json }}}
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.header.settings.sticky_header_type.options__1.label"
+        },
+        {
+          "value": "on-scroll-up",
+          "label": "t:sections.header.settings.sticky_header_type.options__2.label"
+        },
+        {
+          "value": "always",
+          "label": "t:sections.header.settings.sticky_header_type.options__3.label"
+        },
+        {
+          "value": "reduce-logo-size",
+          "label": "t:sections.header.settings.sticky_header_type.options__4.label"
+        }
+      ],
+      "default": "on-scroll-up",
+      "label": "t:sections.header.settings.sticky_header_type.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.logo_header.content"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.header.settings.logo_help.content"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link",
+      "default": "/"
+    },
+    {
+      "type": "select",
+      "id": "logo_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "t:sections.header.settings.logo_position.options__2.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.header.settings.logo_position.options__3.label"
+        },
+        {
+          "value": "middle-left",
+          "label": "t:sections.header.settings.logo_position.options__1.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.header.settings.logo_position.options__4.label"
+        }
+      ],
+      "default": "middle-left",
+      "label": "t:sections.header.settings.logo_position.label"
+    },
+    {
+      "type": "header",
+      "content": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "select",
+      "id": "menu_type_desktop",
+      "options": [
+        {
+          "value": "dropdown",
+          "label": "t:sections.header.settings.menu_type_desktop.options__1.label"
+        },
+        {
+          "value": "mega",
+          "label": "t:sections.header.settings.menu_type_desktop.options__2.label"
+        }
+      ],
+      "default": "dropdown",
+      "label": "t:sections.header.settings.menu_type_desktop.label",
+      "info": "t:sections.header.settings.menu_type_desktop.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "highlight_active_link",
+      "label": "Highlight active link on desktop",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "highlighted_link_color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "accent-1",
+      "label": "Highlighted link color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Mobile menu"
+    },
+    {
+      "type": "text",
+      "id": "mobile_menu_title",
+      "label": "Title",
+      "default": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Secondary menu"
+    },
+    {
+      "type": "select",
+      "id": "menu_color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.mobile_layout.content"
+    },
+    {
+      "type": "select",
+      "id": "mobile_logo_position",
+      "options": [
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.mobile_logo_position.options__1.label"
+        },
+        {
+          "value": "left",
+          "label": "t:sections.header.settings.mobile_logo_position.options__2.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.header.settings.mobile_logo_position.label"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_search",
+      "label": "Display search icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.header.settings.margin_bottom.label",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 20
+    }
+  ]
+}
+{% endschema %}

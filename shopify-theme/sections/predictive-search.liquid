@@ -1,0 +1,36 @@
+<div id="predictive-search-results">
+  {%- if predictive_search.performed -%}
+    {%- liquid
+      assign r = predictive_search.resources
+      assign total = r.products.size | plus: r.collections.size | plus: r.pages.size | plus: r.articles.size | plus: r.queries.size
+    -%}
+    {%- if total > 0 -%}
+      {%- if r.queries.size > 0 -%}
+        <h3>{{ 'templates.search.suggestions' | t }}</h3>
+        <ul role="list">{%- for q in r.queries -%}<li><a href="{{ q.url }}">{{ q.styled_text }}</a></li>{%- endfor -%}</ul>
+      {%- endif -%}
+      {%- if r.products.size > 0 -%}
+        <h3>{{ 'templates.search.products' | t }}</h3>
+        <ul role="list">
+          {%- for p in r.products -%}
+            <li><a href="{{ p.url }}">
+              {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 100 | image_tag: loading: 'lazy', width: 50, height: 50, alt: '' }}{%- endif -%}
+              <span>{{ p.title | escape }}{% if settings.predictive_search_show_vendor %}<br><small>{{ p.vendor }}</small>{% endif %}{% if settings.predictive_search_show_price %}<br><small>{{ p.price | money }}</small>{% endif %}</span>
+            </a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if r.collections.size > 0 or r.pages.size > 0 or r.articles.size > 0 -%}
+        <h3>{{ 'templates.search.pages' | t }}</h3>
+        <ul role="list">
+          {%- for c in r.collections -%}<li><a href="{{ c.url }}">{{ c.title | escape }}</a></li>{%- endfor -%}
+          {%- for pg in r.pages -%}<li><a href="{{ pg.url }}">{{ pg.title | escape }}</a></li>{%- endfor -%}
+          {%- for a in r.articles -%}<li><a href="{{ a.url }}">{{ a.title | escape }}</a></li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <p><a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&options%5Bprefix%5D=last"><strong>{{ 'templates.search.search_for' | t: terms: predictive_search.terms }}</strong></a></p>
+    {%- else -%}
+      <p>{{ 'templates.search.no_results' | t: terms: predictive_search.terms }}</p>
+    {%- endif -%}
+  {%- endif -%}
+</div>

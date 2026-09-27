@@ -1,0 +1,90 @@
+{%- comment -%}
+  Galeria de vídeos curtos (estilo stories).
+  Performance: nenhum MP4 é baixado no carregamento — só a capa (≈10 KB).
+  O vídeo (versão 480p, ver snippet video-rendition) é pedido apenas no clique.
+{%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+<div class="section vgallery" style="--pt:24px;--pb:24px" data-slider>
+  <div class="page-width">
+    <ul class="slider" data-slider-track role="list">
+      {%- for block in section.blocks -%}
+        {%- capture vurl -%}{%- render 'video-rendition', url: block.settings.video_url -%}{%- endcapture -%}
+        {%- liquid
+          assign vfile = block.settings.video_url | split: '/' | last
+          assign vhash = vfile | split: '.' | first
+          assign poster = ''
+          assign poster_alt = ''
+          if vhash.size == 32
+            assign base = 'placeholder.jpg' | file_url | split: 'placeholder.jpg' | first
+            assign poster = base | append: 'preview_images/' | append: vhash | append: '.thumbnail.0000000000_200x.jpg'
+            assign poster_alt = base | append: 'preview_images/' | append: vhash | append: '.thumbnail.0000000000_480x.jpg'
+          endif
+          assign loading = 'lazy'
+          if section.index == 1 and forloop.index <= 3
+            assign loading = 'eager'
+          endif
+        -%}
+        {%- if vurl != blank -%}
+          <li class="vgallery__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.poster != blank -%}
+              {{ block.settings.poster | image_url: width: 480 | image_tag: loading: loading, sizes: '(min-width: 750px) 200px, 150px', widths: '200,300,400,480', alt: '' }}
+            {%- elsif poster != blank -%}
+              <img src="{{ poster }}" data-alt="{{ poster_alt }}" alt="" width="200" height="356" loading="{{ loading }}" decoding="async" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.onerror=null;this.hidden=true}">
+            {%- endif -%}
+            <video playsinline loop muted preload="none" data-src="{{ vurl }}" width="200" height="356"></video>
+            <button type="button" class="vgallery__play" data-vplay aria-label="{{ 'products.product.media.play_video' | t }}">{% render 'icon', name: 'play' %}</button>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+    {%- if section.blocks.size > 2 -%}
+      <div class="slider-nav">
+        <button type="button" class="slider-btn" data-slider-prev aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+        <button type="button" class="slider-btn" data-slider-next aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Videos Produto",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "URL do Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Capa do vídeo (opcional)",
+          "info": "Escolha uma capa para evitar depender da imagem automática do link antigo."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Videos Produto",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

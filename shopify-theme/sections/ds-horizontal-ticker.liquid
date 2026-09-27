@@ -1,0 +1,207 @@
+{%- liquid
+  assign s = section.settings
+  assign dur = 30 | divided_by: s.speed | times: section.blocks.size | at_least: 8
+  capture style
+    echo '--pt:' | append: s.padding_top | append: 'px;--pb:' | append: s.padding_bottom | append: 'px;--gap:' | append: s.text_spacing | append: ';--fs:' | append: s.text_size | append: ';--dur:' | append: dur | append: 's;'
+    if s.color_scheme == 'custom'
+      echo '--bg:' | append: s.custom_colors_background.red | append: ',' | append: s.custom_colors_background.green | append: ',' | append: s.custom_colors_background.blue | append: ';--fg:' | append: s.custom_colors_text.red | append: ',' | append: s.custom_colors_text.green | append: ',' | append: s.custom_colors_text.blue | append: ';'
+      if s.custom_gradient_background != blank
+        echo '--grad:' | append: s.custom_gradient_background | append: ';'
+      else
+        echo '--grad:' | append: s.custom_colors_background | append: ';'
+      endif
+    endif
+  endcapture
+-%}
+<div class="ticker{% if s.color_scheme != 'custom' %} color-{{ s.color_scheme }}{% endif %}" style="{{ style }}">
+  {%- for r in (1..2) -%}
+    <div class="ticker__track"{% if r == 2 %} aria-hidden="true"{% endif %}>
+      {%- for i in (1..3) -%}
+        {%- for block in section.blocks -%}
+          <span class="ticker__item" style="{% if s.italic_text %}font-style:italic;{% endif %}{% if s.uppercase_text %}text-transform:uppercase;{% endif %}{% if s.bold_text %}font-weight:700;{% endif %}"{% if r == 1 and i == 1 %} {{ block.shopify_attributes }}{% endif %}>{{ block.settings.title | escape }}</span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Horizontal Ticker",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Ticker speed",
+      "min": 1,
+      "max": 5,
+      "default": 3,
+      "step": 0.5
+    },
+    {
+      "type": "range",
+      "id": "text_spacing",
+      "label": "Text spacing",
+      "min": 1,
+      "max": 5,
+      "default": 3,
+      "step": 0.5
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text size",
+      "options": [
+        {
+          "value": "1.25",
+          "label": "Extra small"
+        },
+        {
+          "value": "1.5",
+          "label": "Small"
+        },
+        {
+          "value": "1.75",
+          "label": "Medium"
+        },
+        {
+          "value": "2",
+          "label": "Large"
+        },
+        {
+          "value": "2.5",
+          "label": "Extra large"
+        }
+      ],
+      "default": "1.75"
+    },
+    {
+      "type": "checkbox",
+      "id": "italic_text",
+      "label": "Italic text",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_text",
+      "label": "Uppercase text",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bold_text",
+      "label": "Bold text",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "accent-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Custom color scheme",
+      "info": "Applied if Color scheme setting is set to Custom."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradient background",
+      "info": "If added, replaces Background color when applicable."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "default": "#2E2A39",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "AutoDS Theme",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Horizontal Ticker",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

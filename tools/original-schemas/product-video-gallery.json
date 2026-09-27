@@ -1,0 +1,39 @@
+{
+  "name": "Videos Produto",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "URL do Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Capa do vídeo (opcional)",
+          "info": "Escolha uma capa para evitar depender da imagem automática do link antigo."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Videos Produto",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}

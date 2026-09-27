@@ -1,0 +1,13 @@
+{
+  "name": "rodrigues-leve-v2",
+  "private": true,
+  "description": "Tema Shopify RODRIGUES Leve v2 — build de CSS/JS e injeção de schemas.",
+  "scripts": {
+    "build": "python3 tools/build.py",
+    "zip": "python3 tools/build.py && cd shopify-theme && rm -f ../rodrigues-leve-v2.zip && zip -qr ../rodrigues-leve-v2.zip . -x '.*'"
+  },
+  "devDependencies": {
+    "lightningcss-cli": "^1.28.0",
+    "terser": "^5.36.0"
+  }
+}

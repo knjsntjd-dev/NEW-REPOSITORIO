@@ -1,0 +1,63 @@
+{%- comment -%} Linhas do carrinho (gaveta e página). {%- endcomment -%}
+<ul class="cart-items" role="list" style="--cart-price:var(--c-{{ settings.cart_price_color }})">
+  {%- for item in cart.items -%}
+    {%- liquid
+      assign compare_line = 0
+      case settings.cart_displayed_compare_prices
+        when 'discounts'
+          assign compare_line = item.original_line_price
+        when 'product'
+          if item.variant.compare_at_price > item.variant.price
+            assign compare_line = item.variant.compare_at_price | times: item.quantity
+          else
+            assign compare_line = item.original_line_price
+          endif
+        else
+          assign compare_line = item.original_line_price
+          if item.variant.compare_at_price > item.variant.price
+            assign compare_line = item.variant.compare_at_price | times: item.quantity
+          endif
+      endcase
+    -%}
+    <li class="cart-item">
+      <a href="{{ item.url }}" class="cart-item__img" tabindex="-1" aria-hidden="true">
+        {%- if item.image -%}{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', width: 80, height: 80, alt: '' }}{%- endif -%}
+      </a>
+      <div>
+        {%- if settings.show_vendor -%}<p class="cart-item__meta">{{ item.product.vendor }}</p>{%- endif -%}
+        <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title | escape }}</a>
+        {%- unless item.product.has_only_default_variant -%}
+          {%- if settings.displayed_variants == 'classic' -%}
+            <dl class="cart-item__meta cart-item__meta--classic">
+              {%- for option in item.options_with_values -%}<div><dt>{{ option.name }}: </dt><dd>{{ option.value }}</dd></div>{%- endfor -%}
+            </dl>
+          {%- else -%}
+            <p class="cart-item__meta">{{ item.variant.title }}</p>
+          {%- endif -%}
+        {%- endunless -%}
+        {%- for p in item.properties -%}
+          {%- assign first = p.first | slice: 0 -%}
+          {%- if p.last != blank and first != '_' -%}<p class="cart-item__meta">{{ p.first }}: {{ p.last }}</p>{%- endif -%}
+        {%- endfor -%}
+        {%- if item.selling_plan_allocation -%}<p class="cart-item__meta">{{ item.selling_plan_allocation.selling_plan.name }}</p>{%- endif -%}
+        {%- if settings.cart_display_single_item_prices -%}<p class="cart-item__meta">{{ item.final_price | money }}</p>{%- endif -%}
+        <ul class="cart-item__disc" role="list">
+          {%- for d in item.line_level_discount_allocations -%}<li>{% render 'icon', name: 'discount', class: 'icon--small' %} {{ d.discount_application.title }} (-{{ d.amount | money }})</li>{%- endfor -%}
+        </ul>
+        <div class="cart-item__controls">
+          <div class="qty qty--small">
+            <button type="button" data-qty-btn="minus" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">{% render 'icon', name: 'minus' %}</button>
+            <input type="number" value="{{ item.quantity }}" min="0" data-cart-qty="{{ forloop.index }}" aria-label="{{ 'products.product.quantity.label' | t }}"{% if item.variant.quantity_rule.increment > 1 %} step="{{ item.variant.quantity_rule.increment }}"{% endif %}>
+            <button type="button" data-qty-btn="plus" aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+          </div>
+          <button type="button" class="cart-item__remove" data-cart-remove="{{ forloop.index }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}">{% render 'icon', name: 'trash' %}</button>
+        </div>
+        <p class="product-form__error" data-line-error role="alert"></p>
+      </div>
+      <div class="cart-item__price">
+        {%- if compare_line > item.final_line_price -%}<s>{{ compare_line | money }}</s>{%- endif -%}
+        {{ item.final_line_price | money }}
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

@@ -1,0 +1,373 @@
+{
+  "name": "Comparison table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Comparison table",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Talk about how and why is your brand better than the others.</p>",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.slideshow.blocks.slide.settings.button_label.label",
+      "info": "t:sections.slideshow.blocks.slide.settings.button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.slideshow.blocks.slide.settings.link.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "t:sections.slideshow.blocks.slide.settings.secondary_style.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "Table"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "table_first",
+          "label": "Table first"
+        },
+        {
+          "value": "table_second",
+          "label": "Table second"
+        }
+      ],
+      "default": "table_second",
+      "label": "Desktop table placement"
+    },
+    {
+      "type": "select",
+      "id": "benefit_color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "accent-1",
+      "label": "Benefit cells color scheme"
+    },
+    {
+      "type": "color",
+      "id": "checkmark_color",
+      "default": "#53AF01",
+      "label": "Checkmark color"
+    },
+    {
+      "type": "select",
+      "id": "icon_cells_color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "Icon cells color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Our label/logo"
+    },
+    {
+      "type": "text",
+      "id": "us_label",
+      "label": "Our label",
+      "default": "[shop_name]",
+      "info": "Displayed if logo image is not selected."
+    },
+    {
+      "type": "range",
+      "id": "us_label_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Label font size",
+      "default": 18
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Our logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 25,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop logo width",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "min": 25,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile logo width",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Competitors label/logo"
+    },
+    {
+      "type": "text",
+      "id": "others_label",
+      "label": "Competitors label",
+      "default": "Others",
+      "info": "Displayed if logo image is not selected."
+    },
+    {
+      "type": "range",
+      "id": "others_label_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Label font size",
+      "default": 18
+    },
+    {
+      "type": "image_picker",
+      "id": "others_logo",
+      "label": "Competitors logo"
+    },
+    {
+      "type": "range",
+      "id": "others_logo_width",
+      "min": 25,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop logo width",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "others_mobile_logo_width",
+      "min": 25,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile logo width",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Custom color scheme",
+      "info": "Applied if Color scheme setting is set to Custom."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradient background",
+      "info": "If added, replaces Background color when applicable."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "default": "#2E2A39",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_solid_button_background",
+      "default": "#dd1d1d",
+      "label": "Solid button background"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_solid_button_text",
+      "default": "#ffffff",
+      "label": "Solid button label"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_outline_button",
+      "default": "#dd1d1d",
+      "label": "Outline button"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Table row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "benefit",
+          "default": "Benefit",
+          "label": "Benefit"
+        },
+        {
+          "type": "checkbox",
+          "id": "us",
+          "default": true,
+          "label": "Us"
+        },
+        {
+          "type": "checkbox",
+          "id": "others",
+          "default": false,
+          "label": "Others"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison table",
+      "blocks": [
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}

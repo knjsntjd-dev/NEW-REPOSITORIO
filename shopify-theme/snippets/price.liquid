@@ -1,0 +1,43 @@
+{%- comment -%}
+  Parâmetros: product (obrigatório), variant (opcional), use_variant (bool), class, show_badge
+{%- endcomment -%}
+{%- liquid
+  assign show_from = false
+  if use_variant or variant
+    assign target = variant | default: product.selected_or_first_available_variant
+  else
+    if product.price_varies
+      assign show_from = true
+    endif
+    assign target = product
+  endif
+  assign compare_at = target.compare_at_price
+  assign price = target.price
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+    assign money_compare = compare_at | money_with_currency
+  else
+    assign money_price = price | money
+    assign money_compare = compare_at | money
+  endif
+  assign on_sale = false
+  if compare_at > price
+    assign on_sale = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--on-sale{% endif %}{% if class %} {{ class }}{% endif %}" data-price>
+  {%- if price_first -%}
+    <span class="price__sale">{% if show_from %}{{ 'products.product.price.from_price_html' | t: price: money_price }}{% else %}{{ money_price }}{% endif %}</span>
+    {%- if on_sale -%}<s class="price__compare"><span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>{{ money_compare }}</s>{%- endif -%}
+  {%- else -%}
+    {%- if on_sale -%}<s class="price__compare"><span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>{{ money_compare }}</s>{%- endif -%}
+    <span class="price__sale">{% if show_from %}{{ 'products.product.price.from_price_html' | t: price: money_price }}{% else %}{{ money_price }}{% endif %}</span>
+  {%- endif -%}
+  {%- if show_badge and on_sale -%}
+    {%- assign pct = compare_at | minus: price | times: 100.0 | divided_by: compare_at | round -%}
+    <span class="badge badge--sale color-{{ settings.sale_badge_color_scheme }}">{{ settings.sale_badge_text | default: 'Sale' | replace: '[percentage]', pct }}</span>
+  {%- endif -%}
+  {%- if target.unit_price_measurement -%}
+    <span class="unit-price">{{ target.unit_price | money }}/{% if target.unit_price_measurement.reference_value != 1 %}{{ target.unit_price_measurement.reference_value }}{% endif %}{{ target.unit_price_measurement.reference_unit }}</span>
+  {%- endif -%}
+</div>

@@ -1,0 +1,84 @@
+{%- comment -%}
+  Seletor de variantes: pills / swatches / dropdown por opção (setting "picker_types").
+  Parâmetros: product, block, form_id
+{%- endcomment -%}
+{%- unless product.has_only_default_variant -%}
+  {%- liquid
+    assign types_string = block.settings.picker_types | downcase | remove: ' '
+    if types_string == blank
+      assign types_string = 'pills,pills,pills'
+    endif
+    assign types = types_string | split: ','
+    assign custom_colors = block.settings.swatches_custom_colors_list | split: ','
+  -%}
+  <div data-variant-picker id="variant-selects-{{ section.id }}" class="product__block" style="--mt:{{ block.settings.margin_top | divided_by: 10.0 }}rem;--mb:{{ block.settings.margin_bottom | divided_by: 10.0 }}rem" {{ block.shopify_attributes }}>
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign type = types[forloop.index0] | default: 'pills'
+        assign oi = forloop.index0
+        assign label = option.name
+        if block.settings.custom_labels != blank
+          assign n_low = option.name | downcase
+          assign n_up = option.name | upcase
+          capture sel
+            echo '<span data-selected-value="' | append: oi | append: '">' | append: option.selected_value | append: '</span>'
+          endcapture
+          assign label = block.settings.custom_labels | replace: '[count]', forloop.index | replace: '[name_lowercase]', n_low | replace: '[name_uppercase]', n_up | replace: '[name]', option.name | replace: '[selected]', sel
+        endif
+      -%}
+      {%- if type == 'dropdown' -%}
+        <div class="field variant-group">
+          <label for="Option-{{ section.id }}-{{ oi }}">{{ label }}</label>
+          <select id="Option-{{ section.id }}-{{ oi }}" class="select" data-option-index="{{ oi }}" name="options[{{ option.name | escape }}]">
+            {%- for value in option.values -%}
+              <option value="{{ value | escape }}"{% if value.selected %} selected{% endif %}>{{ value }}{% unless value.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- else -%}
+        <fieldset class="variant-group" data-option-index="{{ oi }}">
+          <legend>{{ label }}</legend>
+          <div class="pills">
+            {%- for value in option.values -%}
+              {%- assign input_id = section.id | append: '-' | append: oi | append: '-' | append: forloop.index0 -%}
+              <input type="radio" id="{{ input_id }}" name="{{ option.name | escape }}-{{ oi }}" value="{{ value | escape }}"{% if value.selected %} checked{% endif %}{% unless value.available %} class="is-unavailable"{% endunless %}>
+              {%- if type == 'swatches' -%}
+                {%- liquid
+                  assign bg = ''
+                  assign is_img = false
+                  if block.settings.swatches_custom_colors == 'custom'
+                    assign bg = custom_colors[forloop.index0] | strip
+                  else
+                    assign opt_key = 'option' | append: option.position
+                    for v in product.variants
+                      if v[opt_key] == value
+                        if block.settings.swatches_custom_colors == 'image_alt'
+                          assign bg = v.image.alt
+                        elsif v.image
+                          assign bg = v.image | image_url: width: 120 | prepend: 'url(' | append: ')'
+                          assign is_img = true
+                        endif
+                        break
+                      endif
+                    endfor
+                    if bg == blank
+                      if value.swatch.image
+                        assign bg = value.swatch.image | image_url: width: 120 | prepend: 'url(' | append: ')'
+                        assign is_img = true
+                      elsif value.swatch.color
+                        assign bg = value.swatch.color | prepend: ''
+                      endif
+                    endif
+                  endif
+                -%}
+                <label for="{{ input_id }}" class="swatch{% if is_img %} swatch--image{% endif %}" title="{{ value | escape }}"><span style="--sw:{{ bg | default: '#ddd' }}"></span><span class="visually-hidden">{{ value }}</span></label>
+              {%- else -%}
+                <label for="{{ input_id }}" class="pill">{{ value }}</label>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endunless -%}

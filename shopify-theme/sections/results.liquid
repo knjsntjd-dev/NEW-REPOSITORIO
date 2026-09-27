@@ -1,0 +1,303 @@
+{%- assign s = section.settings -%}
+<div {% render 'section-style', s: s %}>
+  <div class="page-width">
+    <div class="results{% if s.layout == 'results_first' %} results--first{% endif %}">
+      <div>
+        {%- if s.title != blank -%}<h2 class="{{ s.heading_size }}">{{ s.title | escape }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<div class="rte">{{ s.text }}</div>{%- endif -%}
+        {%- if s.image != blank -%}
+          <div class="media" style="aspect-ratio:{{ s.image.aspect_ratio }};margin-top:2rem">{{ s.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '375,550,750,1000,1200', sizes: '(min-width: 750px) 50vw, 100vw' }}</div>
+        {%- endif -%}
+        {%- if s.button_label != blank -%}<div style="margin-top:2rem"><a class="btn{% if s.button_style_secondary %} btn--secondary{% endif %}" href="{{ s.link | default: '#' }}">{{ s.button_label | escape }}</a></div>{%- endif -%}
+      </div>
+      <div class="results__bars">
+        {%- if s.results_headline != blank -%}<h3 class="{{ s.results_headline_size }}" style="text-align:{{ s.results_headline_alignment }}">{{ s.results_headline | escape }}</h3>{%- endif -%}
+        {%- for block in section.blocks -%}
+          <div class="results__row" {{ block.shopify_attributes }}>
+            <div class="results__circle" style="--p:{{ block.settings.percentage }}"><span>{{ block.settings.percentage }}%</span></div>
+            <div class="results__text rte">{{ block.settings.row_text }}</div>
+          </div>
+        {%- endfor -%}
+        {%- if s.caption != blank -%}<div class="rte caption" style="text-transform:none;letter-spacing:0;opacity:.7">{{ s.caption }}</div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Results",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Results",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Talk about results of your customers and how your product improved their life.</p>",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "results_first",
+          "label": "Results first"
+        },
+        {
+          "value": "results_second",
+          "label": "Results second"
+        }
+      ],
+      "default": "results_second",
+      "label": "Desktop results placement"
+    },
+    {
+      "type": "header",
+      "content": "Results"
+    },
+    {
+      "type": "text",
+      "id": "results_headline",
+      "default": "Results heading",
+      "label": "Results heading"
+    },
+    {
+      "type": "select",
+      "id": "results_headline_size",
+      "options": [
+        {
+          "value": "h3",
+          "label": "Small"
+        },
+        {
+          "value": "h2",
+          "label": "Medium"
+        },
+        {
+          "value": "h1",
+          "label": "Large"
+        }
+      ],
+      "default": "h2",
+      "label": "Results heading size"
+    },
+    {
+      "type": "select",
+      "id": "results_headline_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left",
+      "label": "Results heading alignment"
+    },
+    {
+      "type": "richtext",
+      "id": "caption",
+      "default": "<p>Caption about the results and/or link for their proof.</p>",
+      "label": "Caption"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.slideshow.blocks.slide.settings.button_label.label",
+      "info": "t:sections.slideshow.blocks.slide.settings.button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.slideshow.blocks.slide.settings.link.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "t:sections.slideshow.blocks.slide.settings.secondary_style.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Custom color scheme",
+      "info": "Applied if Color scheme setting is set to Custom."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradient background",
+      "info": "If added, replaces Background color when applicable."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "default": "#2E2A39",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_accent",
+      "default": "#dd1d1d",
+      "label": "Accents"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_solid_button_background",
+      "default": "#dd1d1d",
+      "label": "Solid button background"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_solid_button_text",
+      "default": "#ffffff",
+      "label": "Solid button label"
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_outline_button",
+      "default": "#dd1d1d",
+      "label": "Outline button"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Result row",
+      "settings": [
+        {
+          "type": "range",
+          "id": "percentage",
+          "min": 0,
+          "max": 100,
+          "default": 90,
+          "step": 1,
+          "label": "Percentage"
+        },
+        {
+          "type": "richtext",
+          "id": "row_text",
+          "default": "<p>Noticed that this product has significantly improved their life.</p>",
+          "label": "Result"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Results",
+      "blocks": [
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

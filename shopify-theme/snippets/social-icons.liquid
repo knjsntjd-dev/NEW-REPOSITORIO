@@ -1,0 +1,11 @@
+{%- liquid
+  assign nets = 'facebook,instagram,youtube,tiktok,twitter,snapchat,pinterest,tumblr,vimeo' | split: ','
+-%}
+<ul class="social" role="list">
+  {%- for n in nets -%}
+    {%- assign k = 'social_' | append: n | append: '_link' -%}
+    {%- if settings[k] != blank -%}
+      <li><a href="{{ settings[k] }}" target="_blank" rel="noopener" aria-label="{{ n | capitalize }}">{% render 'icon-social', icon: n %}</a></li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

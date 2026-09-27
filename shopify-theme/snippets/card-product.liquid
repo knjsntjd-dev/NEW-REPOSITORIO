@@ -1,0 +1,54 @@
+{%- comment -%}
+  Card de produto leve.
+  Parâmetros: card_product, media_aspect_ratio ('adapt'|'square'|'portrait'), show_secondary_image, show_vendor, show_rating, lazy_load (default true), sizes, scheme
+{%- endcomment -%}
+{%- liquid
+  assign p = card_product
+  assign ratio = 1
+  case media_aspect_ratio
+    when 'portrait'
+      assign ratio = 0.8
+    when 'adapt'
+      if p.featured_media
+        assign ratio = p.featured_media.aspect_ratio
+      endif
+  endcase
+  assign loading = 'lazy'
+  if lazy_load == false
+    assign loading = 'eager'
+  endif
+  assign sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  assign boxed = false
+  if settings.card_style == 'card'
+    assign boxed = true
+  endif
+  assign scheme = scheme | default: settings.card_color_scheme
+  assign card_alt = p.featured_media.alt | default: p.title
+-%}
+<div class="card{% if boxed %} card--boxed color-{{ scheme }}{% endif %}" style="--ratio:{{ ratio }};{% if settings.card_text_alignment == 'center' %}--card-justify:center;{% elsif settings.card_text_alignment == 'right' %}--card-justify:flex-end;{% endif %}">
+  <div class="card__media">
+    {%- if p.featured_media -%}
+      {{ p.featured_media | image_url: width: 900 | image_tag: loading: loading, widths: '240,360,480,600,750,900', sizes: sizes, alt: card_alt }}
+      {%- if show_secondary_image and p.media[1] -%}
+        {{ p.media[1] | image_url: width: 900 | image_tag: loading: 'lazy', widths: '240,360,480,600,750,900', sizes: sizes, alt: '' }}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    {%- if p.available == false -%}
+      <span class="card__badge card__badge--{{ settings.badge_position | replace: ' ', '-' }} badge color-{{ settings.sold_out_badge_color_scheme }}">{{ 'products.product.sold_out' | t }}</span>
+    {%- elsif settings.product_cards_sale_badge and p.compare_at_price > p.price -%}
+      {%- assign pct = p.compare_at_price | minus: p.price | times: 100.0 | divided_by: p.compare_at_price | round -%}
+      <span class="card__badge card__badge--{{ settings.badge_position | replace: ' ', '-' }} badge badge--sale color-{{ settings.sale_badge_color_scheme }}">{{ settings.sale_badge_text | default: 'Sale' | replace: '[percentage]', pct }}</span>
+    {%- endif -%}
+  </div>
+  <div class="card__info">
+    {%- if show_vendor -%}<span class="card__vendor">{{ p.vendor | escape }}</span>{%- endif -%}
+    <h3 class="card__title"><a href="{{ p.url | default: '#' }}">{{ p.title | escape | default: 'Product' }}</a></h3>
+    {%- if show_rating and p.metafields.reviews.rating.value != blank -%}
+      {%- assign r = p.metafields.reviews.rating.value -%}
+      <div class="card__stars"><span class="stars" style="--pct:{{ r.rating | divided_by: r.scale_max | times: 100 }}%;--size:1.3rem"></span><span>({{ p.metafields.reviews.rating_count }})</span></div>
+    {%- endif -%}
+    {%- if p != blank -%}{% render 'price', product: p %}{%- else -%}<div class="price"><span class="price__sale">{{ 1999 | money }}</span></div>{%- endif -%}
+  </div>
+</div>

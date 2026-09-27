@@ -1,0 +1,22 @@
+{%- liquid
+  if settings.cart_progress_goal_type == 'quantity'
+    assign goal = settings.cart_progress_threshold | plus: 0
+    assign current = cart.item_count
+  else
+    assign goal = settings.cart_progress_threshold | plus: 0 | times: 100
+    assign current = cart.items_subtotal_price
+  endif
+  assign pct = 0
+  if goal > 0
+    assign pct = current | times: 100.0 | divided_by: goal | at_most: 100
+  endif
+  if settings.cart_progress_goal_type == 'quantity'
+    assign diff = goal | minus: current
+  else
+    assign diff = goal | minus: current | money_without_trailing_zeros
+  endif
+-%}
+<div class="progress" style="--p:{{ pct }}%">
+  <p>{%- if pct >= 100 -%}{{ settings.cart_progress_success_message }}{%- else -%}{{ settings.cart_progress_message | replace: '[amount]', diff }}{%- endif -%}</p>
+  <div class="progress__bar"><span></span>{%- unless settings.cart_progress_icon == 'none' -%}<i class="progress__icon">{% render 'icon-accordion', icon: settings.cart_progress_icon %}</i>{%- endunless -%}</div>
+</div>

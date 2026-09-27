@@ -1,0 +1,16 @@
+{%- comment -%} Parâmetros: id, label, secondary {%- endcomment -%}
+{%- assign form_id = 'newsletter-' | append: id -%}
+{%- if label == blank -%}{%- assign label = 'newsletter.button_label' | t -%}{%- endif -%}
+{%- form 'customer', id: form_id -%}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  {%- if form.posted_successfully? -%}
+    <p class="form-status form-status--success" role="status">{{ 'newsletter.success' | t }}</p>
+  {%- else -%}
+    {%- if form.errors -%}<p class="form-status form-status--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>{%- endif -%}
+    <div class="inline-form">
+      <label class="visually-hidden" for="{{ form_id }}-email">{{ 'newsletter.label' | t }}</label>
+      <input id="{{ form_id }}-email" class="input" type="email" name="contact[email]" required autocomplete="email" placeholder="{{ 'newsletter.label' | t }}">
+      <button type="submit" class="btn{% if secondary %} btn--secondary{% endif %}">{{ label | escape }}</button>
+    </div>
+  {%- endif -%}
+{%- endform -%}

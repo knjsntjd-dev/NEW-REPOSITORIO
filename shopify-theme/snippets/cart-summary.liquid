@@ -1,0 +1,44 @@
+{%- comment -%} Rodapé do carrinho: descontos, total, checkout. Parâmetro: is_page {%- endcomment -%}
+<div class="cart-foot">
+  {%- if settings.enable_cart_discount -%}
+    <form class="discount-form" data-discount-form>
+      <input class="input" type="text" name="discount" placeholder="{{ settings.cart_discount_placeholder | default: 'Discount code' | escape }}" aria-label="{{ settings.cart_discount_placeholder | default: 'Discount code' | escape }}">
+      <button type="submit" class="btn btn--secondary">{{ settings.cart_discount_btn_label | default: 'Apply' }}</button>
+    </form>
+    {%- if cart.discount_codes.size > 0 -%}
+      <ul class="cart-discounts" role="list">{%- for c in cart.discount_codes -%}<li><span>{% render 'icon', name: 'discount', class: 'icon--small' %} {{ c.code }}</span></li>{%- endfor -%}</ul>
+    {%- endif -%}
+  {%- endif -%}
+  {%- if cart.cart_level_discount_applications.size > 0 -%}
+    <ul class="cart-discounts" role="list">
+      {%- for d in cart.cart_level_discount_applications -%}<li><span>{{ d.title }}</span><span>-{{ d.total_allocated_amount | money }}</span></li>{%- endfor -%}
+    </ul>
+  {%- endif -%}
+  {%- if settings.show_cart_note -%}
+    <label class="visually-hidden" for="CartNote{{ is_page }}">{{ 'sections.cart.note' | t }}</label>
+    <textarea id="CartNote{{ is_page }}" class="input" name="note" data-cart-note placeholder="{{ 'sections.cart.note' | t }}" style="min-height:7rem">{{ cart.note }}</textarea>
+  {%- endif -%}
+  <div class="cart-total"><span>{{ 'sections.cart.estimated_total' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></div>
+  <p class="cart-note-tax">
+    {%- if cart.duties_included and cart.taxes_included -%}{{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
+    {%- elsif cart.taxes_included -%}{{ 'sections.cart.taxes_included_shipping_at_checkout_without_policy' | t }}
+    {%- else -%}{{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}{%- endif -%}
+  </p>
+  <form action="{{ routes.cart_url }}" method="post">
+    <button type="submit" name="checkout" class="btn btn--full"{% if cart.item_count == 0 %} disabled{% endif %}>{{ 'sections.cart.checkout' | t }}</button>
+  </form>
+  {%- if additional_checkout_buttons and is_page -%}<div>{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+  {%- if settings.show_cart_payment_badges -%}
+    {%- liquid
+      assign types = shop.enabled_payment_types
+      if settings.enabled_cart_payment_types != blank
+        assign types = settings.enabled_cart_payment_types | remove: ' ' | split: ','
+      endif
+    -%}
+    <ul class="payment-icons" role="list">{%- for type in types -%}<li>{{ type | strip | payment_type_svg_tag }}</li>{%- endfor -%}</ul>
+  {%- endif -%}
+  {%- if settings.cart_trust_badges != blank -%}
+    {%- assign tb_style = 'width:' | append: settings.cart_trust_badges_width | append: '%' -%}
+    <div class="cart-badges">{{ settings.cart_trust_badges | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '400px', widths: '400,800', style: tb_style }}</div>
+  {%- endif -%}
+</div>

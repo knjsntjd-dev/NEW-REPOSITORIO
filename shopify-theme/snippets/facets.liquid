@@ -1,0 +1,63 @@
+{%- comment -%}
+  Filtros e ordenação por formulário GET (funciona sem JS; com JS envia ao mudar).
+  Parâmetros: results (collection ou search), enable_filtering, enable_sorting, url
+{%- endcomment -%}
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+-%}
+<form class="facets" data-facets action="{{ url }}" method="get">
+  {%- if terms -%}<input type="hidden" name="q" value="{{ terms | escape }}"><input type="hidden" name="options[prefix]" value="last">{%- endif -%}
+  <div class="facets__filters">
+    {%- if enable_filtering -%}
+      {%- for filter in results.filters -%}
+        {%- case filter.type -%}
+          {%- when 'boolean', 'list' -%}
+            <details class="facet">
+              <summary>{{ filter.label | escape }}{% if filter.active_values.size > 0 %} ({{ filter.active_values.size }}){% endif %}{% render 'icon', name: 'caret', class: 'icon--small' %}</summary>
+              <div class="facet__panel">
+                {%- for value in filter.values -%}
+                  <label{% if value.count == 0 and value.active == false %} style="opacity:.45"{% endif %}>
+                    <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %} data-autosubmit>
+                    {{ value.label | escape }} ({{ value.count }})
+                  </label>
+                {%- endfor -%}
+              </div>
+            </details>
+          {%- when 'price_range' -%}
+            <details class="facet">
+              <summary>{{ filter.label | escape }}{% render 'icon', name: 'caret', class: 'icon--small' %}</summary>
+              <div class="facet__panel">
+                <div class="facet__price">
+                  <input class="input" type="number" name="{{ filter.min_value.param_name }}" placeholder="0" min="0" max="{{ filter.range_max | divided_by: 100.0 }}"{% if filter.min_value.value %} value="{{ filter.min_value.value | divided_by: 100.0 }}"{% endif %} aria-label="{{ 'products.facets.from' | t }}">
+                  <input class="input" type="number" name="{{ filter.max_value.param_name }}" placeholder="{{ filter.range_max | divided_by: 100.0 }}" min="0" max="{{ filter.range_max | divided_by: 100.0 }}"{% if filter.max_value.value %} value="{{ filter.max_value.value | divided_by: 100.0 }}"{% endif %} aria-label="{{ 'products.facets.to' | t }}">
+                </div>
+                <button type="submit" class="btn btn--full" style="margin-top:1rem;min-height:4rem">{{ 'products.facets.apply' | t }}</button>
+              </div>
+            </details>
+        {%- endcase -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  {%- if enable_sorting -%}
+    <div class="facets__sort">
+      <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+      <select id="SortBy" name="sort_by" class="select" data-autosubmit>
+        {%- for option in results.sort_options -%}<option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>{%- endfor -%}
+      </select>
+    </div>
+  {%- endif -%}
+  <noscript><button type="submit" class="btn">{{ 'products.facets.apply' | t }}</button></noscript>
+</form>
+{%- assign active = 0 -%}
+{%- for filter in results.filters -%}{%- assign active = active | plus: filter.active_values.size -%}{%- if filter.min_value.value or filter.max_value.value -%}{%- assign active = active | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- if active > 0 -%}
+  <div class="active-filters">
+    {%- for filter in results.filters -%}
+      {%- for v in filter.active_values -%}<a href="{{ v.url_to_remove }}">{{ v.label | escape }} {% render 'icon', name: 'close', class: 'icon--small' %}</a>{%- endfor -%}
+      {%- if filter.type == 'price_range' -%}
+        {%- if filter.min_value.value or filter.max_value.value -%}<a href="{{ filter.url_to_remove }}">{{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }} {% render 'icon', name: 'close', class: 'icon--small' %}</a>{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <a href="{{ results.url | default: url }}{% if terms %}?q={{ terms | url_encode }}{% endif %}">{{ 'products.facets.clear_all' | t }}</a>
+  </div>
+{%- endif -%}

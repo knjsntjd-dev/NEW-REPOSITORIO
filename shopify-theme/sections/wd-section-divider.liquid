@@ -1,0 +1,134 @@
+{%- liquid
+  assign s = section.settings
+  assign h_d = s.padding_top_desktop | plus: s.padding_bottom_desktop | at_least: s.max_height_desktop
+  assign h_m = s.padding_top_mobile | plus: s.padding_bottom_mobile | at_least: s.max_height_mobile
+-%}
+<div class="divider" aria-hidden="true" style="--top:{{ s.divider_color_top }};margin:{{ s.margin_top }}px 0 {{ s.margin_bottom }}px;--h:{{ h_d }}px;--h-m:{{ h_m }}px;--mh:{{ s.max_height_desktop }}px;--mh-m:{{ s.max_height_mobile }}px">
+  {%- if s.divider_shape == 'diagonal' -%}
+    <svg viewBox="0 0 360 32" preserveAspectRatio="none"><polygon fill="{{ s.divider_color_bottom }}" points="0 29.91 0 32 360 32 360 0 0 29.91"/></svg>
+  {%- else -%}
+    <svg viewBox="0 0 1440 226.97" preserveAspectRatio="none"><path fill="{{ s.divider_color_bottom }}" d="M0,81,21.8,70.3C43.6,60,87,38,131,27.7,174.5,17,218,17,262,49c43.5,32,87,96,131,106.7C436.4,166,480,124,524,97c43.3-27,87-37,131-26.7,43.2,10.7,87,42.7,130,64C829.1,156,873,166,916,161c44-5,88-27,131-58.7C1090.9,70,1135,28,1178,17c43.8-11,87,11,131,26.7,43.7,16.3,87,26.3,109,32l22,5.3V241H0Z" transform="translate(0 -14.03)"/></svg>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.section-divider.name",
+  "class": "wd-section-divider-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "divider_shape",
+      "label": "Divider Shape",
+      "options": [
+        {
+          "value": "wavy",
+          "label": "t:sections.section-divider.settings.divider_shape.wavy.label"
+        },
+        {
+          "value": "diagonal",
+          "label": "t:sections.section-divider.settings.divider_shape.diagonal.label"
+        }
+      ],
+      "default": "wavy"
+    },
+    {
+      "type": "color",
+      "id": "divider_color_top",
+      "label": "t:sections.section-divider.settings.divider_color_top.label",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "divider_color_bottom",
+      "label": "t:sections.section-divider.settings.divider_color_bottom.label",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.padding_top_desktop.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.padding_bottom_desktop.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.padding_top_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.padding_bottom_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": -50,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.margin_top.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": -50,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.margin_bottom.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "max_height_desktop",
+      "min": 10,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.max_height_desktop.label",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "max_height_mobile",
+      "min": 10,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.section-divider.settings.max_height_mobile.label",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.section-divider.name"
+    }
+  ]
+}
+{% endschema %}

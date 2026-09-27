@@ -1,0 +1,43 @@
+{%- comment -%} Parâmetros: n (1|2) {%- endcomment -%}
+{%- liquid
+  assign k_enable = 'enable_cart_upsell_' | append: n
+  assign k_product = 'cart_upsell_' | append: n | append: '_product'
+  assign k_title = 'cart_upsell_' | append: n | append: '_title'
+  assign k_desc = 'cart_upsell_' | append: n | append: '_desc'
+  assign k_btn = 'cart_upsell_' | append: n | append: '_btn_label'
+  assign up = settings[k_product]
+  assign show = settings[k_enable]
+  if up == blank or up.available == false
+    assign show = false
+  endif
+  if settings.cart_upsell_hide_when_in_cart and show
+    assign in_cart = cart.items | where: 'product_id', up.id | size
+    if in_cart > 0
+      assign show = false
+    endif
+  endif
+-%}
+{%- if show -%}
+  {%- assign uv = up.selected_or_first_available_variant -%}
+  <div class="upsell color-{{ settings.cart_upsell_color_scheme }}{% if settings.cart_upsell_drop_shadow %} upsell--shadow{% endif %}">
+    {%- if settings[k_title] != blank -%}<p class="upsell__title">{{ settings[k_title] }}</p>{%- endif -%}
+    {%- if up.featured_media -%}{{ up.featured_media | image_url: width: 140 | image_tag: loading: 'lazy', width: 64, height: 64, alt: '' }}{%- endif -%}
+    <div>
+      {%- if settings.cart_upsell_title_link -%}<a class="upsell__name" href="{{ up.url }}">{{ up.title | escape }}</a>{%- else -%}<span class="upsell__name">{{ up.title | escape }}</span>{%- endif -%}
+      {%- if settings[k_desc] != blank -%}<div class="rte" style="font-size:1.2rem">{{ settings[k_desc] }}</div>{%- endif -%}
+      {% render 'price', product: up, use_variant: true %}
+    </div>
+    {%- assign up_form_id = 'upsell-form-' | append: n -%}
+    {%- form 'product', up, data-product-form: '', id: up_form_id -%}
+      {%- if up.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ uv.id }}">
+      {%- else -%}
+        <select name="id" class="select select--small" aria-label="{{ up.title | escape }}">
+          {%- for v in up.variants -%}<option value="{{ v.id }}"{% if v.id == uv.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title | escape }}</option>{%- endfor -%}
+        </select>
+      {%- endif -%}
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="btn" style="margin-top:.6rem">{{ settings[k_btn] | default: '+' }}</button>
+    {%- endform -%}
+  </div>
+{%- endif -%}

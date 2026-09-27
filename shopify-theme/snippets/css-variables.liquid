@@ -1,0 +1,81 @@
+{%- comment -%}
+  Variáveis globais + esquemas de cor.
+  Suporta os dois sistemas usados pelas seções:
+  - color_scheme_group (scheme-1, scheme-2 ...)
+  - esquemas legados (background-1, background-2, inverse, accent-1, accent-2)
+  Todas as cores são expostas como canais RGB ("r,g,b") para permitir rgba().
+{%- endcomment -%}
+{%- liquid
+  assign c_text = settings.colors_text
+  assign c_bg1 = settings.colors_background_1
+  assign c_bg2 = settings.colors_background_2
+  assign c_a1 = settings.colors_accent_1
+  assign c_a2 = settings.colors_accent_2
+  assign c_solid = settings.colors_solid_button_labels
+  assign c_outline = settings.colors_outline_button_labels
+-%}
+{% style %}
+  {%- unless settings.rd_system_fonts -%}
+    {%- liquid
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+    -%}
+    {{ settings.type_body_font | font_face: font_display: 'swap' }}
+    {{ body_font_bold | font_face: font_display: 'swap' }}
+    {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {%- endunless -%}
+
+  {% for scheme in settings.color_schemes -%}
+    {% if forloop.first %}:root,{% endif %}.color-{{ scheme.id }}{
+      --bg:{{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+      --fg:{{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+      --btn:{{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }};
+      --btn-fg:{{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }};
+      --link:{{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+      --grad:{% if scheme.settings.background_gradient != empty %}{{ scheme.settings.background_gradient }}{% else %}{{ scheme.settings.background }}{% endif %};
+    }
+  {% endfor -%}
+
+  .color-background-1{--bg:{{ c_bg1.red }},{{ c_bg1.green }},{{ c_bg1.blue }};--fg:{{ c_text.red }},{{ c_text.green }},{{ c_text.blue }};--btn:{{ c_a1.red }},{{ c_a1.green }},{{ c_a1.blue }};--btn-fg:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--link:{{ c_outline.red }},{{ c_outline.green }},{{ c_outline.blue }};--grad:{{ settings.gradient_background_1 | default: c_bg1 }}}
+  .color-background-2{--bg:{{ c_bg2.red }},{{ c_bg2.green }},{{ c_bg2.blue }};--fg:{{ c_text.red }},{{ c_text.green }},{{ c_text.blue }};--btn:{{ c_a1.red }},{{ c_a1.green }},{{ c_a1.blue }};--btn-fg:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--link:{{ c_outline.red }},{{ c_outline.green }},{{ c_outline.blue }};--grad:{{ settings.gradient_background_2 | default: c_bg2 }}}
+  .color-inverse{--bg:{{ c_text.red }},{{ c_text.green }},{{ c_text.blue }};--fg:{{ c_bg1.red }},{{ c_bg1.green }},{{ c_bg1.blue }};--btn:{{ c_bg1.red }},{{ c_bg1.green }},{{ c_bg1.blue }};--btn-fg:{{ c_text.red }},{{ c_text.green }},{{ c_text.blue }};--link:{{ c_bg1.red }},{{ c_bg1.green }},{{ c_bg1.blue }};--grad:{{ c_text }}}
+  .color-accent-1{--bg:{{ c_a1.red }},{{ c_a1.green }},{{ c_a1.blue }};--fg:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--btn:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--btn-fg:{{ c_a1.red }},{{ c_a1.green }},{{ c_a1.blue }};--link:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--grad:{{ settings.gradient_accent_1 | default: c_a1 }}}
+  .color-accent-2{--bg:{{ c_a2.red }},{{ c_a2.green }},{{ c_a2.blue }};--fg:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--btn:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--btn-fg:{{ c_a2.red }},{{ c_a2.green }},{{ c_a2.blue }};--link:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};--grad:{{ settings.gradient_accent_2 | default: c_a2 }}}
+
+  :root{
+    --c-text:{{ c_text.red }},{{ c_text.green }},{{ c_text.blue }};
+    --c-accent-1:{{ c_a1.red }},{{ c_a1.green }},{{ c_a1.blue }};
+    --c-accent-2:{{ c_a2.red }},{{ c_a2.green }},{{ c_a2.blue }};
+    --c-outline-button:{{ c_outline.red }},{{ c_outline.green }},{{ c_outline.blue }};
+    --c-background-1:{{ c_bg1.red }},{{ c_bg1.green }},{{ c_bg1.blue }};
+    --c-background-2:{{ c_bg2.red }},{{ c_bg2.green }},{{ c_bg2.blue }};
+    --c-inverse:{{ c_text.red }},{{ c_text.green }},{{ c_text.blue }};
+    --c-solid:{{ c_solid.red }},{{ c_solid.green }},{{ c_solid.blue }};
+
+    --font-body:{% if settings.rd_system_fonts %}-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif{% else %}{{ settings.type_body_font.family }},{{ settings.type_body_font.fallback_families }}{% endif %};
+    --font-body-weight:{% if settings.rd_system_fonts %}400{% else %}{{ settings.type_body_font.weight }}{% endif %};
+    --font-heading:{% if settings.rd_system_fonts %}-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif{% else %}{{ settings.type_header_font.family }},{{ settings.type_header_font.fallback_families }}{% endif %};
+    --font-heading-weight:{% if settings.rd_system_fonts %}700{% else %}{{ settings.type_header_font.weight }}{% endif %};
+    --body-scale:{{ settings.body_scale | divided_by: 100.0 }};
+    --heading-scale:{{ settings.heading_scale | divided_by: 100.0 }};
+
+    --page-width:{{ settings.page_width | divided_by: 10 }}rem;
+    --section-gap:{{ settings.spacing_sections }}px;
+    --grid-gap-x:{{ settings.spacing_grid_horizontal }}px;
+    --grid-gap-y:{{ settings.spacing_grid_vertical }}px;
+
+    --btn-radius:{{ settings.buttons_radius }}px;
+    --input-radius:{{ settings.inputs_radius }}px;
+    --input-border:{{ settings.inputs_border_thickness }}px;
+    --input-border-opacity:{{ settings.inputs_border_opacity | divided_by: 100.0 }};
+    --pill-radius:{{ settings.variant_pills_radius }}px;
+    --pill-border:{{ settings.variant_pills_border_thickness }}px;
+    --pill-border-opacity:{{ settings.variant_pills_border_opacity | divided_by: 100.0 }};
+    --card-radius:{{ settings.card_corner_radius | divided_by: 10.0 }}rem;
+    --card-pad:{{ settings.card_image_padding | divided_by: 10.0 }}rem;
+    --card-align:{{ settings.card_text_alignment }};
+    --media-radius:{{ settings.media_radius }}px;
+    --box-radius:{{ settings.text_boxes_radius }}px;
+    --popup-radius:{{ settings.popup_corner_radius }}px;
+    --badge-radius:{{ settings.badge_corner_radius | divided_by: 10.0 }}rem;
+  }
+{% endstyle %}

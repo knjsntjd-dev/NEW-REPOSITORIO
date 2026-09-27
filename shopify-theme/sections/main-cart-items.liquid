@@ -1,0 +1,58 @@
+<div class="section page-width" style="--pt:{{ section.settings.padding_top }}px;--pb:{{ section.settings.padding_bottom }}px">
+  <div data-cart-section="{{ section.id }}">
+    {%- if cart.item_count > 0 -%}
+      <div class="flex" style="justify-content:space-between;margin-bottom:2rem">
+        <h1 class="h1" style="margin:0">{{ 'sections.cart.title' | t }}</h1>
+        <a href="{{ settings.continue_shopping_url | default: routes.all_products_collection_url }}" class="link">{{ 'general.continue_shopping' | t }}</a>
+      </div>
+      {%- if settings.enable_cart_progress_bar -%}{% render 'cart-progress' %}{%- endif -%}
+      {% render 'cart-lines' %}
+    {%- else -%}
+      <div class="empty-state">
+        <h1 class="h1">{{ 'sections.cart.empty' | t }}</h1>
+        <a href="{{ settings.continue_shopping_url | default: routes.all_products_collection_url }}" class="btn">{{ 'general.continue_shopping' | t }}</a>
+        {%- if shop.customer_accounts_enabled and customer == nil -%}
+          <p style="margin-top:3rem">{{ 'sections.cart.login.title' | t }}<br>{{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-items.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

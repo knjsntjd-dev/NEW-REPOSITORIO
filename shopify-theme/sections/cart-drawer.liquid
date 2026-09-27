@@ -1,0 +1,39 @@
+{%- comment -%}
+  Gaveta do carrinho. Renderizada pelo layout e atualizada via Section Rendering API (id: cart-drawer).
+{%- endcomment -%}
+<div id="CartDrawer" class="cart-drawer" data-panel hidden>
+  <button type="button" class="overlay" data-panel-close tabindex="-1" aria-label="{{ 'accessibility.close' | t }}"></button>
+  <div class="drawer drawer--right" role="dialog" aria-modal="true" aria-label="{{ 'sections.cart.title' | t }}" data-cart-section="cart-drawer">
+    <div class="drawer__head">
+      <h2>{{ 'sections.cart.title' | t }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</h2>
+      <button type="button" class="drawer__close" data-panel-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    {%- if settings.enable_cart_progress_bar and cart.item_count > 0 -%}{% render 'cart-progress' %}{%- endif -%}
+    <div class="drawer__body">
+      {%- if cart.item_count > 0 -%}
+        {% render 'cart-lines' %}
+        {% render 'cart-upsell', n: 1 %}
+        {%- if settings.cart_upsell_2_position != 'footer' -%}{% render 'cart-upsell', n: 2 %}{%- endif -%}
+      {%- else -%}
+        <div class="cart-empty">
+          <p class="h3">{{ 'sections.cart.empty' | t }}</p>
+          <a href="{{ settings.continue_shopping_url | default: routes.all_products_collection_url }}" class="btn">{{ 'general.continue_shopping' | t }}</a>
+          {%- if settings.cart_drawer_collection != blank -%}
+            <ul class="grid" style="--cols:2;--cols-m:2;width:100%;text-align:left" role="list">
+              {%- for p in settings.cart_drawer_collection.products limit: 4 -%}
+                <li>{% render 'card-product', card_product: p, media_aspect_ratio: 'square', sizes: '200px' %}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if cart.item_count > 0 -%}
+      {%- if settings.cart_upsell_2_position == 'footer' -%}{% render 'cart-upsell', n: 2 %}{%- endif -%}
+      {% render 'cart-summary', is_page: false %}
+      {%- if settings.display_continue_shopping -%}
+        <a href="{{ settings.continue_shopping_url | default: routes.all_products_collection_url }}" class="link" style="text-align:center;padding:0 0 1.6rem" data-panel-close>{{ 'general.continue_shopping' | t }}</a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>

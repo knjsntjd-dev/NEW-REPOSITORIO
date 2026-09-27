@@ -1,0 +1,20 @@
+{%- comment -%} Parâmetros: collection, ratio ('adapt'|'square'|'portrait'), sizes {%- endcomment -%}
+{%- liquid
+  assign r = 1
+  if ratio == 'portrait'
+    assign r = 0.8
+  elsif ratio == 'adapt' and collection.featured_image
+    assign r = collection.featured_image.aspect_ratio
+  endif
+  assign sizes = sizes | default: '(min-width: 990px) 33vw, 50vw'
+-%}
+<a class="collection-card" href="{{ collection.url | default: '#' }}">
+  <div class="collection-card__media" style="--ratio:{{ r }}">
+    {%- if collection.featured_image -%}
+      {{ collection.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,450,600,900', sizes: sizes, alt: collection.title }}
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+  <h3>{{ collection.title | escape | default: 'Collection' }}</h3>
+</a>

@@ -1,0 +1,47 @@
+{%- comment -%} Corpo compartilhado de featured-collection e ds-featured-collection. {%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign c = s.collection
+  assign slider_d = s.enable_desktop_slider
+  assign slider_m = s.swipe_on_mobile
+  assign cols = s.columns_desktop
+  assign tcols = cols | at_most: 3
+  capture sizes
+    echo '(min-width: 990px) calc(100vw / ' | append: cols | append: '), (min-width: 750px) 33vw, calc(100vw / ' | append: s.columns_mobile | append: ')'
+  endcapture
+-%}
+<div {% render 'section-style', s: s %}>
+  <div class="{% if s.full_width %}page-width" style="max-width:none{% else %}page-width{% endif %}">
+    {%- if s.title != blank or s.show_description -%}
+      <div class="section-header center">
+        {%- if s.title != blank -%}<h2 class="{{ s.heading_size }}">{{ s.title | escape }}</h2>{%- endif -%}
+        {%- if s.show_description and c.description != blank -%}<div class="rte{% if s.description_style != 'body' %} {{ s.description_style }}{% endif %}">{{ c.description }}</div>{%- endif -%}
+        {%- if s.description != blank -%}<div class="rte{% if s.description_style != 'body' %} {{ s.description_style }}{% endif %}">{{ s.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="slider-wrap" data-slider data-step="page">
+      <ul class="grid{% if slider_m %} slider--mobile{% endif %}{% if slider_d %} slider--desktop{% endif %}" data-slider-track role="list" style="--cols:{{ cols }};--cols-t:{{ tcols }};--cols-m:{{ s.columns_mobile }};--slide-w:{% if s.columns_mobile == '1' %}85%{% else %}46%{% endif %}">
+        {%- if c != blank -%}
+          {%- for p in c.products limit: s.products_to_show -%}
+            <li>{% render 'card-product', card_product: p, media_aspect_ratio: s.image_ratio, show_secondary_image: s.show_secondary_image, show_vendor: s.show_vendor, show_rating: s.show_rating, sizes: sizes, scheme: s.cards_color_scheme %}</li>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..s.products_to_show) -%}
+            <li>{% render 'card-product', card_product: blank %}</li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+      {%- if slider_d or slider_m -%}
+        <div class="slider-nav{% unless slider_d %} mobile-only{% endunless %}{% unless slider_m %} desktop-only{% endunless %}">
+          <button type="button" class="slider-btn" data-slider-prev aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+          <button type="button" class="slider-btn" data-slider-next aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if s.show_view_all and c != blank and c.products_count > s.products_to_show -%}
+      <div class="center" style="margin-top:3rem">
+        <a href="{{ c.url }}" class="{% case s.view_all_style %}{% when 'link' %}link{% when 'outline' %}btn btn--secondary{% else %}btn{% endcase %}">{{ 'sections.featured_collection.view_all' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

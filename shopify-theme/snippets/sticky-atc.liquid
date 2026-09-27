@@ -1,0 +1,51 @@
+{%- comment -%} Barra fixa de compra (mobile + desktop). Parâmetros: product, block, form_id, section {%- endcomment -%}
+{%- liquid
+  assign b = block.settings
+  assign v = product.selected_or_first_available_variant
+  assign scroll_target = ''
+  if b.function contains 'scroll_'
+    assign scroll_target = b.function | remove_first: 'scroll_' | replace: '-id', '-' | append: section.id
+    if b.function contains 'pricing-table'
+      assign scroll_target = '.pricing-table'
+    endif
+  endif
+  assign pct = 0
+  if v.compare_at_price > v.price
+    assign pct = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
+  endif
+-%}
+<div
+  class="sticky-atc color-{{ b.color_scheme }}{% unless b.mobile_show_title %} sticky-atc--no-title-m{% endunless %}{% unless b.mobile_show_price %} sticky-atc--no-price-m{% endunless %}{% unless b.desktop_show_title %} sticky-atc--no-title-d{% endunless %}{% unless b.desktop_show_price %} sticky-atc--no-price-d{% endunless %}"
+  data-sticky-atc
+  data-when="{{ b.display_when }}"
+  data-target="BuyButtons-{{ section.id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="page-width sticky-atc__inner">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 120 | image_tag: class: 'sticky-atc__img', loading: 'lazy', width: 50, height: 50, alt: '' }}
+    {%- endif -%}
+    <div class="sticky-atc__info">
+      <p class="sticky-atc__title">{{ product.title | escape }}</p>
+      <div class="price">
+        <span class="price__sale" data-sticky-price>{{ v.price | money }}</span>
+        {%- if v.compare_at_price > v.price -%}<s class="price__compare">{{ v.compare_at_price | money }}</s>{%- endif -%}
+        {%- if b.show_price_badge and pct > 0 -%}<span class="sticky-atc__badge">-{{ pct }}%</span>{%- endif -%}
+      </div>
+    </div>
+    {%- if b.show_variant_picker and product.has_only_default_variant == false and scroll_target == '' -%}
+      <select class="select select--small sticky-atc__select" aria-label="{{ 'products.product.product_variants' | t }}">
+        {%- for variant in product.variants -%}
+          <option value="{{ variant.id }}"{% if variant.id == v.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title | escape }}</option>
+        {%- endfor -%}
+      </select>
+    {%- endif -%}
+    {%- if scroll_target != '' -%}
+      <a href="#" class="btn" data-sticky-scroll="{{ scroll_target }}"{% if b.enable_custom_btn_color %} style="background:{{ b.custom_btn_color }};color:#fff"{% endif %}>{{ b.button_label | escape }}</a>
+    {%- else -%}
+      <button type="submit" form="{{ form_id }}" class="btn" data-atc data-label="{{ b.button_label | escape }}"{% if b.enable_custom_btn_color %} style="background:{{ b.custom_btn_color }};color:#fff"{% endif %}{% unless v.available %} disabled aria-disabled="true"{% endunless %}>
+        <span data-atc-label>{%- if v.available -%}{{ b.button_label | escape }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
+      </button>
+    {%- endif -%}
+  </div>
+</div>

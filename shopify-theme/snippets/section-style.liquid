@@ -1,0 +1,8 @@
+{%- comment -%}
+  Atributos class/style padrão de uma seção DS com esquema de cor (inclui "custom").
+  Uso: <section {% render 'section-style', s: section.settings %}>
+{%- endcomment -%}
+{%- liquid
+  assign scheme = s.color_scheme | default: 'background-1'
+-%}
+class="section{% if scheme != 'custom' %} color-{{ scheme }}{% endif %}{% if extra %} {{ extra }}{% endif %}" style="--pt:{{ s.padding_top | default: 36 }}px;--pb:{{ s.padding_bottom | default: 36 }}px;{% if scheme == 'custom' %}{% render 'custom-colors', bg: s.custom_colors_background, grad: s.custom_gradient_background, text: s.custom_colors_text, btn: s.custom_colors_solid_button_background, btn_text: s.custom_colors_solid_button_text, outline: s.custom_colors_outline_button, accent: s.custom_colors_accent %}{% endif %}"

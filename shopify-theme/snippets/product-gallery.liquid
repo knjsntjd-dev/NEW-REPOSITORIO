@@ -1,0 +1,110 @@
+{%- comment -%}
+  Galeria de produto: slider com scroll-snap nativo + miniaturas. Zero bibliotecas.
+  Parâmetros: product, section, is_first (bool — seção acima da dobra)
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign selected_media = product.selected_or_first_available_variant.featured_media
+  assign media_list = product.media
+  assign first_media = media_list.first
+  if s.display_variant_image_first and selected_media
+    assign first_media = selected_media
+  endif
+  assign ratio = first_media.preview_image.aspect_ratio | default: 1
+  if s.media_fit == 'cover'
+    assign ratio = 1
+  endif
+  assign layout = s.gallery_layout
+  assign grid_desktop = false
+  if layout == 'stacked' or layout == 'columns'
+    assign grid_desktop = true
+  endif
+  case s.media_size
+    when 'small'
+      assign sizes = '(min-width: 750px) 45vw, 100vw'
+    when 'large'
+      assign sizes = '(min-width: 750px) 65vw, 100vw'
+    else
+      assign sizes = '(min-width: 750px) 55vw, 100vw'
+  endcase
+  assign count = media_list.size
+-%}
+<div
+  class="gallery{% if s.mobile_preview_media and count > 1 %} gallery--peek{% endif %}{% if grid_desktop %} gallery--grid{% endif %}"
+  data-gallery
+  data-slider
+  style="--ratio:{{ ratio }};--fit:{{ s.media_fit }};"
+>
+  {%- if s.trust_badge != blank -%}
+    {%- liquid
+      case s.trust_badge_size
+        when 'small'
+          assign tb = '7rem'
+        when 'large'
+          assign tb = '13rem'
+        else
+          assign tb = '10rem'
+      endcase
+    -%}
+    {%- assign badge_class = 'gallery__badge gallery__badge--' | append: s.trust_badge_position -%}
+    {%- assign badge_style = '--tb:' | append: tb -%}
+    {{ s.trust_badge | image_url: width: 300 | image_tag: class: badge_class, style: badge_style, loading: 'lazy', widths: '150,300', sizes: '130px' }}
+  {%- endif -%}
+  <ul class="slider" data-slider-track role="list">
+    {%- if count == 0 -%}
+      <li class="gallery__item">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</li>
+    {%- endif -%}
+    {%- liquid
+      assign ordered = ''
+      if s.display_variant_image_first and selected_media
+        assign ordered = selected_media.id
+      endif
+    -%}
+    {%- for media in media_list -%}
+      {%- if ordered != '' and forloop.first -%}
+        {%- render 'product-media', media: selected_media, index: 0, sizes: sizes, is_first: is_first, section: section -%}
+      {%- endif -%}
+      {%- if media.id == ordered -%}{%- continue -%}{%- endif -%}
+      {%- liquid
+        assign idx = forloop.index0
+        if ordered != ''
+          assign idx = forloop.index
+        endif
+      -%}
+      {%- render 'product-media', media: media, index: idx, sizes: sizes, is_first: is_first, section: section -%}
+    {%- endfor -%}
+  </ul>
+
+  {%- if count > 1 -%}
+    {%- unless s.hide_arrows -%}
+      <div class="gallery__arrows">
+        <button type="button" class="slider-btn" data-slider-prev aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+        <button type="button" class="slider-btn" data-slider-next aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+      </div>
+    {%- endunless -%}
+
+    {%- if s.mobile_pagination == 'numeric' -%}
+      <span class="gallery__counter mobile-only"><span data-slider-current>1</span>/{{ count }}</span>
+    {%- else -%}
+      <ul class="slider-dots gallery__dots gallery__dots--{% if s.mobile_pagination == 'dots_overlay' %}overlay{% else %}under{% endif %} mobile-only" role="list">
+        {%- for media in media_list -%}
+          <li><button type="button" class="slider-dot" data-slider-dot aria-label="{{ forloop.index }} / {{ count }}"{% if forloop.first %} aria-current="true"{% endif %}></button></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <div class="thumbs{% if s.mobile_thumbnails == 'hide' %} thumbs--hide-m{% endif %}" style="--tc:{{ s.desktop_thumbnails_count }};--tc-m:{{ s.mobile_thumbnails_count }}">
+      {%- if ordered != '' -%}
+        <button type="button" data-thumb aria-current="true" aria-label="{{ 'products.product.media.load_image' | t: index: 1 }}">
+          {{ selected_media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '', width: 80, height: 80 }}
+        </button>
+      {%- endif -%}
+      {%- for media in media_list -%}
+        {%- if media.id == ordered -%}{%- continue -%}{%- endif -%}
+        <button type="button" data-thumb{% if forloop.first and ordered == '' %} aria-current="true"{% endif %} aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index }}">
+          {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '', width: 80, height: 80 }}
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>

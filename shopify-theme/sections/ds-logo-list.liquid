@@ -1,0 +1,273 @@
+{%- assign s = section.settings -%}
+{%- if s.gray_logos -%}{%- assign logo_class = 'logo-gray' -%}{%- else -%}{%- assign logo_class = '' -%}{%- endif -%}
+<div {% render 'section-style', s: s %}>
+  <div class="page-width">
+    {%- if s.title != blank -%}<h2 class="{{ s.heading_size }} center section-header">{{ s.title | escape }}</h2>{%- endif -%}
+    <div data-slider{% if s.autoplay %} data-loop data-autoplay="{{ s.autoplay_speed }}"{% endif %}>
+      <ul class="logo-list{% if s.swipe_on_mobile %} slider--mobile{% endif %}{% if s.layout == 'vertical' %} logo-list--grid{% endif %}" data-slider-track role="list" style="--lh:{{ s.desktop_logo_height }}px;--lh-m:{{ s.mobile_logo_height }}px;--slide-w:calc(100% / {{ s.columns_mobile }})">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}"{% if block.settings.target_blank %} target="_blank" rel="noopener"{% endif %}>{%- endif -%}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: height: 200 | image_tag: loading: 'lazy', style: 'height:var(--lh);width:auto', class: logo_class }}
+            {%- else -%}
+              {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            {%- if block.settings.link != blank -%}</a>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if s.show_dots and s.swipe_on_mobile -%}
+        <ul class="slider-dots mobile-only" role="list">{%- for block in section.blocks -%}<li><button type="button" class="slider-dot" data-slider-dot aria-label="{{ forloop.index }}"></button></li>{%- endfor -%}</ul>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured on",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Featured on",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "gray_logos",
+      "label": "Gray logos",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        }
+      ],
+      "default": "horizontal",
+      "label": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_logo_height",
+      "min": 30,
+      "max": 150,
+      "step": 10,
+      "default": 50,
+      "label": "Desktop logo height"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "t:sections.multicolumn.settings.columns_mobile.label"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_height",
+      "min": 30,
+      "max": 150,
+      "step": 10,
+      "default": 50,
+      "label": "Mobile logo height"
+    },
+    {
+      "type": "paragraph",
+      "content": "IMPORTANT: Due to liquid limitations, ONLY in Theme editor you need to save (to get the frame to refresh) after changing certain settings to display the slider."
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": true,
+      "label": "t:sections.multicolumn.settings.swipe_on_mobile.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 1,
+      "max": 15,
+      "step": 0.5,
+      "default": 5,
+      "unit": "sec",
+      "label": "Autoplay speed"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Custom color scheme",
+      "info": "Applied if Color scheme setting is set to Custom."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradient background",
+      "info": "If added, replaces Background color when applicable."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "default": "#121212",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "target_blank",
+          "label": "Open link in a new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured on",
+      "blocks": [
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}
