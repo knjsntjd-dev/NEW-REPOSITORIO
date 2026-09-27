@@ -1,0 +1,194 @@
+<div class="rlp">
+<section class="rlp-compare">
+  <div class="rlp-wrap">
+    <div class="rlp-sec-head rlp-rv">
+      <span class="rlp-eyebrow">{{ section.settings.cmp_eyebrow }}</span>
+      <h2>{{ section.settings.cmp_titulo }}</h2>
+      <p class="rlp-lead">{{ section.settings.cmp_texto }}</p>
+    </div>
+    <div class="rlp-compare-wrap rlp-rv">
+      <table class="rlp-compare-table">
+        <colgroup><col class="rlp-lbl"><col class="rlp-hl-col"><col class="rlp-oth"><col class="rlp-oth"></colgroup>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col" class="rlp-hl"><span class="rlp-compare-brand"><b>{{ section.settings.cmp_nosso }}</b><span>{{ section.settings.cmp_marca }}</span></span></th>
+            <th scope="col">{{ section.settings.cmp_col2 }}</th>
+            <th scope="col">{{ section.settings.cmp_col3 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{ section.settings.criterio_estrelas }}</th>
+            <td class="rlp-hl"><span class="rlp-compare-stars" aria-label="5 de 5 estrelas"><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span></span></td>
+            <td><span class="rlp-compare-stars" aria-label="3 de 5 estrelas"><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-off">★</span><span class="rlp-off">★</span></span></td>
+            <td><span class="rlp-compare-stars" aria-label="2 de 5 estrelas"><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-off">★</span><span class="rlp-off">★</span><span class="rlp-off">★</span></span></td>
+          </tr>
+{%- for i in (1..5) -%}{%- capture k -%}criterio_{{ i }}{%- endcapture -%}{%- if section.settings[k] != blank -%}
+          <tr>
+            <th scope="row">{{ section.settings[k] }}</th>
+            <td class="rlp-hl"><span class="rlp-compare-badge rlp-ok" aria-label="Sim">✓</span></td>
+            <td><span class="rlp-compare-badge rlp-mid" aria-label="Parcial">–</span></td>
+            <td><span class="rlp-compare-badge rlp-no" aria-label="Não">✕</span></td>
+          </tr>
+{%- endif -%}{%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.img_1 != blank or section.settings.img_2 != blank or section.settings.img_3 != blank -%}
+<section class="rlp-pillars">
+  <div class="rlp-wrap">
+    <div class="rlp-sec-head rlp-rv">
+      <span class="rlp-eyebrow">{{ section.settings.ben_eyebrow }}</span>
+      <h2>{{ section.settings.ben_titulo }}</h2>
+      <p class="rlp-lead">{{ section.settings.ben_texto }}</p>
+    </div>
+    <div class="rlp-p-grid">
+      {%- for i in (1..3) -%}{%- capture k -%}img_{{ i }}{%- endcapture -%}{%- assign im = section.settings[k] -%}
+      {%- if im != blank -%}
+      <article class="rlp-p-card rlp-rv">
+        <figure class="rlp-shot" style="margin:0;aspect-ratio:{{ im.aspect_ratio }}">{{ im | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im.alt }}</figure>
+      </article>
+      {%- endif -%}{%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "RLP · Comparação",
+  "tag": "section",
+  "class": "rlp-sec",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Comparação"
+    },
+    {
+      "type": "text",
+      "id": "cmp_eyebrow",
+      "label": "Etiqueta",
+      "default": "Nós contra eles"
+    },
+    {
+      "type": "text",
+      "id": "cmp_titulo",
+      "label": "Título",
+      "default": "Porque escolher o nosso produto"
+    },
+    {
+      "type": "textarea",
+      "id": "cmp_texto",
+      "label": "Texto",
+      "default": "O problema dos produtos comuns numa frase. Como o seu produto resolve."
+    },
+    {
+      "type": "text",
+      "id": "cmp_nosso",
+      "label": "Coluna em destaque — nome",
+      "default": "PRODUTO"
+    },
+    {
+      "type": "text",
+      "id": "cmp_marca",
+      "label": "Coluna em destaque — marca",
+      "default": "USE RODRIGUES"
+    },
+    {
+      "type": "text",
+      "id": "cmp_col2",
+      "label": "Coluna 2 (concorrente)",
+      "default": "Comum"
+    },
+    {
+      "type": "text",
+      "id": "cmp_col3",
+      "label": "Coluna 3 (concorrente)",
+      "default": "Barato"
+    },
+    {
+      "type": "text",
+      "id": "criterio_estrelas",
+      "label": "Linha com estrelas",
+      "default": "Qualidade geral"
+    },
+    {
+      "type": "text",
+      "id": "criterio_1",
+      "label": "Critério 1 (vazio = esconde)",
+      "default": "Critério 1"
+    },
+    {
+      "type": "text",
+      "id": "criterio_2",
+      "label": "Critério 2 (vazio = esconde)",
+      "default": "Critério 2"
+    },
+    {
+      "type": "text",
+      "id": "criterio_3",
+      "label": "Critério 3 (vazio = esconde)",
+      "default": "Critério 3"
+    },
+    {
+      "type": "text",
+      "id": "criterio_4",
+      "label": "Critério 4 (vazio = esconde)",
+      "default": "Critério 4"
+    },
+    {
+      "type": "text",
+      "id": "criterio_5",
+      "label": "Critério 5 (vazio = esconde)",
+      "default": "Critério 5"
+    },
+    {
+      "type": "header",
+      "content": "Benefícios (artes)"
+    },
+    {
+      "type": "text",
+      "id": "ben_eyebrow",
+      "label": "Etiqueta",
+      "default": "Porque funciona"
+    },
+    {
+      "type": "text",
+      "id": "ben_titulo",
+      "label": "Título",
+      "default": "Título da secção de benefícios"
+    },
+    {
+      "type": "textarea",
+      "id": "ben_texto",
+      "label": "Texto",
+      "default": "Uma frase sobre porque o produto funciona."
+    },
+    {
+      "type": "image_picker",
+      "id": "img_1",
+      "label": "Arte 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_2",
+      "label": "Arte 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_3",
+      "label": "Arte 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RLP · Comparação"
+    }
+  ]
+}
+{% endschema %}

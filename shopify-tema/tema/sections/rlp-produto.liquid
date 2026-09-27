@@ -1,0 +1,498 @@
+{%- liquid
+  assign p = product
+  assign v0 = p.selected_or_first_available_variant
+  assign cor_idx = -1
+  assign tam_idx = -1
+  for o in p.options_with_values
+    assign n = o.name | downcase
+    if n contains 'cor' or n contains 'color' or n contains 'colour'
+      assign cor_idx = forloop.index0
+      break
+    endif
+  endfor
+  for o in p.options_with_values
+    if forloop.index0 != cor_idx
+      assign tam_idx = forloop.index0
+      break
+    endif
+  endfor
+  assign preco = v0.price | divided_by: 100.0
+  assign preco_cmp = preco
+  if v0.compare_at_price > v0.price
+    assign preco_cmp = v0.compare_at_price | divided_by: 100.0
+  endif
+-%}
+<link rel="preload" href="{{ 'rodrigues-lp-archivo.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url({{ 'rodrigues-lp-archivo.woff2' | asset_url }}) format('woff2')}</style>
+{{ 'rodrigues-lp.css' | asset_url | stylesheet_tag }}
+<script>
+  window.LOJA = {
+    nome: {{ p.title | json }},
+    categoria: {{ p.type | json }},
+    dominio: {{ request.origin | json }},
+    variantes: {
+      {%- for vv in p.variants -%}{%- if vv.available -%}
+      {%- capture k -%}{%- if cor_idx >= 0 -%}{{ vv.options[cor_idx] | handleize }}{%- else -%}unico{%- endif -%}|{%- if tam_idx >= 0 -%}{{ vv.options[tam_idx] }}{%- else -%}unico{%- endif -%}{%- endcapture -%}
+      {{ k | json }}: {{ vv.id | json }},
+      {%- endif -%}{%- endfor -%}
+    },
+    precoBase: {{ preco }},
+    precoComparacao: {{ preco_cmp }},
+    bundles: [
+      { q: 1, off: 0, codigo: '' }
+      {%- if section.settings.bundle_2 -%}, { q: 2, off: {{ section.settings.off_2 }}, codigo: {{ section.settings.codigo_2 | strip | json }} }{%- endif -%}
+      {%- if section.settings.bundle_3 -%}, { q: 3, off: {{ section.settings.off_3 }}, codigo: {{ section.settings.codigo_3 | strip | json }} }{%- endif -%}
+    ],
+    moeda: {{ cart.currency.iso_code | json }},
+    pixelId: '',
+    capiUrl: ''
+  };
+</script>
+<script src="{{ 'rodrigues-lp.js' | asset_url }}" defer></script>
+
+<div class="rlp">
+<section class="rlp-hero" id="comprar">
+  <div class="rlp-wrap rlp-hero-grid">
+
+    <div class="rlp-gallery">
+      <div style="position:relative">
+        <figure class="rlp-shot" id="mainShot" style="margin:0">
+          {%- if p.featured_image -%}
+          <img id="mainImg" src="{{ p.featured_image | image_url: width: 800 }}" alt="{{ p.featured_image.alt | default: p.title | escape }}" width="800" height="800" decoding="async" fetchpriority="high">
+          {%- else -%}<img id="mainImg" alt="" width="800" height="800" hidden>{%- endif -%}
+        </figure>
+      </div>
+      <div class="rlp-thumbs" id="thumbs">
+        {%- assign n_img = 0 -%}
+        {%- for m in p.media -%}{%- if m.media_type == 'image' and n_img < 5 -%}
+        <figure class="rlp-shot" data-src="{{ m | image_url: width: 800 }}" {% if n_img == 0 %}aria-current="true"{% endif %} style="margin:0"><img src="{{ m | image_url: width: 200 }}" alt="{{ m.alt | escape }}" width="200" height="200" loading="lazy" decoding="async"></figure>
+        {%- assign n_img = n_img | plus: 1 -%}
+        {%- endif -%}{%- endfor -%}
+      </div>
+    </div>
+
+    <div class="rlp-buy">
+      {%- if section.settings.eyebrow != blank -%}<span class="rlp-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h1 style="margin-top:10px">{{ p.title }}</h1>
+
+      {%- if section.settings.nota != blank -%}
+      <div class="rlp-stars-row">
+        <span class="rlp-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg></span>
+        <span class="rlp-num">{{ section.settings.nota }}</span>
+      </div>
+      {%- endif -%}
+
+      <div class="rlp-price-row">
+        <span class="rlp-price rlp-num" id="precoAtual">{{ v0.price | money }}</span>
+        <span class="rlp-price-old rlp-num" id="precoAntigo">{{ v0.compare_at_price | money }}</span>
+        <span class="rlp-save-chip rlp-num" id="poupanca"></span>
+      </div>
+      <p class="rlp-tax-note">{{ section.settings.nota_preco }}</p>
+
+      <ul class="rlp-benefits">
+        {%- for i in (1..3) -%}
+        {%- capture bt -%}beneficio_{{ i }}_titulo{%- endcapture -%}{%- capture bx -%}beneficio_{{ i }}_texto{%- endcapture -%}
+        {%- if section.settings[bt] != blank -%}
+        <li>
+          <svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg>
+          <span><b>{{ section.settings[bt] }}</b>{% if section.settings[bx] != blank %} — {{ section.settings[bx] }}{% endif %}</span>
+        </li>
+        {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <div class="rlp-opt"{% if cor_idx < 0 %} hidden{% endif %}>
+        <div class="rlp-opt-head">
+          <span class="rlp-lbl">{% if cor_idx >= 0 %}{{ p.options_with_values[cor_idx].name }}{% endif %}</span>
+          <span class="rlp-val" id="corVal">{% if cor_idx >= 0 %}{{ v0.options[cor_idx] }}{% endif %}</span>
+        </div>
+        <div class="rlp-swatches" id="cores">
+          {%- if cor_idx >= 0 -%}
+          {%- for val in p.options_with_values[cor_idx].values -%}
+            {%- liquid
+              assign img = ''
+              for vv in p.variants
+                if vv.options[cor_idx] == val.name and vv.featured_image
+                  assign img = vv.featured_image | image_url: width: 800
+                  break
+                endif
+              endfor
+              if img == blank and p.featured_image
+                assign img = p.featured_image | image_url: width: 800
+              endif
+              assign sw = val.swatch.color
+              if sw == blank
+                assign nm = val.name | downcase
+                case nm
+                  when 'preto', 'black', 'negro'
+                    assign sw = '#1A1A1A'
+                  when 'branco', 'white', 'blanco'
+                    assign sw = '#F4F2EE'
+                  when 'nude', 'bege', 'beige', 'skin'
+                    assign sw = '#E4CFB4'
+                  when 'cinza', 'grey', 'gray'
+                    assign sw = '#9A9A9A'
+                  when 'azul', 'blue'
+                    assign sw = '#2B4C8C'
+                  when 'vermelho', 'red'
+                    assign sw = '#B3262E'
+                  when 'rosa', 'pink'
+                    assign sw = '#E8A7B8'
+                  when 'verde', 'green'
+                    assign sw = '#3F6B45'
+                  when 'castanho', 'marrom', 'brown'
+                    assign sw = '#6B4A34'
+                  else
+                    assign sw = '#CCCCCC'
+                endcase
+              endif
+              assign sel = false
+              if val.name == v0.options[cor_idx]
+                assign sel = true
+              endif
+            -%}
+          <button type="button" class="rlp-sw" style="--sw:{{ sw }}" data-cor="{{ val.name | handleize }}" data-nome="{{ val.name | escape }}" data-img="{{ img }}" aria-pressed="{{ sel }}" aria-label="{{ val.name | escape }}"><i></i></button>
+          {%- endfor -%}
+          {%- else -%}
+          <button type="button" class="rlp-sw" data-cor="unico" data-nome="" data-img="" aria-pressed="true"><i></i></button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="rlp-opt"{% if tam_idx < 0 %} hidden{% endif %}>
+        <div class="rlp-opt-head">
+          <span class="rlp-lbl">{% if tam_idx >= 0 %}{{ p.options_with_values[tam_idx].name }}{% endif %}</span>
+          {%- if section.settings.tabela_medidas != blank -%}<button type="button" class="rlp-link" id="abrirGuia">{{ section.settings.guia_link }}</button>{%- endif -%}
+        </div>
+        <div class="rlp-sizes" id="tamanhos">
+          {%- if tam_idx >= 0 -%}
+          {%- for val in p.options_with_values[tam_idx].values -%}
+          <button type="button" class="rlp-size" data-size="{{ val.name | escape }}" aria-pressed="{% if val.name == v0.options[tam_idx] %}true{% else %}false{% endif %}">{{ val.name }}</button>
+          {%- endfor -%}
+          {%- else -%}
+          <button type="button" class="rlp-size" data-size="unico" aria-pressed="true">Único</button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="rlp-opt">
+        <div class="rlp-bundle-head"><span class="rlp-lbl">{{ section.settings.bundle_titulo }}</span></div>
+        <div class="rlp-bundles" id="bundles"></div>
+      </div>
+
+      <div class="rlp-opt" id="pecasWrap" hidden>
+        <div class="rlp-bundle-head"><span class="rlp-lbl">Escolha cada peça</span></div>
+        <div class="rlp-pecas" id="pecas"></div>
+        <p class="rlp-pecas-nota">Pode misturar cores e tamanhos — cada peça segue como escolher aqui.</p>
+      </div>
+
+      <a class="rlp-cta" href="#" data-buy id="ctaPrincipal">Comprar — {{ v0.price | money }}</a>
+
+      <ul class="rlp-assur">
+        {%- if section.settings.garantia_1 != blank -%}<li>
+          <svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+          <span>{{ section.settings.garantia_1 }}</span>
+        </li>{%- endif -%}
+        {%- if section.settings.garantia_2 != blank -%}<li>
+          <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg>
+          <span>{{ section.settings.garantia_2 }}</span>
+        </li>{%- endif -%}
+        {%- if section.settings.garantia_3 != blank -%}<li>
+          <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <span>{{ section.settings.garantia_3 }}</span>
+        </li>{%- endif -%}
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+{%- if section.settings.dif_1_titulo != blank -%}
+<section class="rlp-trust">
+  <div class="rlp-wrap rlp-trust-grid">
+    <div class="rlp-trust-cell rlp-rv">
+      <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <b>{{ section.settings.dif_1_titulo }}</b><span>{{ section.settings.dif_1_texto }}</span>
+    </div>
+    <div class="rlp-trust-cell rlp-rv">
+      <svg viewBox="0 0 24 24"><path d="M4 14c3-6 13-6 16 0"/><path d="M12 4v3"/><circle cx="12" cy="16" r="3"/></svg>
+      <b>{{ section.settings.dif_2_titulo }}</b><span>{{ section.settings.dif_2_texto }}</span>
+    </div>
+    <div class="rlp-trust-cell rlp-rv">
+      <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16"/><path d="M6 9h12M6 15h12"/></svg>
+      <b>{{ section.settings.dif_3_titulo }}</b><span>{{ section.settings.dif_3_texto }}</span>
+    </div>
+    <div class="rlp-trust-cell rlp-rv">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
+      <b>{{ section.settings.dif_4_titulo }}</b><span>{{ section.settings.dif_4_texto }}</span>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+<div class="rlp-dock" id="dock">
+  <div class="rlp-dock-in">
+    <div class="rlp-dock-info">
+      <b>{{ p.title }}</b>
+      <span id="dockResumo"></span>
+    </div>
+    <a class="rlp-cta" href="#" data-buy>Comprar</a>
+  </div>
+</div>
+
+<dialog id="guia">
+  <button type="button" class="rlp-dlg-close" id="fecharGuia" aria-label="Fechar">&times;</button>
+  <div class="rlp-dlg-in">
+    <span class="rlp-eyebrow">Guia rápido</span>
+    <h3 style="margin:10px 0 8px">{{ section.settings.guia_titulo }}</h3>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.7">{{ section.settings.guia_texto }}</p>
+    <table>
+      <thead><tr><th>Tamanho</th><th>{{ section.settings.medida_nome }}</th></tr></thead>
+      <tbody>{%- assign linhas = section.settings.tabela_medidas | newline_to_br | split: '<br />' -%}
+{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}
+<tr><td>{{ c[0] | strip }}</td><td class="rlp-num">{{ c[1] | strip }}</td></tr>
+{%- endif -%}{%- endfor -%}</tbody>
+    </table>
+  </div>
+</dialog>
+</div>
+
+{% schema %}
+{
+  "name": "RLP · Produto e compra",
+  "tag": "section",
+  "class": "rlp-sec",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Topo do produto"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta acima do título",
+      "default": "Categoria · Uso"
+    },
+    {
+      "type": "text",
+      "id": "nota",
+      "label": "Estrelas: texto ao lado (vazio = esconde)",
+      "default": "4,8/5 · mais de 10.000 clientes verificados"
+    },
+    {
+      "type": "text",
+      "id": "nota_preco",
+      "label": "Linha abaixo do preço",
+      "default": "IVA incluído · Frete grátis em todas as encomendas"
+    },
+    {
+      "type": "text",
+      "id": "beneficio_1_titulo",
+      "label": "Benefício 1 — título",
+      "default": "Benefício principal"
+    },
+    {
+      "type": "text",
+      "id": "beneficio_1_texto",
+      "label": "Benefício 1 — explicação",
+      "default": "explicação curta"
+    },
+    {
+      "type": "text",
+      "id": "beneficio_2_titulo",
+      "label": "Benefício 2 — título",
+      "default": "Benefício 2"
+    },
+    {
+      "type": "text",
+      "id": "beneficio_2_texto",
+      "label": "Benefício 2 — explicação",
+      "default": "explicação curta"
+    },
+    {
+      "type": "text",
+      "id": "beneficio_3_titulo",
+      "label": "Benefício 3 — título",
+      "default": "Benefício 3"
+    },
+    {
+      "type": "text",
+      "id": "beneficio_3_texto",
+      "label": "Benefício 3 — explicação",
+      "default": "explicação curta"
+    },
+    {
+      "type": "header",
+      "content": "Pacotes com desconto"
+    },
+    {
+      "type": "paragraph",
+      "content": "Crie na Shopify (Descontos) um código com a MESMA porcentagem para cada pacote. Sem código, a página mostra o desconto mas o checkout cobra o preço cheio."
+    },
+    {
+      "type": "text",
+      "id": "bundle_titulo",
+      "label": "Título dos pacotes",
+      "default": "Compre mais, pague menos"
+    },
+    {
+      "type": "checkbox",
+      "id": "bundle_2",
+      "label": "Mostrar pacote de 2",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "off_2",
+      "label": "Desconto do pacote de 2",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "codigo_2",
+      "label": "Código de desconto do pacote de 2",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "bundle_3",
+      "label": "Mostrar pacote de 3",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "off_3",
+      "label": "Desconto do pacote de 3",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 15
+    },
+    {
+      "type": "text",
+      "id": "codigo_3",
+      "label": "Código de desconto do pacote de 3",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Garantias abaixo do botão"
+    },
+    {
+      "type": "text",
+      "id": "garantia_1",
+      "label": "Linha 1 (envio)",
+      "default": "Envio em 24 h úteis · entrega em 3 a 6 dias úteis"
+    },
+    {
+      "type": "text",
+      "id": "garantia_2",
+      "label": "Linha 2 (trocas)",
+      "default": "30 dias para troca de tamanho ou devolução"
+    },
+    {
+      "type": "text",
+      "id": "garantia_3",
+      "label": "Linha 3 (pagamento)",
+      "default": "Pagamento seguro — MB Way, cartão ou PayPal"
+    },
+    {
+      "type": "header",
+      "content": "Faixa de diferenciais (vazio no 1 = esconde)"
+    },
+    {
+      "type": "text",
+      "id": "dif_1_titulo",
+      "label": "Diferencial 1 — título",
+      "default": "Diferencial 1"
+    },
+    {
+      "type": "text",
+      "id": "dif_1_texto",
+      "label": "Diferencial 1 — detalhe",
+      "default": "detalhe curto"
+    },
+    {
+      "type": "text",
+      "id": "dif_2_titulo",
+      "label": "Diferencial 2 — título",
+      "default": "Diferencial 2"
+    },
+    {
+      "type": "text",
+      "id": "dif_2_texto",
+      "label": "Diferencial 2 — detalhe",
+      "default": "detalhe curto"
+    },
+    {
+      "type": "text",
+      "id": "dif_3_titulo",
+      "label": "Diferencial 3 — título",
+      "default": "Diferencial 3"
+    },
+    {
+      "type": "text",
+      "id": "dif_3_texto",
+      "label": "Diferencial 3 — detalhe",
+      "default": "detalhe curto"
+    },
+    {
+      "type": "text",
+      "id": "dif_4_titulo",
+      "label": "Diferencial 4 — título",
+      "default": "Diferencial 4"
+    },
+    {
+      "type": "text",
+      "id": "dif_4_texto",
+      "label": "Diferencial 4 — detalhe",
+      "default": "detalhe curto"
+    },
+    {
+      "type": "header",
+      "content": "Guia de medidas"
+    },
+    {
+      "type": "text",
+      "id": "guia_link",
+      "label": "Texto do link",
+      "default": "Guia de medidas"
+    },
+    {
+      "type": "text",
+      "id": "guia_titulo",
+      "label": "Título do guia",
+      "default": "Como medir"
+    },
+    {
+      "type": "textarea",
+      "id": "guia_texto",
+      "label": "Explicação",
+      "default": "Passo a passo para medir. Em dúvida, escolha o maior."
+    },
+    {
+      "type": "text",
+      "id": "medida_nome",
+      "label": "Nome da medida (coluna)",
+      "default": "Cintura"
+    },
+    {
+      "type": "textarea",
+      "id": "tabela_medidas",
+      "label": "Tabela: uma linha por tamanho, no formato  Tamanho | medida",
+      "default": "S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm",
+      "info": "Deixe vazio para esconder o link do guia."
+    }
+  ],
+  "presets": [
+    {
+      "name": "RLP · Produto e compra"
+    }
+  ]
+}
+{% endschema %}

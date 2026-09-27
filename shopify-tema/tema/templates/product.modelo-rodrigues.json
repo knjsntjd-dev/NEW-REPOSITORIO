@@ -1,0 +1,113 @@
+{
+  "sections": {
+    "rlp_produto": {
+      "type": "rlp-produto",
+      "settings": {}
+    },
+    "videos_produto": {
+      "type": "product-video-gallery",
+      "name": "Videos Produto",
+      "settings": {},
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3"
+      ]
+    },
+    "rlp_comparacao": {
+      "type": "rlp-comparacao",
+      "settings": {}
+    },
+    "videos_clientes": {
+      "type": "video-reviews",
+      "name": "Vídeos de clientes",
+      "settings": {
+        "caption": "AVALIAÇÕES VERIFICADAS",
+        "heading": "Mais de 5.000 pessoas confiam em nós.",
+        "heading_size": "h1",
+        "subheading": "Confira nossas avaliações e veja por si mesmo!",
+        "card_ratio": "9/16",
+        "card_width": 370,
+        "link_label": "Ver produto",
+        "accent_color": "#3B82F6",
+        "color_scheme": "custom",
+        "custom_colors_background": "#FBFBF6",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212",
+        "padding_top": 48,
+        "padding_bottom": 48
+      },
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "name": "",
+            "verified": true,
+            "text": "",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "name": "",
+            "verified": true,
+            "text": "",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "name": "",
+            "verified": true,
+            "text": "",
+            "product": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3"
+      ]
+    },
+    "rlp_conteudo": {
+      "type": "rlp-conteudo",
+      "settings": {}
+    }
+  },
+  "order": [
+    "rlp_produto",
+    "videos_produto",
+    "rlp_comparacao",
+    "videos_clientes",
+    "rlp_conteudo"
+  ]
+}
