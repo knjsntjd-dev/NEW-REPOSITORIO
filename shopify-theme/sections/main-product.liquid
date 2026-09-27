@@ -76,6 +76,61 @@
           {%- when 'emoji_benefits' -%}
             <div class="product__block benefits rte" style="{{ spacing }}" {{ block.shopify_attributes }}>{{ block.settings.benefits }}</div>
 
+          {%- when 'badges' -%}
+            <ul class="product__block badge-pills" style="{{ spacing }}" role="list" {{ block.shopify_attributes }}>
+              {%- for n in (1..4) -%}
+                {%- liquid
+                  assign bb = block.settings
+                  assign ktxt = 'text_' | append: n
+                  assign kico = 'icon_' | append: n
+                  assign kbg = 'bg_' | append: n
+                  assign kcol = 'color_' | append: n
+                -%}
+                {%- if bb[ktxt] != blank -%}
+                  <li class="badge-pill" style="--bp-bg:{{ bb[kbg] }};--bp-color:{{ bb[kcol] }}">
+                    {%- if bb[kico] != blank -%}<span class="badge-pill__icon" aria-hidden="true">{{ bb[kico] }}</span>{%- endif -%}
+                    <span>{{ bb[ktxt] | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+
+          {%- when 'checklist' -%}
+            <ul class="product__block checklist" style="{{ spacing }};--cl-icon:{{ block.settings.icon_color }}" role="list" {{ block.shopify_attributes }}>
+              {%- for n in (1..5) -%}
+                {%- liquid
+                  assign cb = block.settings
+                  assign klabel = 'label_' | append: n
+                  assign ktext = 'text_' | append: n
+                -%}
+                {%- if cb[klabel] != blank or cb[ktext] != blank -%}
+                  <li class="checklist__item">
+                    <span class="checklist__icon" aria-hidden="true">{% render 'icon', name: 'check', stroke: 3 %}</span>
+                    <span class="checklist__text">
+                      {%- if cb[klabel] != blank -%}<strong>{{ cb[klabel] | escape }}</strong>{%- endif -%}
+                      {%- if cb[ktext] != blank -%} {{ cb[ktext] | escape }}{%- endif -%}
+                    </span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+
+          {%- when 'delivery_row' -%}
+            <div class="product__block delivery-row" style="{{ spacing }};--dr-dot:{{ block.settings.dot_color }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.delivery_text != blank -%}
+                <span class="delivery-row__part">
+                  <span class="delivery-row__dot" aria-hidden="true"></span>
+                  {{ block.settings.delivery_text }}
+                </span>
+              {%- endif -%}
+              {%- if block.settings.shipping_text != blank -%}
+                <span class="delivery-row__part">
+                  {%- render 'icon-accordion', icon: block.settings.shipping_icon -%}
+                  {{ block.settings.shipping_text }}
+                </span>
+              {%- endif -%}
+            </div>
+
           {%- when 'rating_stars' -%}
             {%- assign pct_r = block.settings.rating | times: 20 -%}
             <div class="product__block rating-row" style="{{ spacing }};justify-content:{{ block.settings.alignment }}" {{ block.shopify_attributes }}>

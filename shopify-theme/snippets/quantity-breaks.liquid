@@ -12,7 +12,7 @@
     assign show_selectors = true
   endif
 -%}
-<div class="qb product__block" id="quantity-breaks-{{ section.id }}" style="--acc:var(--c-{{ b.color_scheme }});--mt:{{ b.margin_top | divided_by: 10.0 }}rem;--mb:{{ b.margin_bottom | divided_by: 10.0 }}rem" {{ block.shopify_attributes }}>
+<div class="qb product__block{% if b.layout == 'grid' %} qb--grid{% endif %}" id="quantity-breaks-{{ section.id }}" style="--acc:var(--c-{{ b.color_scheme }});--mt:{{ b.margin_top | divided_by: 10.0 }}rem;--mb:{{ b.margin_bottom | divided_by: 10.0 }}rem" {{ block.shopify_attributes }}>
   {%- if b.headline != blank -%}<p class="qb__title">{{ b.headline }}</p>{%- endif -%}
   <div class="qb__list" role="radiogroup">
     {%- for n in (1..4) -%}
