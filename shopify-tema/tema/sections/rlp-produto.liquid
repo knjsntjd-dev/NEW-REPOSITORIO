@@ -22,7 +22,7 @@
     assign preco_cmp = v0.compare_at_price | divided_by: 100.0
   endif
 -%}
-<link rel="preload" href="{{ 'rodrigues-lp-archivo.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+{{ 'rodrigues-lp-archivo.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
 <style>@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url({{ 'rodrigues-lp-archivo.woff2' | asset_url }}) format('woff2')}</style>
 {{ 'rodrigues-lp.css' | asset_url | stylesheet_tag }}
 <script>
@@ -40,8 +40,10 @@
     precoComparacao: {{ preco_cmp }},
     bundles: [
       { q: 1, off: 0, codigo: '' }
-      {%- if section.settings.bundle_2 -%}, { q: 2, off: {{ section.settings.off_2 }}, codigo: {{ section.settings.codigo_2 | strip | json }} }{%- endif -%}
-      {%- if section.settings.bundle_3 -%}, { q: 3, off: {{ section.settings.off_3 }}, codigo: {{ section.settings.codigo_3 | strip | json }} }{%- endif -%}
+      {%- assign b2at = product.metafields.rlp.bundle2_ativo | default: 'sim' -%}
+      {%- assign b3at = product.metafields.rlp.bundle3_ativo | default: 'sim' -%}
+      {%- if b2at == 'sim' -%}, { q: 2, off: {{ product.metafields.rlp.bundle2_off | default: 10 }}, codigo: {{ product.metafields.rlp.bundle2_codigo | strip | json }} }{%- endif -%}
+      {%- if b3at == 'sim' -%}, { q: 3, off: {{ product.metafields.rlp.bundle3_off | default: 15 }}, codigo: {{ product.metafields.rlp.bundle3_codigo | strip | json }} }{%- endif -%}
     ],
     moeda: {{ cart.currency.iso_code | json }},
     pixelId: '',
@@ -72,13 +74,15 @@
     </div>
 
     <div class="rlp-buy">
-      {%- if section.settings.eyebrow != blank -%}<span class="rlp-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- assign eyebrow = product.metafields.rlp.eyebrow | default: 'Categoria · Uso' -%}
+      {%- if eyebrow != blank -%}<span class="rlp-eyebrow">{{ eyebrow }}</span>{%- endif -%}
       <h1 style="margin-top:10px">{{ p.title }}</h1>
 
-      {%- if section.settings.nota != blank -%}
+      {%- assign nota = product.metafields.rlp.nota | default: '4,8/5 · mais de 10.000 clientes verificados' -%}
+      {%- if nota != blank -%}
       <div class="rlp-stars-row">
         <span class="rlp-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg></span>
-        <span class="rlp-num">{{ section.settings.nota }}</span>
+        <span class="rlp-num">{{ nota }}</span>
       </div>
       {%- endif -%}
 
@@ -87,15 +91,18 @@
         <span class="rlp-price-old rlp-num" id="precoAntigo">{{ v0.compare_at_price | money }}</span>
         <span class="rlp-save-chip rlp-num" id="poupanca"></span>
       </div>
-      <p class="rlp-tax-note">{{ section.settings.nota_preco }}</p>
+      <p class="rlp-tax-note">{{ product.metafields.rlp.nota_preco | default: 'IVA incluído · Frete grátis em todas as encomendas' }}</p>
 
       <ul class="rlp-benefits">
+        {%- assign bp_padrao = 'Benefício principal|Benefício 2|Benefício 3' | split: '|' -%}
         {%- for i in (1..3) -%}
         {%- capture bt -%}beneficio_{{ i }}_titulo{%- endcapture -%}{%- capture bx -%}beneficio_{{ i }}_texto{%- endcapture -%}
-        {%- if section.settings[bt] != blank -%}
+        {%- assign titulo = product.metafields.rlp[bt] | default: bp_padrao[forloop.index0] -%}
+        {%- assign texto = product.metafields.rlp[bx] | default: 'explicação curta' -%}
+        {%- if titulo != blank -%}
         <li>
           <svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg>
-          <span><b>{{ section.settings[bt] }}</b>{% if section.settings[bx] != blank %} — {{ section.settings[bx] }}{% endif %}</span>
+          <span><b>{{ titulo }}</b>{% if texto != blank %} — {{ texto }}{% endif %}</span>
         </li>
         {%- endif -%}
         {%- endfor -%}
@@ -162,7 +169,13 @@
       <div class="rlp-opt"{% if tam_idx < 0 %} hidden{% endif %}>
         <div class="rlp-opt-head">
           <span class="rlp-lbl">{% if tam_idx >= 0 %}{{ p.options_with_values[tam_idx].name }}{% endif %}</span>
-          {%- if section.settings.tabela_medidas != blank -%}<button type="button" class="rlp-link" id="abrirGuia">{{ section.settings.guia_link }}</button>{%- endif -%}
+          {%- assign tabela_txt = product.metafields.rlp.tabela_medidas | default: 'S | 62 – 68 cm
+M | 68 – 74 cm
+L | 74 – 80 cm
+XL | 80 – 86 cm
+XXL | 86 – 92 cm
+3XL | 92 – 98 cm' -%}
+          {%- if tabela_txt != blank -%}<button type="button" class="rlp-link" id="abrirGuia">{{ product.metafields.rlp.guia_link | default: 'Guia de medidas' }}</button>{%- endif -%}
         </div>
         <div class="rlp-sizes" id="tamanhos">
           {%- if tam_idx >= 0 -%}
@@ -176,7 +189,7 @@
       </div>
 
       <div class="rlp-opt">
-        <div class="rlp-bundle-head"><span class="rlp-lbl">{{ section.settings.bundle_titulo }}</span></div>
+        <div class="rlp-bundle-head"><span class="rlp-lbl">{{ product.metafields.rlp.bundle_titulo | default: 'Compre mais, pague menos' }}</span></div>
         <div class="rlp-bundles" id="bundles"></div>
       </div>
 
@@ -189,17 +202,20 @@
       <a class="rlp-cta" href="#" data-buy id="ctaPrincipal">Comprar — {{ v0.price | money }}</a>
 
       <ul class="rlp-assur">
-        {%- if section.settings.garantia_1 != blank -%}<li>
+        {%- assign g1 = product.metafields.rlp.garantia_1 | default: 'Envio em 24 h úteis · entrega em 3 a 6 dias úteis' -%}
+        {%- assign g2 = product.metafields.rlp.garantia_2 | default: '30 dias para troca de tamanho ou devolução' -%}
+        {%- assign g3 = product.metafields.rlp.garantia_3 | default: 'Pagamento seguro — MB Way, cartão ou PayPal' -%}
+        {%- if g1 != blank -%}<li>
           <svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
-          <span>{{ section.settings.garantia_1 }}</span>
+          <span>{{ g1 }}</span>
         </li>{%- endif -%}
-        {%- if section.settings.garantia_2 != blank -%}<li>
+        {%- if g2 != blank -%}<li>
           <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg>
-          <span>{{ section.settings.garantia_2 }}</span>
+          <span>{{ g2 }}</span>
         </li>{%- endif -%}
-        {%- if section.settings.garantia_3 != blank -%}<li>
+        {%- if g3 != blank -%}<li>
           <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-          <span>{{ section.settings.garantia_3 }}</span>
+          <span>{{ g3 }}</span>
         </li>{%- endif -%}
       </ul>
     </div>
@@ -207,25 +223,25 @@
   </div>
 </section>
 
-{%- if section.settings.dif_1_titulo != blank -%}
+{%- assign dif1t = product.metafields.rlp.dif_1_titulo -%}
+{%- if dif1t != blank -%}
 <section class="rlp-trust">
   <div class="rlp-wrap rlp-trust-grid">
+    {%- for i in (1..4) -%}
+    {%- capture kt -%}dif_{{ i }}_titulo{%- endcapture -%}{%- capture kx -%}dif_{{ i }}_texto{%- endcapture -%}
+    {%- assign dt = product.metafields.rlp[kt] -%}{%- assign dx = product.metafields.rlp[kx] -%}
+    {%- if dt != blank -%}
     <div class="rlp-trust-cell rlp-rv">
-      <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-      <b>{{ section.settings.dif_1_titulo }}</b><span>{{ section.settings.dif_1_texto }}</span>
+      {%- case i -%}
+        {%- when 1 -%}<svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        {%- when 2 -%}<svg viewBox="0 0 24 24"><path d="M4 14c3-6 13-6 16 0"/><path d="M12 4v3"/><circle cx="12" cy="16" r="3"/></svg>
+        {%- when 3 -%}<svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16"/><path d="M6 9h12M6 15h12"/></svg>
+        {%- else -%}<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
+      {%- endcase -%}
+      <b>{{ dt }}</b><span>{{ dx }}</span>
     </div>
-    <div class="rlp-trust-cell rlp-rv">
-      <svg viewBox="0 0 24 24"><path d="M4 14c3-6 13-6 16 0"/><path d="M12 4v3"/><circle cx="12" cy="16" r="3"/></svg>
-      <b>{{ section.settings.dif_2_titulo }}</b><span>{{ section.settings.dif_2_texto }}</span>
-    </div>
-    <div class="rlp-trust-cell rlp-rv">
-      <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16"/><path d="M6 9h12M6 15h12"/></svg>
-      <b>{{ section.settings.dif_3_titulo }}</b><span>{{ section.settings.dif_3_texto }}</span>
-    </div>
-    <div class="rlp-trust-cell rlp-rv">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
-      <b>{{ section.settings.dif_4_titulo }}</b><span>{{ section.settings.dif_4_texto }}</span>
-    </div>
+    {%- endif -%}
+    {%- endfor -%}
   </div>
 </section>
 {%- endif -%}
@@ -244,14 +260,16 @@
   <button type="button" class="rlp-dlg-close" id="fecharGuia" aria-label="Fechar">&times;</button>
   <div class="rlp-dlg-in">
     <span class="rlp-eyebrow">Guia rápido</span>
-    <h3 style="margin:10px 0 8px">{{ section.settings.guia_titulo }}</h3>
-    <p style="font-size:14px;color:var(--ink-2);line-height:1.7">{{ section.settings.guia_texto }}</p>
+    <h3 style="margin:10px 0 8px">{{ product.metafields.rlp.guia_titulo | default: 'Como medir' }}</h3>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.7">{{ product.metafields.rlp.guia_texto | default: 'Passo a passo para medir. Em dúvida, escolha o maior.' }}</p>
     <table>
-      <thead><tr><th>Tamanho</th><th>{{ section.settings.medida_nome }}</th></tr></thead>
-      <tbody>{%- assign linhas = section.settings.tabela_medidas | newline_to_br | split: '<br />' -%}
-{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}
-<tr><td>{{ c[0] | strip }}</td><td class="rlp-num">{{ c[1] | strip }}</td></tr>
-{%- endif -%}{%- endfor -%}</tbody>
+      <thead><tr><th>Tamanho</th><th>{{ product.metafields.rlp.medida_nome | default: 'Cintura' }}</th></tr></thead>
+      <tbody>{%- assign linhas = product.metafields.rlp.tabela_medidas | default: 'S | 62 – 68 cm
+M | 68 – 74 cm
+L | 74 – 80 cm
+XL | 80 – 86 cm
+XXL | 86 – 92 cm
+3XL | 92 – 98 cm' | newline_to_br | split: '<br />' -%}{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}<tr><td>{{ c[0] | strip }}</td><td class="rlp-num">{{ c[1] | strip }}</td></tr>{%- endif -%}{%- endfor -%}</tbody>
     </table>
   </div>
 </dialog>
@@ -264,227 +282,8 @@
   "class": "rlp-sec",
   "settings": [
     {
-      "type": "header",
-      "content": "Topo do produto"
-    },
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Etiqueta acima do título",
-      "default": "Categoria · Uso"
-    },
-    {
-      "type": "text",
-      "id": "nota",
-      "label": "Estrelas: texto ao lado (vazio = esconde)",
-      "default": "4,8/5 · mais de 10.000 clientes verificados"
-    },
-    {
-      "type": "text",
-      "id": "nota_preco",
-      "label": "Linha abaixo do preço",
-      "default": "IVA incluído · Frete grátis em todas as encomendas"
-    },
-    {
-      "type": "text",
-      "id": "beneficio_1_titulo",
-      "label": "Benefício 1 — título",
-      "default": "Benefício principal"
-    },
-    {
-      "type": "text",
-      "id": "beneficio_1_texto",
-      "label": "Benefício 1 — explicação",
-      "default": "explicação curta"
-    },
-    {
-      "type": "text",
-      "id": "beneficio_2_titulo",
-      "label": "Benefício 2 — título",
-      "default": "Benefício 2"
-    },
-    {
-      "type": "text",
-      "id": "beneficio_2_texto",
-      "label": "Benefício 2 — explicação",
-      "default": "explicação curta"
-    },
-    {
-      "type": "text",
-      "id": "beneficio_3_titulo",
-      "label": "Benefício 3 — título",
-      "default": "Benefício 3"
-    },
-    {
-      "type": "text",
-      "id": "beneficio_3_texto",
-      "label": "Benefício 3 — explicação",
-      "default": "explicação curta"
-    },
-    {
-      "type": "header",
-      "content": "Pacotes com desconto"
-    },
-    {
       "type": "paragraph",
-      "content": "Crie na Shopify (Descontos) um código com a MESMA porcentagem para cada pacote. Sem código, a página mostra o desconto mas o checkout cobra o preço cheio."
-    },
-    {
-      "type": "text",
-      "id": "bundle_titulo",
-      "label": "Título dos pacotes",
-      "default": "Compre mais, pague menos"
-    },
-    {
-      "type": "checkbox",
-      "id": "bundle_2",
-      "label": "Mostrar pacote de 2",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "off_2",
-      "label": "Desconto do pacote de 2",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "%",
-      "default": 10
-    },
-    {
-      "type": "text",
-      "id": "codigo_2",
-      "label": "Código de desconto do pacote de 2"
-    },
-    {
-      "type": "checkbox",
-      "id": "bundle_3",
-      "label": "Mostrar pacote de 3",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "off_3",
-      "label": "Desconto do pacote de 3",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "%",
-      "default": 15
-    },
-    {
-      "type": "text",
-      "id": "codigo_3",
-      "label": "Código de desconto do pacote de 3"
-    },
-    {
-      "type": "header",
-      "content": "Garantias abaixo do botão"
-    },
-    {
-      "type": "text",
-      "id": "garantia_1",
-      "label": "Linha 1 (envio)",
-      "default": "Envio em 24 h úteis · entrega em 3 a 6 dias úteis"
-    },
-    {
-      "type": "text",
-      "id": "garantia_2",
-      "label": "Linha 2 (trocas)",
-      "default": "30 dias para troca de tamanho ou devolução"
-    },
-    {
-      "type": "text",
-      "id": "garantia_3",
-      "label": "Linha 3 (pagamento)",
-      "default": "Pagamento seguro — MB Way, cartão ou PayPal"
-    },
-    {
-      "type": "header",
-      "content": "Faixa de diferenciais (vazio no 1 = esconde)"
-    },
-    {
-      "type": "text",
-      "id": "dif_1_titulo",
-      "label": "Diferencial 1 — título",
-      "default": "Diferencial 1"
-    },
-    {
-      "type": "text",
-      "id": "dif_1_texto",
-      "label": "Diferencial 1 — detalhe",
-      "default": "detalhe curto"
-    },
-    {
-      "type": "text",
-      "id": "dif_2_titulo",
-      "label": "Diferencial 2 — título",
-      "default": "Diferencial 2"
-    },
-    {
-      "type": "text",
-      "id": "dif_2_texto",
-      "label": "Diferencial 2 — detalhe",
-      "default": "detalhe curto"
-    },
-    {
-      "type": "text",
-      "id": "dif_3_titulo",
-      "label": "Diferencial 3 — título",
-      "default": "Diferencial 3"
-    },
-    {
-      "type": "text",
-      "id": "dif_3_texto",
-      "label": "Diferencial 3 — detalhe",
-      "default": "detalhe curto"
-    },
-    {
-      "type": "text",
-      "id": "dif_4_titulo",
-      "label": "Diferencial 4 — título",
-      "default": "Diferencial 4"
-    },
-    {
-      "type": "text",
-      "id": "dif_4_texto",
-      "label": "Diferencial 4 — detalhe",
-      "default": "detalhe curto"
-    },
-    {
-      "type": "header",
-      "content": "Guia de medidas"
-    },
-    {
-      "type": "text",
-      "id": "guia_link",
-      "label": "Texto do link",
-      "default": "Guia de medidas"
-    },
-    {
-      "type": "text",
-      "id": "guia_titulo",
-      "label": "Título do guia",
-      "default": "Como medir"
-    },
-    {
-      "type": "textarea",
-      "id": "guia_texto",
-      "label": "Explicação",
-      "default": "Passo a passo para medir. Em dúvida, escolha o maior."
-    },
-    {
-      "type": "text",
-      "id": "medida_nome",
-      "label": "Nome da medida (coluna)",
-      "default": "Cintura"
-    },
-    {
-      "type": "textarea",
-      "id": "tabela_medidas",
-      "label": "Tabela: uma linha por tamanho, no formato  Tamanho | medida",
-      "default": "S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm",
-      "info": "Deixe vazio para esconder o link do guia."
+      "content": "Os textos desta secção vêm do produto (Metafields → rlp), não daqui — assim servem para qualquer produto que use este modelo. Edite em Produtos → [o produto] → Metafields, ou peça para os preencherem por si."
     }
   ],
   "presets": [

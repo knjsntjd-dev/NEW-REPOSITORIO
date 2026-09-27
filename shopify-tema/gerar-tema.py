@@ -97,23 +97,43 @@ js = re.sub(r"\n  /\* ═+\n     RASTREIO META.*?(?=\n\}\)\(\);\s*$)", '\n', js,
 assert 'fbq(' not in js, 'rastreio não foi removido'
 
 # ═════════════════════ helpers Liquid ═════════════════════
+# O conteúdo (textos, listas, artes) fica no METAFIELD do produto
+# (namespace "rlp"), não nas definições da secção — assim um único
+# ficheiro de tema serve qualquer produto, e dá para preencher os
+# dados pela API mesmo com o tema já publicado (só as secções do
+# tema exigem o tema estar por publicar).
 ESTRELAS = '<span class="stars">' + '<svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg>' * 5 + '</span>'
-S = lambda k: '{{ section.settings.' + k + ' }}'
-TABELA = '''{%- assign linhas = section.settings.tabela_medidas | newline_to_br | split: '<br />' -%}
-{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}
-<tr><td>{{ c[0] | strip }}</td><td class="num">{{ c[1] | strip }}</td></tr>
-{%- endif -%}{%- endfor -%}'''
 
-def schema(nome, settings):
-    return '{% schema %}\n' + json.dumps({'name': nome, 'tag': 'section', 'class': 'rlp-sec', 'settings': settings,
-                                         'presets': [{'name': nome}]}, ensure_ascii=False, indent=2) + '\n{% endschema %}\n'
-def t(id_, label, default, tipo='text'):
-    d = {'type': tipo, 'id': id_, 'label': label}
-    if default != '':
-        d['default'] = default  # a Shopify recusa default vazio
-    return d
-def h(conteudo):
-    return {'type': 'header', 'content': conteudo}
+def M(chave, default=None):
+    """Liquid que lê product.metafields.rlp.<chave>, com um texto de
+    reserva quando o produto ainda não tem esse campo preenchido."""
+    if default is None:
+        return '{{ product.metafields.rlp.' + chave + ' }}'
+    assert "'" not in default, default
+    return "{{ product.metafields.rlp." + chave + " | default: '" + default + "' }}"
+
+def MB(chave):
+    """Acesso dinâmico product.metafields.rlp[chave] — chave é uma
+    variável Liquid (usada dentro de laços)."""
+    return '{{ product.metafields.rlp[' + chave + '] }}'
+
+TABELA_PADRAO = 'S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm'
+TABELA = ("{%- assign linhas = " + M('tabela_medidas', TABELA_PADRAO)[2:-2].strip()
+          + " | newline_to_br | split: '<br />' -%}"
+          + "{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}"
+          + "<tr><td>{{ c[0] | strip }}</td><td class=\"num\">{{ c[1] | strip }}</td></tr>"
+          + "{%- endif -%}{%- endfor -%}")
+
+def schema(nome, aviso):
+    return ('{% schema %}\n' + json.dumps({
+        'name': nome, 'tag': 'section', 'class': 'rlp-sec',
+        'settings': [{'type': 'paragraph', 'content': aviso}],
+        'presets': [{'name': nome}],
+    }, ensure_ascii=False, indent=2) + '\n{% endschema %}\n')
+
+AVISO = ('Os textos desta secção vêm do produto (Metafields → rlp), não daqui — '
+         'assim servem para qualquer produto que use este modelo. Edite em '
+         'Produtos → [o produto] → Metafields, ou peça para os preencherem por si.')
 
 # ═══════════════════ secção 1: produto ═══════════════════
 SEC1 = r'''{%- liquid
@@ -140,7 +160,7 @@ SEC1 = r'''{%- liquid
     assign preco_cmp = v0.compare_at_price | divided_by: 100.0
   endif
 -%}
-<link rel="preload" href="{{ 'rodrigues-lp-archivo.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+{{ 'rodrigues-lp-archivo.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
 <style>@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url({{ 'rodrigues-lp-archivo.woff2' | asset_url }}) format('woff2')}</style>
 {{ 'rodrigues-lp.css' | asset_url | stylesheet_tag }}
 <script>
@@ -158,8 +178,10 @@ SEC1 = r'''{%- liquid
     precoComparacao: {{ preco_cmp }},
     bundles: [
       { q: 1, off: 0, codigo: '' }
-      {%- if section.settings.bundle_2 -%}, { q: 2, off: {{ section.settings.off_2 }}, codigo: {{ section.settings.codigo_2 | strip | json }} }{%- endif -%}
-      {%- if section.settings.bundle_3 -%}, { q: 3, off: {{ section.settings.off_3 }}, codigo: {{ section.settings.codigo_3 | strip | json }} }{%- endif -%}
+      {%- assign b2at = product.metafields.rlp.bundle2_ativo | default: 'sim' -%}
+      {%- assign b3at = product.metafields.rlp.bundle3_ativo | default: 'sim' -%}
+      {%- if b2at == 'sim' -%}, { q: 2, off: {{ product.metafields.rlp.bundle2_off | default: 10 }}, codigo: {{ product.metafields.rlp.bundle2_codigo | strip | json }} }{%- endif -%}
+      {%- if b3at == 'sim' -%}, { q: 3, off: {{ product.metafields.rlp.bundle3_off | default: 15 }}, codigo: {{ product.metafields.rlp.bundle3_codigo | strip | json }} }{%- endif -%}
     ],
     moeda: {{ cart.currency.iso_code | json }},
     pixelId: '',
@@ -190,13 +212,15 @@ SEC1 = r'''{%- liquid
     </div>
 
     <div class="buy">
-      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- assign eyebrow = ''' + M('eyebrow', 'Categoria · Uso')[2:-2].strip() + r''' -%}
+      {%- if eyebrow != blank -%}<span class="eyebrow">{{ eyebrow }}</span>{%- endif -%}
       <h1 style="margin-top:10px">{{ p.title }}</h1>
 
-      {%- if section.settings.nota != blank -%}
+      {%- assign nota = ''' + M('nota', '4,8/5 · mais de 10.000 clientes verificados')[2:-2].strip() + r''' -%}
+      {%- if nota != blank -%}
       <div class="stars-row">
         ESTRELAS
-        <span class="num">{{ section.settings.nota }}</span>
+        <span class="num">{{ nota }}</span>
       </div>
       {%- endif -%}
 
@@ -205,15 +229,18 @@ SEC1 = r'''{%- liquid
         <span class="price-old num" id="precoAntigo">{{ v0.compare_at_price | money }}</span>
         <span class="save-chip num" id="poupanca"></span>
       </div>
-      <p class="tax-note">{{ section.settings.nota_preco }}</p>
+      <p class="tax-note">''' + M('nota_preco', 'IVA incluído · Frete grátis em todas as encomendas') + r'''</p>
 
       <ul class="benefits">
+        {%- assign bp_padrao = 'Benefício principal|Benefício 2|Benefício 3' | split: '|' -%}
         {%- for i in (1..3) -%}
         {%- capture bt -%}beneficio_{{ i }}_titulo{%- endcapture -%}{%- capture bx -%}beneficio_{{ i }}_texto{%- endcapture -%}
-        {%- if section.settings[bt] != blank -%}
+        {%- assign titulo = product.metafields.rlp[bt] | default: bp_padrao[forloop.index0] -%}
+        {%- assign texto = product.metafields.rlp[bx] | default: 'explicação curta' -%}
+        {%- if titulo != blank -%}
         <li>
           <svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg>
-          <span><b>{{ section.settings[bt] }}</b>{% if section.settings[bx] != blank %} — {{ section.settings[bx] }}{% endif %}</span>
+          <span><b>{{ titulo }}</b>{% if texto != blank %} — {{ texto }}{% endif %}</span>
         </li>
         {%- endif -%}
         {%- endfor -%}
@@ -280,7 +307,8 @@ SEC1 = r'''{%- liquid
       <div class="opt"{% if tam_idx < 0 %} hidden{% endif %}>
         <div class="opt-head">
           <span class="lbl">{% if tam_idx >= 0 %}{{ p.options_with_values[tam_idx].name }}{% endif %}</span>
-          {%- if section.settings.tabela_medidas != blank -%}<button type="button" class="link" id="abrirGuia">{{ section.settings.guia_link }}</button>{%- endif -%}
+          {%- assign tabela_txt = ''' + M('tabela_medidas', TABELA_PADRAO)[2:-2].strip() + r''' -%}
+          {%- if tabela_txt != blank -%}<button type="button" class="link" id="abrirGuia">''' + M('guia_link', 'Guia de medidas') + r'''</button>{%- endif -%}
         </div>
         <div class="sizes" id="tamanhos">
           {%- if tam_idx >= 0 -%}
@@ -294,7 +322,7 @@ SEC1 = r'''{%- liquid
       </div>
 
       <div class="opt">
-        <div class="bundle-head"><span class="lbl">{{ section.settings.bundle_titulo }}</span></div>
+        <div class="bundle-head"><span class="lbl">''' + M('bundle_titulo', 'Compre mais, pague menos') + r'''</span></div>
         <div class="bundles" id="bundles"></div>
       </div>
 
@@ -307,17 +335,20 @@ SEC1 = r'''{%- liquid
       <a class="cta" href="#" data-buy id="ctaPrincipal">Comprar — {{ v0.price | money }}</a>
 
       <ul class="assur">
-        {%- if section.settings.garantia_1 != blank -%}<li>
+        {%- assign g1 = ''' + M('garantia_1', 'Envio em 24 h úteis · entrega em 3 a 6 dias úteis')[2:-2].strip() + r''' -%}
+        {%- assign g2 = ''' + M('garantia_2', '30 dias para troca de tamanho ou devolução')[2:-2].strip() + r''' -%}
+        {%- assign g3 = ''' + M('garantia_3', 'Pagamento seguro — MB Way, cartão ou PayPal')[2:-2].strip() + r''' -%}
+        {%- if g1 != blank -%}<li>
           <svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
-          <span>{{ section.settings.garantia_1 }}</span>
+          <span>{{ g1 }}</span>
         </li>{%- endif -%}
-        {%- if section.settings.garantia_2 != blank -%}<li>
+        {%- if g2 != blank -%}<li>
           <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg>
-          <span>{{ section.settings.garantia_2 }}</span>
+          <span>{{ g2 }}</span>
         </li>{%- endif -%}
-        {%- if section.settings.garantia_3 != blank -%}<li>
+        {%- if g3 != blank -%}<li>
           <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-          <span>{{ section.settings.garantia_3 }}</span>
+          <span>{{ g3 }}</span>
         </li>{%- endif -%}
       </ul>
     </div>
@@ -325,25 +356,25 @@ SEC1 = r'''{%- liquid
   </div>
 </section>
 
-{%- if section.settings.dif_1_titulo != blank -%}
+{%- assign dif1t = product.metafields.rlp.dif_1_titulo -%}
+{%- if dif1t != blank -%}
 <section class="trust">
   <div class="wrap trust-grid">
+    {%- for i in (1..4) -%}
+    {%- capture kt -%}dif_{{ i }}_titulo{%- endcapture -%}{%- capture kx -%}dif_{{ i }}_texto{%- endcapture -%}
+    {%- assign dt = product.metafields.rlp[kt] -%}{%- assign dx = product.metafields.rlp[kx] -%}
+    {%- if dt != blank -%}
     <div class="trust-cell rv">
-      <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-      <b>SS(dif_1_titulo)</b><span>SS(dif_1_texto)</span>
+      {%- case i -%}
+        {%- when 1 -%}<svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        {%- when 2 -%}<svg viewBox="0 0 24 24"><path d="M4 14c3-6 13-6 16 0"/><path d="M12 4v3"/><circle cx="12" cy="16" r="3"/></svg>
+        {%- when 3 -%}<svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16"/><path d="M6 9h12M6 15h12"/></svg>
+        {%- else -%}<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
+      {%- endcase -%}
+      <b>{{ dt }}</b><span>{{ dx }}</span>
     </div>
-    <div class="trust-cell rv">
-      <svg viewBox="0 0 24 24"><path d="M4 14c3-6 13-6 16 0"/><path d="M12 4v3"/><circle cx="12" cy="16" r="3"/></svg>
-      <b>SS(dif_2_titulo)</b><span>SS(dif_2_texto)</span>
-    </div>
-    <div class="trust-cell rv">
-      <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16"/><path d="M6 9h12M6 15h12"/></svg>
-      <b>SS(dif_3_titulo)</b><span>SS(dif_3_texto)</span>
-    </div>
-    <div class="trust-cell rv">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
-      <b>SS(dif_4_titulo)</b><span>SS(dif_4_texto)</span>
-    </div>
+    {%- endif -%}
+    {%- endfor -%}
   </div>
 </section>
 {%- endif -%}
@@ -362,10 +393,10 @@ SEC1 = r'''{%- liquid
   <button type="button" class="dlg-close" id="fecharGuia" aria-label="Fechar">&times;</button>
   <div class="dlg-in">
     <span class="eyebrow">Guia rápido</span>
-    <h3 style="margin:10px 0 8px">SS(guia_titulo)</h3>
-    <p style="font-size:14px;color:var(--ink-2);line-height:1.7">SS(guia_texto)</p>
+    <h3 style="margin:10px 0 8px">''' + M('guia_titulo', 'Como medir') + r'''</h3>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.7">''' + M('guia_texto', 'Passo a passo para medir. Em dúvida, escolha o maior.') + r'''</p>
     <table>
-      <thead><tr><th>Tamanho</th><th>SS(medida_nome)</th></tr></thead>
+      <thead><tr><th>Tamanho</th><th>''' + M('medida_nome', 'Cintura') + r'''</th></tr></thead>
       <tbody>TABELA</tbody>
     </table>
   </div>
@@ -373,58 +404,14 @@ SEC1 = r'''{%- liquid
 </div>
 '''
 
-SET1 = [
-    h('Topo do produto'),
-    t('eyebrow', 'Etiqueta acima do título', 'Categoria · Uso'),
-    t('nota', 'Estrelas: texto ao lado (vazio = esconde)', '4,8/5 · mais de 10.000 clientes verificados'),
-    t('nota_preco', 'Linha abaixo do preço', 'IVA incluído · Frete grátis em todas as encomendas'),
-    t('beneficio_1_titulo', 'Benefício 1 — título', 'Benefício principal'),
-    t('beneficio_1_texto', 'Benefício 1 — explicação', 'explicação curta'),
-    t('beneficio_2_titulo', 'Benefício 2 — título', 'Benefício 2'),
-    t('beneficio_2_texto', 'Benefício 2 — explicação', 'explicação curta'),
-    t('beneficio_3_titulo', 'Benefício 3 — título', 'Benefício 3'),
-    t('beneficio_3_texto', 'Benefício 3 — explicação', 'explicação curta'),
-    h('Pacotes com desconto'),
-    {'type': 'paragraph', 'content': 'Crie na Shopify (Descontos) um código com a MESMA porcentagem para cada pacote. Sem código, a página mostra o desconto mas o checkout cobra o preço cheio.'},
-    t('bundle_titulo', 'Título dos pacotes', 'Compre mais, pague menos'),
-    {'type': 'checkbox', 'id': 'bundle_2', 'label': 'Mostrar pacote de 2', 'default': True},
-    {'type': 'range', 'id': 'off_2', 'label': 'Desconto do pacote de 2', 'min': 0, 'max': 50, 'step': 1, 'unit': '%', 'default': 10},
-    t('codigo_2', 'Código de desconto do pacote de 2', ''),
-    {'type': 'checkbox', 'id': 'bundle_3', 'label': 'Mostrar pacote de 3', 'default': True},
-    {'type': 'range', 'id': 'off_3', 'label': 'Desconto do pacote de 3', 'min': 0, 'max': 50, 'step': 1, 'unit': '%', 'default': 15},
-    t('codigo_3', 'Código de desconto do pacote de 3', ''),
-    h('Garantias abaixo do botão'),
-    t('garantia_1', 'Linha 1 (envio)', 'Envio em 24 h úteis · entrega em 3 a 6 dias úteis'),
-    t('garantia_2', 'Linha 2 (trocas)', '30 dias para troca de tamanho ou devolução'),
-    t('garantia_3', 'Linha 3 (pagamento)', 'Pagamento seguro — MB Way, cartão ou PayPal'),
-    h('Faixa de diferenciais (vazio no 1 = esconde)'),
-] + [x for i in range(1, 5) for x in (t(f'dif_{i}_titulo', f'Diferencial {i} — título', f'Diferencial {i}'),
-                                       t(f'dif_{i}_texto', f'Diferencial {i} — detalhe', 'detalhe curto'))] + [
-    h('Guia de medidas'),
-    t('guia_link', 'Texto do link', 'Guia de medidas'),
-    t('guia_titulo', 'Título do guia', 'Como medir'),
-    t('guia_texto', 'Explicação', 'Passo a passo para medir. Em dúvida, escolha o maior.', 'textarea'),
-    t('medida_nome', 'Nome da medida (coluna)', 'Cintura'),
-    {'type': 'textarea', 'id': 'tabela_medidas', 'label': 'Tabela: uma linha por tamanho, no formato  Tamanho | medida',
-     'default': 'S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm',
-     'info': 'Deixe vazio para esconder o link do guia.'},
-]
-
 # ═══════════════ secção 2: comparação + benefícios ═══════════════
-def linha_cmp(i):
-    return f'''          <tr>
-            <th scope="row">SS(criterio_{i})</th>
-            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
-            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
-            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
-          </tr>'''
 SEC2 = '''<div class="rlp">
 <section class="compare">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">SS(cmp_eyebrow)</span>
-      <h2>SS(cmp_titulo)</h2>
-      <p class="lead">SS(cmp_texto)</p>
+      <span class="eyebrow">''' + M('cmp_eyebrow', 'Nós contra eles') + '''</span>
+      <h2>''' + M('cmp_titulo', 'Porque escolher o nosso produto') + '''</h2>
+      <p class="lead">''' + M('cmp_texto', 'O problema dos produtos comuns numa frase. Como o seu produto resolve.') + '''</p>
     </div>
     <div class="compare-wrap rv">
       <table class="compare-table">
@@ -432,68 +419,64 @@ SEC2 = '''<div class="rlp">
         <thead>
           <tr>
             <th scope="col"></th>
-            <th scope="col" class="hl"><span class="compare-brand"><b>SS(cmp_nosso)</b><span>SS(cmp_marca)</span></span></th>
-            <th scope="col">SS(cmp_col2)</th>
-            <th scope="col">SS(cmp_col3)</th>
+            <th scope="col" class="hl"><span class="compare-brand"><b>''' + M('cmp_nosso', 'PRODUTO') + '''</b><span>''' + M('cmp_marca', 'USE RODRIGUES') + '''</span></span></th>
+            <th scope="col">''' + M('cmp_col2', 'Comum') + '''</th>
+            <th scope="col">''' + M('cmp_col3', 'Barato') + '''</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">SS(criterio_estrelas)</th>
+            <th scope="row">''' + M('criterio_estrelas', 'Qualidade geral') + '''</th>
             <td class="hl"><span class="compare-stars" aria-label="5 de 5 estrelas"><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="on">★</span></span></td>
             <td><span class="compare-stars" aria-label="3 de 5 estrelas"><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="off">★</span><span class="off">★</span></span></td>
             <td><span class="compare-stars" aria-label="2 de 5 estrelas"><span class="on">★</span><span class="on">★</span><span class="off">★</span><span class="off">★</span><span class="off">★</span></span></td>
           </tr>
-{%- for i in (1..5) -%}{%- capture k -%}criterio_{{ i }}{%- endcapture -%}{%- if section.settings[k] != blank -%}
-LINHA
-{%- endif -%}{%- endfor -%}
+''' + '\n'.join(f'''          {{%- assign crit{i} = product.metafields.rlp.criterio_{i} | default: 'Critério {i}' -%}}
+          {{%- if crit{i} != blank -%}}
+          <tr>
+            <th scope="row">{{{{ crit{i} }}}}</th>
+            <td class="hl"><span class="compare-badge ok" aria-label="Sim">✓</span></td>
+            <td><span class="compare-badge mid" aria-label="Parcial">–</span></td>
+            <td><span class="compare-badge no" aria-label="Não">✕</span></td>
+          </tr>
+          {{%- endif -%}}''' for i in range(1, 6)) + '''
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-{%- if section.settings.img_1 != blank or section.settings.img_2 != blank or section.settings.img_3 != blank -%}
+{%- assign im1 = product.metafields.rlp.img_1 -%}{%- assign im2 = product.metafields.rlp.img_2 -%}{%- assign im3 = product.metafields.rlp.img_3 -%}
+{%- if im1 != blank or im2 != blank or im3 != blank -%}
 <section class="pillars">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">SS(ben_eyebrow)</span>
-      <h2>SS(ben_titulo)</h2>
-      <p class="lead">SS(ben_texto)</p>
+      <span class="eyebrow">''' + M('ben_eyebrow', 'Porque funciona') + '''</span>
+      <h2>''' + M('ben_titulo', 'Título da secção de benefícios') + '''</h2>
+      <p class="lead">''' + M('ben_texto', 'Uma frase sobre porque o produto funciona.') + '''</p>
     </div>
     <div class="p-grid">
-      {%- for i in (1..3) -%}{%- capture k -%}img_{{ i }}{%- endcapture -%}{%- assign im = section.settings[k] -%}
-      {%- if im != blank -%}
+      {%- if im1 != blank -%}
       <article class="p-card rv">
-        <figure class="shot" style="margin:0;aspect-ratio:{{ im.aspect_ratio }}">{{ im | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im.alt }}</figure>
+        <figure class="shot" style="margin:0;aspect-ratio:{{ im1.aspect_ratio }}">{{ im1 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im1.alt }}</figure>
       </article>
-      {%- endif -%}{%- endfor -%}
+      {%- endif -%}
+      {%- if im2 != blank -%}
+      <article class="p-card rv">
+        <figure class="shot" style="margin:0;aspect-ratio:{{ im2.aspect_ratio }}">{{ im2 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im2.alt }}</figure>
+      </article>
+      {%- endif -%}
+      {%- if im3 != blank -%}
+      <article class="p-card rv">
+        <figure class="shot" style="margin:0;aspect-ratio:{{ im3.aspect_ratio }}">{{ im3 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im3.alt }}</figure>
+      </article>
+      {%- endif -%}
     </div>
   </div>
 </section>
 {%- endif -%}
 </div>
-'''.replace('LINHA', linha_cmp('{{ i }}').replace('SS(criterio_{{ i }})', '{{ section.settings[k] }}'))
-
-SET2 = [
-    h('Comparação'),
-    t('cmp_eyebrow', 'Etiqueta', 'Nós contra eles'),
-    t('cmp_titulo', 'Título', 'Porque escolher o nosso produto'),
-    t('cmp_texto', 'Texto', 'O problema dos produtos comuns numa frase. Como o seu produto resolve.', 'textarea'),
-    t('cmp_nosso', 'Coluna em destaque — nome', 'PRODUTO'),
-    t('cmp_marca', 'Coluna em destaque — marca', 'USE RODRIGUES'),
-    t('cmp_col2', 'Coluna 2 (concorrente)', 'Comum'),
-    t('cmp_col3', 'Coluna 3 (concorrente)', 'Barato'),
-    t('criterio_estrelas', 'Linha com estrelas', 'Qualidade geral'),
-] + [t(f'criterio_{i}', f'Critério {i} (vazio = esconde)', f'Critério {i}') for i in range(1, 6)] + [
-    h('Benefícios (artes)'),
-    t('ben_eyebrow', 'Etiqueta', 'Porque funciona'),
-    t('ben_titulo', 'Título', 'Título da secção de benefícios'),
-    t('ben_texto', 'Texto', 'Uma frase sobre porque o produto funciona.', 'textarea'),
-    {'type': 'image_picker', 'id': 'img_1', 'label': 'Arte 1'},
-    {'type': 'image_picker', 'id': 'img_2', 'label': 'Arte 2'},
-    {'type': 'image_picker', 'id': 'img_3', 'label': 'Arte 3'},
-]
+'''
 
 # ═══════════ secção 3: tamanhos + depoimentos + CTA + FAQ ═══════════
 SEC3 = '''{%- liquid
@@ -501,42 +484,45 @@ SEC3 = '''{%- liquid
   assign v0 = p.selected_or_first_available_variant
 -%}
 <div class="rlp">
-{%- if section.settings.mostrar_tabela and section.settings.tabela_medidas != blank -%}
+{%- assign tabela_txt = ''' + M('tabela_medidas', TABELA_PADRAO)[2:-2].strip() + ''' -%}
+{%- if tabela_txt != blank -%}
 <section class="sizing">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Guia de tamanhos</span>
-      <h2>SS(tam_titulo)</h2>
-      <p class="lead">SS(tam_texto)</p>
+      <h2>''' + M('tam_titulo', 'Encontre o seu tamanho') + '''</h2>
+      <p class="lead">''' + M('tam_texto', 'Como medir para escolher o tamanho. Em dúvida entre dois tamanhos, escolha o maior.') + '''</p>
     </div>
     <div class="sizing-grid rv">
       <div class="tbl-wrap">
         <table>
-          <thead><tr><th>Tamanho</th><th>SS(medida_nome)</th></tr></thead>
+          <thead><tr><th>Tamanho</th><th>''' + M('medida_nome', 'Cintura') + '''</th></tr></thead>
           <tbody>TABELA</tbody>
         </table>
       </div>
-      <p class="tbl-note">SS(tam_nota)</p>
+      <p class="tbl-note">''' + M('tam_nota', 'Se o tamanho não servir, trocamos nos primeiros 30 dias.') + '''</p>
     </div>
   </div>
 </section>
 {%- endif -%}
 
-{%- if section.settings.dep_1_texto != blank -%}
+{%- assign dep1 = product.metafields.rlp.dep_1_texto -%}
+{%- if dep1 != blank -%}
 <section class="reviews">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow num">SS(dep_eyebrow)</span>
-      <h2>SS(dep_titulo)</h2>
+      <span class="eyebrow num">''' + M('dep_eyebrow', '4,8 / 5 · clientes verificados') + '''</span>
+      <h2>''' + M('dep_titulo', 'O que diz quem já usa') + '''</h2>
     </div>
     <div class="r-grid rv">
       {%- for i in (1..3) -%}
       {%- capture kt -%}dep_{{ i }}_texto{%- endcapture -%}{%- capture kn -%}dep_{{ i }}_nome{%- endcapture -%}
-      {%- if section.settings[kt] != blank -%}
+      {%- assign dt = product.metafields.rlp[kt] -%}{%- assign dn = product.metafields.rlp[kn] -%}
+      {%- if dt != blank -%}
       <article class="r-card">
         ESTRELAS
-        <q>{{ section.settings[kt] }}</q>
-        <p class="r-who"><b>{{ section.settings[kn] }}</b> · Compra verificada</p>
+        <q>{{ dt }}</q>
+        <p class="r-who"><b>{{ dn }}</b> · Compra verificada</p>
       </article>
       {%- endif -%}
       {%- endfor -%}
@@ -548,18 +534,18 @@ SEC3 = '''{%- liquid
 <section class="final">
   <div class="wrap">
     <div class="final-box rv">
-      <span class="eyebrow">SS(fim_eyebrow)</span>
+      <span class="eyebrow">''' + M('fim_eyebrow', 'Oferta por tempo limitado') + '''</span>
       <h2>{{ p.title }}</h2>
-      <p class="lead" style="margin-inline:auto">SS(fim_texto)</p>
+      <p class="lead" style="margin-inline:auto">''' + M('fim_texto', 'Escolha o tamanho, receba em casa e experimente sem risco durante 30 dias.') + '''</p>
       <div class="price-row">
         <span class="price num" data-final-preco>{{ v0.price | money }}</span>
         <span class="price-old num" data-final-antigo>{{ v0.compare_at_price | money }}</span>
       </div>
-      <p class="tax-note" style="margin-bottom:6px">SS(fim_nota_preco)</p>
+      <p class="tax-note" style="margin-bottom:6px">''' + M('fim_nota_preco', 'IVA incluído · Frete grátis em todas as encomendas') + '''</p>
       <a class="cta" href="#comprar" data-buy id="ctaFinal">Comprar agora — {{ v0.price | money }}</a>
       <span class="seal">
         <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-        SS(fim_selo)
+        ''' + M('fim_selo', 'Garantia de satisfação · 30 dias') + '''
       </span>
     </div>
   </div>
@@ -568,62 +554,37 @@ SEC3 = '''{%- liquid
 <section class="faq">
   <div class="wrap">
     <div class="faq-list rv">
-      {%- for i in (1..6) -%}
-      {%- capture kp -%}faq_{{ i }}_pergunta{%- endcapture -%}{%- capture kr -%}faq_{{ i }}_resposta{%- endcapture -%}
-      {%- if section.settings[kp] != blank -%}
+''' + '\n'.join(f'''      {{%- assign faqp{i} = product.metafields.rlp.faq_{i}_pergunta | default: {json.dumps(q, ensure_ascii=False)} -%}}
+      {{%- assign faqr{i} = product.metafields.rlp.faq_{i}_resposta | default: {json.dumps(r, ensure_ascii=False)} -%}}
+      {{%- if faqp{i} != blank -%}}
       <details>
-        <summary>{{ section.settings[kp] }}</summary>
-        <div class="faq-body">{{ section.settings[kr] }}</div>
+        <summary>{{{{ faqp{i} }}}}</summary>
+        <div class="faq-body">{{{{ faqr{i} }}}}</div>
       </details>
-      {%- endif -%}
-      {%- endfor -%}
+      {{%- endif -%}}''' for i, (q, r) in enumerate([
+        ('Qual tamanho devo escolher?', 'Veja o guia de medidas acima. Em dúvida entre dois tamanhos, escolha o maior.'),
+        ('Quanto tempo demora a entrega?', 'Enviamos em 24 horas úteis. A entrega demora normalmente 3 a 6 dias úteis e recebe o código de rastreio por e-mail.'),
+        ('Como funciona o desconto de quantidade?', 'Ao escolher 2 peças, o desconto de 10% aplica-se ao total; com 3 peças, 15%. O envio é grátis em qualquer encomenda.'),
+        ('E se não servir?', 'Tem 30 dias para pedir troca de tamanho ou devolução. Basta responder ao e-mail da encomenda — tratamos do resto.'),
+        ('', ''), ('', '')], 1)) + '''
     </div>
   </div>
 </section>
 </div>
 '''
-SET3 = [
-    h('Tabela de tamanhos'),
-    {'type': 'checkbox', 'id': 'mostrar_tabela', 'label': 'Mostrar secção de tamanhos', 'default': True},
-    t('tam_titulo', 'Título', 'Encontre o seu tamanho'),
-    t('tam_texto', 'Como medir', 'Como medir para escolher o tamanho. Em dúvida entre dois tamanhos, escolha o maior.', 'textarea'),
-    t('medida_nome', 'Nome da medida (coluna)', 'Cintura'),
-    {'type': 'textarea', 'id': 'tabela_medidas', 'label': 'Tabela: Tamanho | medida (uma por linha)',
-     'default': 'S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm'},
-    t('tam_nota', 'Nota abaixo da tabela', 'Se o tamanho não servir, trocamos nos primeiros 30 dias.'),
-    h('Depoimentos (só avaliações reais)'),
-    t('dep_eyebrow', 'Etiqueta', '4,8 / 5 · clientes verificados'),
-    t('dep_titulo', 'Título', 'O que diz quem já usa'),
-] + [x for i in range(1, 4) for x in (t(f'dep_{i}_texto', f'Depoimento {i}', '', 'textarea'),
-                                       t(f'dep_{i}_nome', f'Depoimento {i} — nome e cidade', ''))] + [
-    h('Chamada final'),
-    t('fim_eyebrow', 'Etiqueta', 'Oferta por tempo limitado'),
-    t('fim_texto', 'Texto', 'Escolha o tamanho, receba em casa e experimente sem risco durante 30 dias.', 'textarea'),
-    t('fim_nota_preco', 'Linha abaixo do preço', 'IVA incluído · Frete grátis em todas as encomendas'),
-    t('fim_selo', 'Selo', 'Garantia de satisfação · 30 dias'),
-    h('Perguntas frequentes (vazio = esconde)'),
-] + [x for i, (q, r) in enumerate([
-        ('Qual tamanho devo escolher?', 'Veja o guia de medidas acima. Em dúvida entre dois tamanhos, escolha o maior.'),
-        ('Quanto tempo demora a entrega?', 'Enviamos em 24 horas úteis. A entrega demora normalmente 3 a 6 dias úteis e recebe o código de rastreio por e-mail.'),
-        ('Como funciona o desconto de quantidade?', 'Ao escolher 2 peças, o desconto de 10% aplica-se ao total; com 3 peças, 15%. O envio é grátis em qualquer encomenda.'),
-        ('E se não servir?', 'Tem 30 dias para pedir troca de tamanho ou devolução. Basta responder ao e-mail da encomenda — tratamos do resto.'),
-        ('', ''), ('', '')], 1)
-     for x in (t(f'faq_{i}_pergunta', f'Pergunta {i}', q), t(f'faq_{i}_resposta', f'Resposta {i}', r, 'textarea'))]
 
 # ═════════════════════════ montagem ═════════════════════════
 def finaliza(liquid):
-    liquid = liquid.replace('ESTRELAS', ESTRELAS).replace('TABELA', TABELA)
-    liquid = re.sub(r'SS\((\w+)\)', lambda m: S(m.group(1)), liquid)
-    return cls(liquid)
+    return cls(liquid.replace('ESTRELAS', ESTRELAS).replace('TABELA', TABELA))
 
 for p in ('assets', 'sections', 'templates'):
     (SAIDA / p).mkdir(parents=True, exist_ok=True)
 (SAIDA / 'assets' / 'rodrigues-lp.css').write_text(css, encoding='utf-8')
 (SAIDA / 'assets' / 'rodrigues-lp-archivo.woff2').write_bytes(FONTE_WOFF2)
 (SAIDA / 'assets' / 'rodrigues-lp.js').write_text(js.strip() + '\n', encoding='utf-8')
-(SAIDA / 'sections' / 'rlp-produto.liquid').write_text(finaliza(SEC1) + '\n' + schema('RLP · Produto e compra', SET1), encoding='utf-8')
-(SAIDA / 'sections' / 'rlp-comparacao.liquid').write_text(finaliza(SEC2) + '\n' + schema('RLP · Comparação', SET2), encoding='utf-8')
-(SAIDA / 'sections' / 'rlp-conteudo.liquid').write_text(finaliza(SEC3) + '\n' + schema('RLP · Tamanhos e FAQ', SET3), encoding='utf-8')
+(SAIDA / 'sections' / 'rlp-produto.liquid').write_text(finaliza(SEC1) + '\n' + schema('RLP · Produto e compra', AVISO), encoding='utf-8')
+(SAIDA / 'sections' / 'rlp-comparacao.liquid').write_text(finaliza(SEC2) + '\n' + schema('RLP · Comparação', AVISO), encoding='utf-8')
+(SAIDA / 'sections' / 'rlp-conteudo.liquid').write_text(finaliza(SEC3) + '\n' + schema('RLP · Tamanhos e FAQ', AVISO), encoding='utf-8')
 
 # Modelo de produto: secções RLP + as duas secções de vídeo do tema
 vr_settings = {
