@@ -4,6 +4,8 @@
   assign half = n | divided_by: 2.0
   assign xs = '0,0.64,1.1,1.44' | split: ','
   assign ss = '1,0.86,0.74,0.64' | split: ','
+  assign rys = '0,30,42,50' | split: ','
+  assign tzs = '0,-50,-110,-170' | split: ','
   case s.card_ratio
     when '4/5'
       assign ratio = 1.25
@@ -22,10 +24,10 @@
   .vr{overflow:hidden}
   .vr .section-header{text-align:center}
   .vr__sub{margin:1rem 0 0;font-size:1.6rem}
-  .vr__stage{--w:min(68vw,320px);--k:1.2;position:relative;height:calc(var(--w) * var(--r));margin-top:3.2rem;touch-action:pan-y;outline:0}
-  @media (min-width:750px){.vr__stage{--w:min(var(--cw),40vw);--k:1}}
-  .vr__list{list-style:none;margin:0;padding:0;height:100%}
-  .vr__card{position:absolute;top:0;left:50%;width:var(--w);height:100%;margin-left:calc(var(--w) / -2);transform:translateX(calc(var(--x) * var(--w) * var(--k))) scale(var(--s));transition:transform .45s cubic-bezier(.22,.61,.36,1),opacity .3s,visibility .3s;cursor:pointer}
+  .vr__stage{--w:min(68vw,320px);--k:1.2;--ryk:.5;--zk:.5;position:relative;height:calc(var(--w) * var(--r));margin-top:3.2rem;touch-action:pan-y;outline:0;perspective:220rem}
+  @media (min-width:750px){.vr__stage{--w:min(var(--cw),40vw);--k:1;--ryk:1;--zk:1;perspective:120rem}}
+  .vr__list{list-style:none;margin:0;padding:0;height:100%;transform-style:preserve-3d}
+  .vr__card{position:absolute;top:0;left:50%;width:var(--w);height:100%;margin-left:calc(var(--w) / -2);transform:translateX(calc(var(--x) * var(--w) * var(--k))) translateZ(calc(var(--tz) * var(--zk))) rotateY(calc(var(--ry) * var(--ryk))) scale(var(--s));transform-style:preserve-3d;backface-visibility:hidden;transition:transform .5s cubic-bezier(.22,.61,.36,1),opacity .3s,visibility .3s;cursor:pointer}
   .vr__card[data-a="0"]{cursor:default}
   .vr__card[data-a="h"]{opacity:0;visibility:hidden;pointer-events:none}
   @media (max-width:749px){.vr__card[data-a="2"],.vr__card[data-a="3"]{opacity:0;visibility:hidden;pointer-events:none}}
@@ -82,6 +84,11 @@
             endif
             assign sc = ss[a]
             assign z = 10 | minus: a
+            assign ry = rys[a]
+            if o > 0
+              assign ry = '-' | append: ry
+            endif
+            assign tz = tzs[a]
             if ao > 3
               assign da = 'h'
             else
@@ -126,7 +133,7 @@
             endif
             assign name = b.name | escape
           -%}
-          <li class="vr__card" data-vr-card data-a="{{ da }}" style="--x:{{ x }};--s:{{ sc }};z-index:{{ z }}"{% if src != blank %} data-src="{{ src }}"{% endif %}{% if o != 0 %} aria-hidden="true"{% endif %} {{ block.shopify_attributes }}>
+          <li class="vr__card" data-vr-card data-a="{{ da }}" style="--x:{{ x }};--s:{{ sc }};--ry:{{ ry }}deg;--tz:{{ tz }}px;z-index:{{ z }}"{% if src != blank %} data-src="{{ src }}"{% endif %}{% if o != 0 %} aria-hidden="true"{% endif %} {{ block.shopify_attributes }}>
             <div class="vr__media">
               {%- if poster != blank -%}
                 {%- liquid

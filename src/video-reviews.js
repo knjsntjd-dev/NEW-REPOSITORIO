@@ -1,6 +1,8 @@
 (() => {
   const X = [0, 0.64, 1.1, 1.44];
   const S = [1, 0.86, 0.74, 0.64];
+  const RY = [0, 30, 42, 50];
+  const TZ = [0, -50, -110, -170];
 
   function init(root) {
     if (root.dataset.vrInit) return;
@@ -26,6 +28,8 @@
         const a = Math.min(abs, 3);
         c.style.setProperty('--x', Math.sign(o) * X[a]);
         c.style.setProperty('--s', S[a]);
+        c.style.setProperty('--ry', (o > 0 ? -RY[a] : RY[a]) + 'deg');
+        c.style.setProperty('--tz', TZ[a] + 'px');
         c.style.zIndex = 10 - a;
         c.dataset.a = abs > 3 ? 'h' : a;
         if (o) c.setAttribute('aria-hidden', 'true');
