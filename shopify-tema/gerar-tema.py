@@ -275,9 +275,9 @@ SEC1 = r'''{%- liquid
                     assign sw = '#F4F2EE'
                   when 'nude', 'bege', 'beige', 'skin'
                     assign sw = '#E4CFB4'
-                  when 'cinza', 'grey', 'gray'
+                  when 'cinza', 'grey', 'gray', 'silver', 'prateado'
                     assign sw = '#9A9A9A'
-                  when 'azul', 'blue'
+                  when 'azul', 'blue', 'navy', 'marinho', 'azul-marinho'
                     assign sw = '#2B4C8C'
                   when 'vermelho', 'red'
                     assign sw = '#B3262E'
@@ -460,16 +460,19 @@ SEC2 = '''<div class="rlp">
       {%- if im1 != blank -%}
       <article class="p-card rv">
         <figure class="shot" style="margin:0;aspect-ratio:{{ im1.aspect_ratio }}">{{ im1 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im1.alt }}</figure>
+        {%- assign l1t = product.metafields.rlp.legenda_1_titulo -%}{%- if l1t != blank -%}<h3>{{ l1t }}</h3><p>{{ product.metafields.rlp.legenda_1_texto }}</p>{%- endif -%}
       </article>
       {%- endif -%}
       {%- if im2 != blank -%}
       <article class="p-card rv">
         <figure class="shot" style="margin:0;aspect-ratio:{{ im2.aspect_ratio }}">{{ im2 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im2.alt }}</figure>
+        {%- assign l2t = product.metafields.rlp.legenda_2_titulo -%}{%- if l2t != blank -%}<h3>{{ l2t }}</h3><p>{{ product.metafields.rlp.legenda_2_texto }}</p>{%- endif -%}
       </article>
       {%- endif -%}
       {%- if im3 != blank -%}
       <article class="p-card rv">
         <figure class="shot" style="margin:0;aspect-ratio:{{ im3.aspect_ratio }}">{{ im3 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im3.alt }}</figure>
+        {%- assign l3t = product.metafields.rlp.legenda_3_titulo -%}{%- if l3t != blank -%}<h3>{{ l3t }}</h3><p>{{ product.metafields.rlp.legenda_3_texto }}</p>{%- endif -%}
       </article>
       {%- endif -%}
     </div>
