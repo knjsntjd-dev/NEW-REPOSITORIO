@@ -1,3 +1,5 @@
 corset/capi-config.php
 corset/preview.html
 corset/artifact.html
+template/artifact.html
+template/capi-config.php

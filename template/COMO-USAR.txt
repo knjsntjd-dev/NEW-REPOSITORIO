@@ -1,0 +1,82 @@
+MODELO DE PÁGINA DE PRODUTO — RODRIGUES
+=======================================
+
+É a mesma página do Corset FlexFit (layout, velocidade, rastreio do Meta,
+carrinho da Shopify), só que sem o produto. Tudo o que aparece entre
+[colchetes] na página é para trocar pelo produto novo.
+
+Abra o produto.html no navegador: onde falta foto, aparece o nome do
+ficheiro que a página espera.
+
+
+PASSO 1 — Copiar a pasta
+------------------------
+Duplique esta pasta inteira com o nome do produto (ex.: "leggings").
+Renomeie capi-config.example.php para capi-config.php e cole o token do
+Meta (é o mesmo do corset — pode copiar o capi-config.php de lá).
+
+
+PASSO 2 — Bloco LOJA (topo do produto.html)
+-------------------------------------------
+  nome            nome do produto (vai para o Meta)
+  categoria       ex.: 'Vestuario > Leggings'
+  variantes       um ID por combinação cor|tamanho.
+                  Onde achar: Shopify → Produtos → produto → clique na
+                  variante → o número no fim do endereço.
+  precoBase       preço de 1 unidade (ex.: 29.90)
+  precoComparacao preço riscado
+  bundles         desconto do pacote de 2 e de 3 (off) e o código.
+
+  ATENÇÃO aos códigos de desconto: cada produto precisa de códigos
+  próprios na Shopify (ex.: LEGGINGS2, LEGGINGS3), com a MESMA
+  porcentagem do "off". Enquanto codigo estiver '' a página mostra o
+  desconto mas a Shopify cobra o preço cheio.
+  (Os códigos PACK2/PACK3 só valem para o corset.)
+
+  dominio, pixelId e capiUrl já estão certos — são da loja, não do produto.
+
+
+PASSO 3 — Cores e tamanhos
+--------------------------
+Botões de cor (procure id="cores"):
+  data-cor    nome interno, igual ao usado em "variantes" (ex.: cor1)
+  data-nome   nome que o cliente vê (ex.: Preto)
+  style="--sw:#1A1A1A"   a cor da bolinha
+  data-img    foto que aparece ao escolher essa cor
+  aria-pressed="true"    marca a cor escolhida ao abrir a página
+
+Botões de tamanho (procure id="tamanhos"): mesmo esquema com data-size.
+Tire ou acrescente botões conforme o produto. Se o produto não tem
+tamanhos, deixe só um botão (ex.: "Único") e use 'cor1|Único' nas variantes.
+
+
+PASSO 4 — Fotos (pasta assets/img)
+---------------------------------------
+assets/img/
+  produto-capa.webp        foto principal / banner (quadrada, 800x800)
+  thumb-produto-capa.webp  miniatura da capa (200x200)
+  produto-1.jpg ... produto-4.jpg          fotos da galeria (900x900)
+  thumb-produto-1.jpg ... thumb-produto-4.jpg  miniaturas (200x200)
+  beneficio-1.jpg ... beneficio-3.jpg      artes da secção de benefícios
+
+Para manter a nota 98–99 no PageSpeed: foto principal até ~100 KB,
+miniaturas até ~15 KB. Use WEBP ou JPG comprimido (squoosh.app faz isso).
+
+
+PASSO 5 — Textos
+----------------
+Troque todos os [colchetes]: título, benefícios, diferenciais, tabela de
+comparação, tabela de medidas, perguntas frequentes, nome da marca.
+Depoimentos: use só avaliações reais de clientes.
+
+As políticas do rodapé (envio, trocas, contacto, privacidade, termos) já
+apontam para a loja e valem para todos os produtos.
+
+
+PASSO 6 — Conferir antes de publicar
+------------------------------------
+[ ] Nenhum [colchete] sobrando na página
+[ ] Clicar em Comprar com cada cor/tamanho → abre o carrinho certo
+[ ] Pacote de 2 e de 3 → o checkout mostra o desconto
+[ ] capi.php?diagnostico=1 no servidor devolve "token_definido": true
+[ ] PageSpeed Insights no celular
