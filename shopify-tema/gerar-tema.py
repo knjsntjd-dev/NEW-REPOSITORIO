@@ -108,7 +108,10 @@ def schema(nome, settings):
     return '{% schema %}\n' + json.dumps({'name': nome, 'tag': 'section', 'class': 'rlp-sec', 'settings': settings,
                                          'presets': [{'name': nome}]}, ensure_ascii=False, indent=2) + '\n{% endschema %}\n'
 def t(id_, label, default, tipo='text'):
-    return {'type': tipo, 'id': id_, 'label': label, 'default': default}
+    d = {'type': tipo, 'id': id_, 'label': label}
+    if default != '':
+        d['default'] = default  # a Shopify recusa default vazio
+    return d
 def h(conteudo):
     return {'type': 'header', 'content': conteudo}
 
