@@ -446,7 +446,12 @@ SEC2 = '''<div class="rlp">
     </div>
   </div>
 </section>
+</div>
+'''
 
+# ═══════════════ secção 2B: benefícios em fotos (própria, para poder
+# adicionar/tirar/mover no personalizador sem mexer na comparação) ═══
+SEC_BEN = '''<div class="rlp">
 {%- assign im1 = product.metafields.rlp.img_1 -%}{%- assign im2 = product.metafields.rlp.img_2 -%}{%- assign im3 = product.metafields.rlp.img_3 -%}
 {%- if im1 != blank or im2 != blank or im3 != blank -%}
 <section class="pillars">
@@ -589,6 +594,7 @@ for p in ('assets', 'sections', 'templates'):
 (SAIDA / 'assets' / 'rodrigues-lp.js').write_text(js.strip() + '\n', encoding='utf-8')
 (SAIDA / 'sections' / 'rlp-produto.liquid').write_text(finaliza(SEC1) + '\n' + schema('RLP · Produto e compra', AVISO), encoding='utf-8')
 (SAIDA / 'sections' / 'rlp-comparacao.liquid').write_text(finaliza(SEC2) + '\n' + schema('RLP · Comparação', AVISO), encoding='utf-8')
+(SAIDA / 'sections' / 'rlp-beneficios.liquid').write_text(finaliza(SEC_BEN) + '\n' + schema('RLP · Benefícios em fotos', AVISO), encoding='utf-8')
 (SAIDA / 'sections' / 'rlp-conteudo.liquid').write_text(finaliza(SEC3) + '\n' + schema('RLP · Tamanhos e FAQ', AVISO), encoding='utf-8')
 
 # Modelo de produto: secções RLP + as duas secções de vídeo do tema
@@ -607,13 +613,14 @@ modelo = {
                                       "video_3": {"type": "video", "settings": {"video_url": ""}}},
                            "block_order": ["video_1", "video_2", "video_3"]},
         "rlp_comparacao": {"type": "rlp-comparacao", "settings": {}},
+        "rlp_beneficios": {"type": "rlp-beneficios", "settings": {}},
         "videos_clientes": {"type": "video-reviews", "name": "Vídeos de clientes", "settings": vr_settings,
                             "blocks": {f"video_{i}": {"type": "video", "settings": {"video_url": "", "name": "", "verified": True,
                                                                                     "text": "", "product": "", "link": ""}} for i in range(1, 4)},
                             "block_order": [f"video_{i}" for i in range(1, 4)]},
         "rlp_conteudo": {"type": "rlp-conteudo", "settings": {}},
     },
-    "order": ["rlp_produto", "videos_produto", "rlp_comparacao", "videos_clientes", "rlp_conteudo"],
+    "order": ["rlp_produto", "videos_produto", "rlp_comparacao", "rlp_beneficios", "videos_clientes", "rlp_conteudo"],
 }
 (SAIDA / 'templates' / 'product.modelo-rodrigues.json').write_text(json.dumps(modelo, ensure_ascii=False, indent=2), encoding='utf-8')
 print('classes com prefixo:', len(CLASSES))

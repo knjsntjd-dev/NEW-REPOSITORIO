@@ -38,6 +38,10 @@
       "type": "rlp-comparacao",
       "settings": {}
     },
+    "rlp_beneficios": {
+      "type": "rlp-beneficios",
+      "settings": {}
+    },
     "videos_clientes": {
       "type": "video-reviews",
       "name": "Vídeos de clientes",
@@ -107,6 +111,7 @@
     "rlp_produto",
     "videos_produto",
     "rlp_comparacao",
+    "rlp_beneficios",
     "videos_clientes",
     "rlp_conteudo"
   ]

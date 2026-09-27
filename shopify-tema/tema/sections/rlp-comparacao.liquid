@@ -74,39 +74,6 @@
     </div>
   </div>
 </section>
-
-{%- assign im1 = product.metafields.rlp.img_1 -%}{%- assign im2 = product.metafields.rlp.img_2 -%}{%- assign im3 = product.metafields.rlp.img_3 -%}
-{%- if im1 != blank or im2 != blank or im3 != blank -%}
-<section class="rlp-pillars">
-  <div class="rlp-wrap">
-    <div class="rlp-sec-head rlp-rv">
-      <span class="rlp-eyebrow">{{ product.metafields.rlp.ben_eyebrow | default: 'Porque funciona' }}</span>
-      <h2>{{ product.metafields.rlp.ben_titulo | default: 'Título da secção de benefícios' }}</h2>
-      <p class="rlp-lead">{{ product.metafields.rlp.ben_texto | default: 'Uma frase sobre porque o produto funciona.' }}</p>
-    </div>
-    <div class="rlp-p-grid">
-      {%- if im1 != blank -%}
-      <article class="rlp-p-card rlp-rv">
-        <figure class="rlp-shot" style="margin:0;aspect-ratio:{{ im1.aspect_ratio }}">{{ im1 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im1.alt }}</figure>
-        {%- assign l1t = product.metafields.rlp.legenda_1_titulo -%}{%- if l1t != blank -%}<h3>{{ l1t }}</h3><p>{{ product.metafields.rlp.legenda_1_texto }}</p>{%- endif -%}
-      </article>
-      {%- endif -%}
-      {%- if im2 != blank -%}
-      <article class="rlp-p-card rlp-rv">
-        <figure class="rlp-shot" style="margin:0;aspect-ratio:{{ im2.aspect_ratio }}">{{ im2 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im2.alt }}</figure>
-        {%- assign l2t = product.metafields.rlp.legenda_2_titulo -%}{%- if l2t != blank -%}<h3>{{ l2t }}</h3><p>{{ product.metafields.rlp.legenda_2_texto }}</p>{%- endif -%}
-      </article>
-      {%- endif -%}
-      {%- if im3 != blank -%}
-      <article class="rlp-p-card rlp-rv">
-        <figure class="rlp-shot" style="margin:0;aspect-ratio:{{ im3.aspect_ratio }}">{{ im3 | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', sizes: '(min-width: 760px) 33vw, 100vw', alt: im3.alt }}</figure>
-        {%- assign l3t = product.metafields.rlp.legenda_3_titulo -%}{%- if l3t != blank -%}<h3>{{ l3t }}</h3><p>{{ product.metafields.rlp.legenda_3_texto }}</p>{%- endif -%}
-      </article>
-      {%- endif -%}
-    </div>
-  </div>
-</section>
-{%- endif -%}
 </div>
 
 {% schema %}
