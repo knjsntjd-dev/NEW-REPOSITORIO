@@ -15,7 +15,18 @@
   não preencher `rlp.legenda_N_*`.
 - Cor das bolinhas de cor (swatches) deve vir sempre da Shopify (swatch da opção do produto).
 
+## Idioma
+- Idioma do site: **português do Brasil (pt-BR)**. Todo texto novo (tema, metafields, seções) deve ser
+  escrito em pt-BR — não pt-PT ("pedido", não "encomenda"; "Por que", não "Porque"; "você").
+- Loja (admin) ainda tem `en` como idioma principal; o domínio userodrigues.com já abre em pt-BR
+  (defaultLocale do web presence). Trocar o idioma principal só é possível no admin
+  (Configurações → Idiomas), não pela API.
+- Moeda EUR / loja em Portugal: manter fatos como "IVA incluído" e "MB Way".
+
 ## Shopify / API
+- Upload de arquivos grandes de tema: `stagedUploadsCreate` (FILE, text/plain) → POST via python
+  → `themeFilesUpsert` com `body: {type: URL, value: resourceUrl}` (job assíncrono; conferir md5).
+  Peça >50 alvos de uma vez para a resposta ser salva em arquivo e evitar copiar assinaturas.
 - Nomes literais de blocos em schema: máx. 25 caracteres (senão o import zip descarta o arquivo).
 - Settings `richtext` exigem HTML com nó de topo `<p>`/`<ul>`/`<h*>`.
 
