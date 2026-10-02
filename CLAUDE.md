@@ -2,8 +2,10 @@
 
 ## Tema oficial
 - **Tema oficial: "RODRIGUES RLP TEMA OFICIAL"** — `gid://shopify/OnlineStoreTheme/210427904349`.
-  Toda alteração de tema deve ser feita nele (está em rascunho/unpublished; escrita via
-  `themeFilesUpsert` só funciona em temas não publicados).
+  Desde 02/10/2026 está **PUBLICADO (MAIN)** — a API não escreve em tema publicado.
+- Para editar: `themeDuplicate` do tema publicado → editar a cópia → a usuária publica no admin.
+  Cópia atual com as otimizações de velocidade: "RODRIGUES RLP OFICIAL - velocidade"
+  `gid://shopify/OnlineStoreTheme/210568413533`.
 - Este repositório (`shopify-theme/`) é uma linhagem antiga ("RODRIGUES Leve v2") e NÃO é a fonte
   do tema oficial. O tema oficial vive na Shopify; leia os arquivos de lá antes de editar.
 
@@ -36,6 +38,12 @@
   Peça >50 alvos de uma vez para a resposta ser salva em arquivo e evitar copiar assinaturas.
 - Nomes literais de blocos em schema: máx. 25 caracteres (senão o import zip descarta o arquivo).
 - Settings `richtext` exigem HTML com nó de topo `<p>`/`<ul>`/`<h*>`.
+
+## Velocidade (PageSpeed)
+- Modelo Rodrigues: `layout/theme.liquid` faz preload no <head> da imagem principal (srcset 400/600/800),
+  da fonte Archivo e do `rodrigues-lp.css`. Só a imagem principal do produto tem fetchpriority=high
+  (logo e capas de vídeo não). Galeria troca a foto removendo o `srcset` (rodrigues-lp.js).
+- Não reinstalar apps que injetam script no site sem necessidade (Avada SEO foi removido do layout).
 
 ## Lições já aprendidas
 - Nunca usar `overflow-x:hidden` em `.rlp` (ou outro wrapper que não seja root): no iOS cria um
