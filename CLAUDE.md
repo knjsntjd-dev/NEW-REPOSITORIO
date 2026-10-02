@@ -21,6 +21,13 @@
 - Loja (admin) ainda tem `en` como idioma principal; o domínio userodrigues.com já abre em pt-BR
   (defaultLocale do web presence). Trocar o idioma principal só é possível no admin
   (Configurações → Idiomas), não pela API.
+- Cadastro de produtos/coleções/menus já está em pt-BR no texto ORIGINAL (não só em tradução). Backup do
+  conteúdo original em inglês: `backups/produtos-original-antes-pt-BR.json` (para recriar a tradução `en`
+  depois que o idioma principal for trocado no admin).
+- Cores nativas (metaobject `shopify--color-pattern`) já renomeadas para pt-BR (Preto, Branco, Rosa…).
+  Exceção: opção "Color"/"Black" do FlexFit (16405367652701) continua em inglês porque a Shopify bloqueia
+  mudanças nessa opção enquanto houver variante sem SKU.
+- Prazos do modelo RLP: entrega 5 a 7 dias úteis; troca de tamanho em 7 dias (não 30).
 - Moeda EUR / loja em Portugal: manter fatos como "IVA incluído" e "MB Way".
 
 ## Shopify / API
