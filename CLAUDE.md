@@ -83,6 +83,12 @@
   da fonte Archivo e do `rodrigues-lp.css`. Só a imagem principal do produto tem fetchpriority=high
   (logo e capas de vídeo não). Galeria troca a foto removendo o `srcset` (rodrigues-lp.js).
 - Não reinstalar apps que injetam script no site sem necessidade (Avada SEO foi removido do layout).
+- No modelo Rodrigues o layout NÃO renderiza o `cart-drawer` do tema (só o rlp-carrinho) — menos DOM.
+- Apps instalados (out/2026) são de bastidor (DSers, Wiio, TeemDrop, Flow, Translate & Adapt, Messaging,
+  emails Recovery, Section Store); nenhum app embed ativo em settings_data. Seções novas (compre-junto, calc,
+  entrega, info-legal) não fazem requisição extra: CSS/JS inline e imagens lazy.
+- PageSpeed API (cota diária esgotada) e os domínios da loja/CDN estão bloqueados neste ambiente → medir pelo
+  pagespeed.web.dev com `?preview_theme_id=` do rascunho.
 
 ## Lições já aprendidas
 - Nunca usar `overflow-x:hidden` em `.rlp`, `body` ou `.vr` (ou outro wrapper que não seja root): no iOS cria um
