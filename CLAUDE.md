@@ -32,6 +32,21 @@
   No template modelo-rodrigues: bloco = Calça Executive Sculpt, 15%, código `COMBO15`
   (BXGY: compre FlexFit, 15% na calça — só vale para esse par).
 - `rlp-combo` (metafields `rlp.combo_*`) foi DESATIVADA (arquivo virou stub sem presets); a usuária não quer combo via RLP.
+- Carrinho lateral também tem: blocos "Nível de prêmio" (barra com até 3 níveis; sem blocos usa `frete_meta`)
+  e "Oferta no carrinho" (`upsell_produtos`, product_list) — sugere produtos que ainda não estão no carrinho.
+  O prêmio real (brinde, frete) tem que existir como desconto automático no admin.
+
+## Conversão (seções novas, sem app)
+- `calc-tamanho` ("Calculadora de tamanho"): blocos por tamanho com faixa da medida 1 (cintura cm) e
+  medida 2 (peso kg). O botão entra no `[data-calc-slot]` ao lado do "Guia de medidas" do rlp-produto e clica no
+  `#tamanhos [data-size]` correspondente (apelidos com "/", ex.: "3XL / XXXL"). FlexFit: tamanhos por peso no nome
+  da variante (S 37.5–50 kg … XXXL 77.5–90 kg) e cintura da tabela `rlp.tabela_medidas`.
+- `entrega-estimada` ("Entrega estimada"): datas em dias úteis (fuso Europe/Lisbon, horário de corte, feriados PT
+  em MM-DD ou AAAA-MM-DD; feriados móveis precisam ser atualizados por ano). Vai para o `[data-eta-slot]` abaixo
+  dos botões de compra.
+- `info-legal` ("Informações legais", só no grupo footer): Livro de Reclamações + texto RAL (CNIACC). Obrigatório em PT.
+- Template modelo-rodrigues: rlp_produto → entrega_estimada → calc_tamanho → compre_junto → …
+
 - Nome de seção no schema: máx. 25 caracteres — se passar, `themeFilesUpsert` (URL) termina o job sem erro
   e o arquivo simplesmente não é criado. Upsert com body TEXT é síncrono e útil para testar.
 - `themeFilesDelete` é bloqueado pela política do MCP (sobrou `sections/zz-teste-a.liquid` vazio no rascunho).
