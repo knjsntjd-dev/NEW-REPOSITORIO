@@ -35,6 +35,11 @@
 - Carrinho lateral também tem: blocos "Nível de prêmio" (barra com até 3 níveis; sem blocos usa `frete_meta`)
   e "Oferta no carrinho" (`upsell_produtos`, product_list) — sugere produtos que ainda não estão no carrinho.
   O prêmio real (brinde, frete) tem que existir como desconto automático no admin.
+- Frete já é grátis em todos os pedidos (não usar a barra para frete). Prêmios atuais (criados 03/10/2026, ativos):
+  desconto automático "10% OFF em pedidos a partir de €70" (DiscountAutomaticNode/2305597538653) e
+  "15% OFF em pedidos a partir de €100" (…/2305597571421) — classe ORDER, combinam com produto e frete, não entre si.
+  COMBO15 passou a combinar com descontos de pedido; PACK2/PACK3 etc. não combinam com nada (vale o maior).
+  A barra usa `items_subtotal_price` (antes do desconto do pedido) e o carrinho mostra a linha do desconto.
 
 ## Conversão (seções novas, sem app)
 - `calc-tamanho` ("Calculadora de tamanho"): blocos por tamanho com faixa da medida 1 (cintura cm) e
