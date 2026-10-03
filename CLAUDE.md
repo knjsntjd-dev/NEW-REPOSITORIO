@@ -4,9 +4,9 @@
 - **Tema oficial: "RODRIGUES RLP TEMA OFICIAL"** — `gid://shopify/OnlineStoreTheme/210427904349`.
   Desde 02/10/2026 está **PUBLICADO (MAIN)** — a API não escreve em tema publicado.
 - Para editar: `themeDuplicate` do tema publicado → editar a cópia → a usuária publica no admin.
-  Publicado (MAIN) em 03/10/2026: "RODRIGUES RLP OFICIAL - velocidade" `gid://shopify/OnlineStoreTheme/210568413533`.
-  Rascunho atual (carrinho lateral + combo + correção de rolagem iOS): "RODRIGUES RLP - carrinho + combo"
-  `gid://shopify/OnlineStoreTheme/210575556957`.
+  Publicado (MAIN) desde 03/10/2026 ~15h: "RODRIGUES RLP - carrinho + combo" `gid://shopify/OnlineStoreTheme/210575556957`.
+  Rascunho atual (cinto + ajustes RLP): "RODRIGUES RLP - cinto + ajustes" `gid://shopify/OnlineStoreTheme/210581127517`.
+  SEMPRE conferir `themes{role}` antes de escrever — a usuária publica rascunhos sem avisar.
 - Este repositório (`shopify-theme/`) é uma linhagem antiga ("RODRIGUES Leve v2") e NÃO é a fonte
   do tema oficial. O tema oficial vive na Shopify; leia os arquivos de lá antes de editar.
 
@@ -40,6 +40,16 @@
   "15% OFF em pedidos a partir de €100" (…/2305597571421) — classe ORDER, combinam com produto e frete, não entre si.
   COMBO15 passou a combinar com descontos de pedido; PACK2/PACK3 etc. não combinam com nada (vale o maior).
   A barra usa `items_subtotal_price` (antes do desconto do pedido) e o carrinho mostra a linha do desconto.
+
+## Convenções RLP para produtos que não são a FlexFit
+- `rlp.nota` = "-" esconde as estrelas (produto sem avaliações) — NÃO inventar nota/depoimentos; `dep_*` vazio
+  esconde a seção de depoimentos. `bundle2_ativo`/`bundle3_ativo` = "nao" desliga packs (e o bloco some se os dois
+  estiverem desligados). Sem `img_1..3` a seção de benefícios em fotos some.
+- Templates RLP: layout reconhece `modelo-rodrigues` e qualquer sufixo com `mdl-rdg` (preload + sem cart-drawer do tema).
+- `mdl-rdg-cal-alfaiataria` = template da Calça Executive Sculpt (vídeos FlexFit, combo FlexFit/COMBO15, calculadora).
+  `mdl-rdg-acessorios` = acessórios (sem vídeos, sem calculadora; Compre junto com a calça SEM desconto).
+- Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
+  Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
 ## Conversão (seções novas, sem app)
 - `calc-tamanho` ("Calculadora de tamanho"): blocos por tamanho com faixa da medida 1 (cintura cm) e
