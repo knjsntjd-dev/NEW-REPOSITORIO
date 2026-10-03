@@ -19,15 +19,19 @@
 - Cor das bolinhas de cor (swatches) deve vir sempre da Shopify (swatch da opção do produto).
 
 ## Carrinho lateral e combo (modelo Rodrigues)
-- Seção `rlp-carrinho` ("RLP · Carrinho lateral") + `assets/rlp-carrinho.js`: gaveta leve via AJAX
+- Seção `rlp-carrinho` ("Carrinho lateral") + `assets/rlp-carrinho.js`: gaveta leve via AJAX
   (`/cart.js`, `/cart/add.js`, `/cart/change.js`), API `window.RLPCart.add(itens, cupom, opts)`.
   Intercepta o clique no ícone do carrinho (`#cart-icon-bubble`, `a[href="/cart"]`) só nas páginas que têm a seção.
   Cupom guardado em localStorage `rlp_cupom` e só vai para `/checkout?discount=` se o carrinho ainda cumprir a regra.
 - Botões `[data-add-cart]` (abaixo do CTA e no dock) adicionam sem sair da página; `[data-buy]` adiciona e vai
   ao checkout mantendo o carrinho existente.
-- Seção `rlp-combo` ("RLP · Compre junto"): produto do combo/desconto/cupom vêm dos metafields
-  `rlp.combo_produto`, `rlp.combo_off`, `rlp.combo_codigo`. Itens do combo levam a propriedade `_combo`.
-  Desconto automático/código `COMBO15` (compre FlexFit, 15% na calça) — o % do metafield tem que bater com o desconto.
+- Seção **`compre-junto`** ("Compre junto") + snippet `compre-junto-item`: independente do RLP e de metafields.
+  A usuária escolhe os produtos como BLOCOS (até 4) no editor; produto da página entra fixo (opcional).
+  Desconto mostrado (%), "vale para" (extras/todos) e código de desconto são settings da seção; o desconto
+  real tem que existir em Descontos no admin. Itens levam a propriedade `_combo` = código.
+  No template modelo-rodrigues: bloco = Calça Executive Sculpt, 15%, código `COMBO15`
+  (BXGY: compre FlexFit, 15% na calça — só vale para esse par).
+- `rlp-combo` (metafields `rlp.combo_*`) foi DESATIVADA (arquivo virou stub sem presets); a usuária não quer combo via RLP.
 - Nome de seção no schema: máx. 25 caracteres — se passar, `themeFilesUpsert` (URL) termina o job sem erro
   e o arquivo simplesmente não é criado. Upsert com body TEXT é síncrono e útil para testar.
 - `themeFilesDelete` é bloqueado pela política do MCP (sobrou `sections/zz-teste-a.liquid` vazio no rascunho).
