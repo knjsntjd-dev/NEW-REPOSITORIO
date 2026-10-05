@@ -48,6 +48,11 @@
 - Templates RLP: layout reconhece `modelo-rodrigues` e qualquer sufixo com `mdl-rdg` (preload + sem cart-drawer do tema).
 - `mdl-rdg-cal-alfaiataria` = template da Calça Executive Sculpt (vídeos FlexFit, combo FlexFit/COMBO15, calculadora).
   `mdl-rdg-acessorios` = acessórios (sem vídeos, sem calculadora; Compre junto com a calça SEM desconto).
+- Mocassim plataforma (16612050796893, handle `mocassim-feminino-plataforma`, template `mdl-rdg-acessorios`, criado como
+  RASCUNHO de produto em 05/10/2026): textos RLP em pt-BR preenchidos via metafields com o tema publicado — dá para
+  preencher produto/metafields mesmo com o tema online; só arquivos de tema são bloqueados. Tamanhos 35–43 seguem a
+  numeração do fabricante (veste menor que o habitual): `tabela_medidas` mostra "cm · EU · BR". Packs desligados,
+  sem estrelas/depoimentos. Variantes Marrom/Preto apontam para fotos ligadas pelo importador (conferir se a cor bate).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
