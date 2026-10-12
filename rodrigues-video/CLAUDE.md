@@ -22,6 +22,9 @@ O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
   Ducking pela voz, trilha ≈ -31 LUFS sob a voz a -14 LUFS. Ajustar o atraso para a batida
   entrar na transição gancho → "DIA N" (a trilha tem 2 compassos de intro).
 - Nunca usar música baixada de terceiros sem licença verificável.
+- **Entregar também a trilha separada em MP3** (`ffmpeg ... -af loudnorm=I=-14 -c:a libmp3lame -b:a 192k`):
+  o Rodrigues coloca a música pelo CapCut. No DIA 39 a música mixada (-31 LUFS, grave forte)
+  ficou inaudível no celular — se mixar aqui, deixar mais alta e com mais médios.
 
 ## Fluxo de um episódio
 1. O vídeo bruto chega como asset de uma Release do GitHub deste repositório.
