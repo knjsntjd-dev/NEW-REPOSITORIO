@@ -41,6 +41,16 @@ original". Ele vai melhorar a própria iluminação. Portanto:
 - Se a imagem vier escura/amarelada, dizer ao Rodrigues no fim do episódio, em 1–2 linhas, o que ajuda na gravação
   (luz de frente e suave, de preferência de janela/ring light; evitar lâmpada amarela atrás; desligar LED vermelha).
 
+## Exposição adaptativa (DIA 40)
+O DIA 40 veio MUITO escuro (YAVG ≈ 24–38 contra ≈ 100 do DIA 39: parede e blusa pretas, só o rosto iluminado).
+`scripts/preparar-episodio.sh` mede o brilho médio e, abaixo de 65, usa curva que levanta só as sombras + denoise maior +
+neutraliza o verde das sombras. Continua sendo correção GLOBAL: nada de separar fundo nem tocar no rosto.
+
+## DIA 40 — pendências de confirmação com o Rodrigues
+- "3.682 visitas" (fala) não bate com 3.478 + 184 = 3.662: foi exibido o número FALADO.
+- ROI de hoje = 2,92 (Whisper entendeu "2 ponto 90 e 2"); ROI de ontem 1,34 veio do DIA 39.
+- Mixagem: `mixar-musica-externa.sh` agora com `alimiter ... level=disabled` (o auto-nível subia +1,5 dB).
+
 ## Música de fundo — SEMPRE
 O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
 - Gerar trilha original por síntese: `python scripts/gerar-trilha.py public/diaNN/trilha.wav <duração> --seed NN`
@@ -49,6 +59,8 @@ O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
   Ducking pela voz, trilha ≈ -31 LUFS sob a voz a -14 LUFS. Ajustar o atraso para a batida
   entrar na transição gancho → "DIA N" (a trilha tem 2 compassos de intro).
 - Nunca usar música baixada de terceiros sem licença verificável.
+- Os assets do Rodrigues vêm na Release do episódio (`diaNN-original`): vídeo bruto (`IMG_xxxx.mov`), música, SFX.
+  O iPhone grava em taxa variável (≈ 59,99 fps): o script arredonda para 60.
 - **SFX de venda Shopify** enviado pelo Rodrigues (`public/sfx/venda-shopify.wav`, recortado de "Shopify Sales Sound",
   que repete 5x): usar **UM único toque** por grupo de notificações (disparar uma vez quando a primeira notificação
   entra), nunca um por notificação nem em loop. Substitui o `venda.wav` sintético nas notificações.

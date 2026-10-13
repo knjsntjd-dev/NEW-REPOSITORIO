@@ -134,8 +134,8 @@ export const PalavraChave: React.FC<{
 
 /** Dois cards lado a lado (ex.: investido x retorno). */
 export const Comparacao: React.FC<{
-  readonly esquerda: { rotulo: string; valor: number; sub: string };
-  readonly direita: { rotulo: string; valor: number; sub: string };
+  readonly esquerda: { rotulo: string; valor: number; sub: string; casas?: number; sufixo?: string };
+  readonly direita: { rotulo: string; valor: number; sub: string; casas?: number; sufixo?: string };
   readonly top: number;
   /** Frame (relativo) em que o card da direita entra. */
   readonly atrasoDireita?: number;
@@ -151,8 +151,8 @@ export const Comparacao: React.FC<{
           <Rotulo size={28}>{esquerda.rotulo}</Rotulo>
           <div style={{ marginTop: 10 }}>
             <Extruded size={128} face={{ color: C.branco }} depthColor="#33333B" glow="rgba(255,255,255,0.2)">
-              {fmt(vE)}
-              <span style={{ fontSize: 80, marginLeft: 8 }}>€</span>
+              {fmt(vE, esquerda.casas ?? 0)}
+              {(esquerda.sufixo ?? "€") ? <span style={{ fontSize: 80, marginLeft: 8 }}>{esquerda.sufixo ?? "€"}</span> : null}
             </Extruded>
           </div>
           <div style={{ marginTop: 12 }}>
@@ -191,8 +191,8 @@ export const Comparacao: React.FC<{
           </Rotulo>
           <div style={{ marginTop: 10 }}>
             <Extruded size={128} face={GREEN_TEXT} depthColor="#1D5A22" glow="rgba(95,208,104,0.45)">
-              {fmt(vD)}
-              <span style={{ fontSize: 80, marginLeft: 8 }}>€</span>
+              {fmt(vD, direita.casas ?? 0)}
+              {(direita.sufixo ?? "€") ? <span style={{ fontSize: 80, marginLeft: 8 }}>{direita.sufixo ?? "€"}</span> : null}
             </Extruded>
           </div>
           <div style={{ marginTop: 12 }}>
