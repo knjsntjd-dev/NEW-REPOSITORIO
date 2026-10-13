@@ -41,6 +41,25 @@ original". Ele vai melhorar a própria iluminação. Portanto:
 - Se a imagem vier escura/amarelada, dizer ao Rodrigues no fim do episódio, em 1–2 linhas, o que ajuda na gravação
   (luz de frente e suave, de preferência de janela/ring light; evitar lâmpada amarela atrás; desligar LED vermelha).
 
+## Entrega — SEM PRÉVIA (pedido do Rodrigues, 13/10)
+"Para ser mais rápido não precisa gerar prévia aqui; salve o vídeo direto no GitHub, preciso o quanto antes."
+Ao finalizar: **não gerar nem enviar prévia 720p no chat**. Publicar as partes 1080p60 na branch `entregas` e dar os
+links `github.com/knjsntjd-dev/NEW-REPOSITORIO/blob/entregas/<arquivo>` ("View raw" no iPhone). Resposta curta.
+
+## Áudio — qualidade de PODCAST (Shure Beta / SM7B), padrão desde o DIA 40
+O áudio do iPhone vinha com ruído de ambiente e sem presença (agudos 30–50 dB abaixo dos médios). Cadeia oficial:
+`scripts/voz-podcast.sh <video> <voz.wav> [cb|bd]` (modelos RNNoise em `models/`, de GregorR/rnnoise-models):
+mono → high-pass 75 Hz → RNNoise (mix 0,9) → afftdn leve → EQ (grave +2,5 dB, lama 280 Hz −2,5, caixa 520 Hz −1,2,
+presença 3,2 kHz +3,5, 5,5 kHz +2,5, brilho 9 kHz +3) → de-esser → 2 compressores → ganho FIXO para −14 LUFS →
+limitador → **compensa a latência dos filtros (~40 ms) por correlação** (lip-sync).
+Armadilhas medidas: (1) `acompressor makeup` é fator LINEAR (4 = +12 dB!) e levanta o ruído das pausas; (2) `loudnorm`
+dinâmico também levanta pausas → usar ganho fixo; (3) `agate`/`compand` não funcionaram bem aqui — o RNNoise já
+limpa; (4) `alimiter` precisa de `level=disabled`; (5) medir lip-sync após filtros FFT.
+Trocar SÓ o áudio sem re-renderizar o vídeo: `node --experimental-strip-types scripts/exportar-timeline.mjs diaNN >
+timeline.json` + `python scripts/montar-audio.py voz.wav timeline.json public/sfx out.wav` (remonta cortes + SFX no ffmpeg;
+o render de áudio do Remotion não dá progresso e pode demorar como um render completo) → `mixar-musica-externa.sh`
+→ regravar o áudio de cada parte com `-c:v copy` (parte1 com `-itsoffset 0.033`, como o vídeo dela).
+
 ## Exposição adaptativa (DIA 40)
 O DIA 40 veio MUITO escuro (YAVG ≈ 24–38 contra ≈ 100 do DIA 39: parede e blusa pretas, só o rosto iluminado).
 `scripts/preparar-episodio.sh` mede o brilho médio e, abaixo de 65, usa curva que levanta só as sombras + denoise maior +
