@@ -22,6 +22,9 @@ O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
   Ducking pela voz, trilha ≈ -31 LUFS sob a voz a -14 LUFS. Ajustar o atraso para a batida
   entrar na transição gancho → "DIA N" (a trilha tem 2 compassos de intro).
 - Nunca usar música baixada de terceiros sem licença verificável.
+- **SFX de venda Shopify** enviado pelo Rodrigues (`public/sfx/venda-shopify.wav`, recortado de "Shopify Sales Sound",
+  que repete 5x): usar **UM único toque** por grupo de notificações (disparar uma vez quando a primeira notificação
+  entra), nunca um por notificação nem em loop. Substitui o `venda.wav` sintético nas notificações.
 - **Música enviada pelo Rodrigues** (ex.: DIA 40: "Epic No Copyright Trailer Music" de ArcticFoxMusic, 1min25s, anexada na
   Release `dia40-original`): ele confirmou que não tem direitos autorais e quer usá-la de fundo. Usar
   `scripts/mixar-musica-externa.sh <video> <musica.mp3> <saida.mp4>`: estende a música até a duração do vídeo
