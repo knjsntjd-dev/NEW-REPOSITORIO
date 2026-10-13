@@ -31,6 +31,16 @@ de qualidade. A partir do DIA 40, SEMPRE editar como profissional:
 - Entrega: GitHub bloqueia arquivo > 100 MB (push), upload de Release pela API e Git LFS neste ambiente; o chat aceita só
   30 MB (mandar prévia 720p). Por isso as partes vão na branch órfã `entregas`.
 
+## Imagem: NÃO mexer no fundo (decisão do Rodrigues, 13/10)
+Ele pediu a qualidade de imagem de criadoras como a Bruna (referência: fundo claro, pele iluminada). Testei separar a
+pessoa do fundo (Robust Video Matting) + desfocar/clarear o ambiente: funcionou, mas ele **não quer**: "deixe o fundo
+original". Ele vai melhorar a própria iluminação. Portanto:
+- **Nunca separar, desfocar, trocar ou clarear o fundo.** Só correção global leve (exposição, balanço de branco,
+  contraste, nitidez, ruído) igual em todos os quadros, sem alterar rosto/corpo.
+- (O matting custava ~3 s de CPU por 1 s de vídeo — inviável mesmo se pedirem no futuro.)
+- Se a imagem vier escura/amarelada, dizer ao Rodrigues no fim do episódio, em 1–2 linhas, o que ajuda na gravação
+  (luz de frente e suave, de preferência de janela/ring light; evitar lâmpada amarela atrás; desligar LED vermelha).
+
 ## Música de fundo — SEMPRE
 O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
 - Gerar trilha original por síntese: `python scripts/gerar-trilha.py public/diaNN/trilha.wav <duração> --seed NN`
