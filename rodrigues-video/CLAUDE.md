@@ -22,6 +22,11 @@ O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
   Ducking pela voz, trilha ≈ -31 LUFS sob a voz a -14 LUFS. Ajustar o atraso para a batida
   entrar na transição gancho → "DIA N" (a trilha tem 2 compassos de intro).
 - Nunca usar música baixada de terceiros sem licença verificável.
+- **Música enviada pelo Rodrigues** (ex.: DIA 40: "Epic No Copyright Trailer Music" de ArcticFoxMusic, 1min25s, anexada na
+  Release `dia40-original`): ele confirmou que não tem direitos autorais e quer usá-la de fundo. Usar
+  `scripts/mixar-musica-externa.sh <video> <musica.mp3> <saida.mp4>`: estende a música até a duração do vídeo
+  (`scripts/estender-musica.sh`, repetição com crossfade), mantém **sempre abaixo da voz** (≈ -21 LUFS contra a voz a
+  -14 LUFS, com ducking extra durante a fala) e fade in/out.
 - **Entregar também a trilha separada em MP3** (`ffmpeg ... -af loudnorm=I=-14 -c:a libmp3lame -b:a 192k`):
   o Rodrigues coloca a música pelo CapCut. No DIA 39 a música mixada (-31 LUFS, grave forte)
   ficou inaudível no celular — se mixar aqui, deixar mais alta e com mais médios.
