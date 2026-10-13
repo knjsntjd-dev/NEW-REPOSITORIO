@@ -14,6 +14,23 @@ O estilo do DIA 39 foi aprovado: é o padrão para os próximos episódios. Mant
 - Encerramento: "Segue o perfil" + "Amanhã · DIA N+1".
 - Variar a ordem/combinação dos componentes entre episódios para não repetir.
 
+## Qualidade de imagem — REGRA INEGOCIÁVEL (pedido do Rodrigues)
+O iPhone grava **1080p a 60 fps**. Em 12/10 o DIA 39 saiu em 30 fps e comprimido: o Rodrigues reclamou de perda
+de qualidade. A partir do DIA 40, SEMPRE editar como profissional:
+- **Manter o fps original (60)**. Nunca usar `fps=30`. `scripts/preparar-episodio.sh` detecta o fps; a composição é
+  registrada com `fps={60}` em `src/Root.tsx`.
+- Animações são desenhadas em "tempo de 30 fps" e convertidas por `useFrame30()` (`src/tempo.ts`): mesma velocidade
+  aprovada, mas com o dobro de quadros (mais suaves). Nunca usar `useCurrentFrame()` direto nos componentes de motion;
+  atrasos em frames passados aos gráficos vêm de `entre(a, b)` (30 fps-equivalentes).
+- Intermediário `base.mp4` em crf 12 (~1 GB / 2,5 min; só local). Denoise bem leve para não borrar.
+- Render (master): `npx remotion render DiaNN out/DIANN-master.mp4 --crf=14 --jpeg-quality=100 --x264-preset=medium
+  --audio-codec=aac --audio-bitrate=256k --concurrency=4` (≈ 13 s de render por 1 s de vídeo a 60 fps → ~30 min p/ 2,5 min).
+- Encode final: `scripts/finalizar-video.sh out/DIANN-master.mp4 <pasta> DIANN-RODRIGUES`: 2 passadas, H.264 High, BT.709,
+  60 fps, GOP 2 s, áudio AAC 256k, no MAIOR bitrate que cabe (~88 MB/arquivo). Se passar de ~75 s, divide em
+  `-parte1.mp4`, `-parte2.mp4`… (corte em quadro-chave; emendar no CapCut). Vídeo de 146 s → 2 partes a ~9,6 Mbps.
+- Entrega: GitHub bloqueia arquivo > 100 MB (push), upload de Release pela API e Git LFS neste ambiente; o chat aceita só
+  30 MB (mandar prévia 720p). Por isso as partes vão na branch órfã `entregas`.
+
 ## Música de fundo — SEMPRE
 O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
 - Gerar trilha original por síntese: `python scripts/gerar-trilha.py public/diaNN/trilha.wav <duração> --seed NN`
@@ -40,15 +57,14 @@ O Rodrigues quer **música de fundo em todo episódio, sem direitos autorais**.
    (o `gh release download` usa GraphQL, que é bloqueado na sessão).
 2. Vídeos do iPhone vêm com rotação 90° nos metadados: 1920×1080 no stream = vertical na tela.
 3. `scripts/preparar-episodio.sh <original.mp4> <diaNN>` gera `public/<diaNN>/base.mp4`
-   (30 fps, cor e áudio tratados) e o WAV 16 kHz para a transcrição.
+   (fps original, cor e áudio tratados) e o WAV 16 kHz para a transcrição.
 4. Transcrição: `scripts/transcrever.py` (Whisper turbo via sherpa-onnx; modelos do
    GitHub `k2-fsa/sherpa-onnx` releases `asr-models`, pois huggingface.co é bloqueado).
 5. Montar o episódio em `src/episodios/DiaNN.tsx` reaproveitando `src/components/`.
 6. Revisar quadros: `node scripts/stills.mjs DiaNN <frames...>` (gera `out/stills/`).
-7. Renderizar: `npx remotion render DiaNN out/DIANN-RODRIGUES.mp4 --crf=18`.
+7. Renderizar master + finalizar (ver "Qualidade de imagem").
 8. Música: gerar trilha + `scripts/mixar-musica.sh` (ver acima).
-9. Entrega: o chat aceita até 30 MB (mandar prévia 720p) e a API de upload de Release é
-   bloqueada; a versão 1080p (2-pass ≤ 100 MB) vai na branch órfã `entregas`.
+9. Entrega: prévia 720p no chat (≤ 30 MB) + partes 1080p60 na branch órfã `entregas`.
 
 Na sessão em nuvem o download do Chrome do Remotion é bloqueado: passe
 `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`

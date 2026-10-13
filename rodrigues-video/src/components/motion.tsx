@@ -1,26 +1,20 @@
 import React from "react";
-import {
-  Easing,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { Easing, interpolate, spring } from "remotion";
+import { FPS_DESIGN, useDuracao30, useFrame30 } from "../tempo";
 import { C } from "../theme";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
 /** Mola de entrada (0 → 1) a partir de `delay` frames. */
 export const useEntrada = (delay = 0, damping = 14, mass = 0.9) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  return spring({ frame: frame - delay, fps, config: { damping, mass, stiffness: 170 } });
+  const frame = useFrame30();
+  return spring({ frame: frame - delay, fps: FPS_DESIGN, config: { damping, mass, stiffness: 170 } });
 };
 
 /** 0 → 1 nos últimos `frames` da sequência (para a saída). */
 export const useSaida = (frames = 10) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
+  const frame = useFrame30();
+  const durationInFrames = useDuracao30();
   return interpolate(frame, [durationInFrames - frames, durationInFrames], [0, 1], {
     ...clamp,
     easing: Easing.in(Easing.cubic),
@@ -54,11 +48,10 @@ export const Float3D: React.FC<Float3DProps> = ({
   bob = 1,
   phase = 0,
 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useFrame30();
   const p = useEntrada(delay);
   const out = useSaida(9);
-  const t = (frame + phase * fps) / fps;
+  const t = (frame + phase * FPS_DESIGN) / FPS_DESIGN;
 
   return (
     <div
@@ -94,7 +87,7 @@ export const Card: React.FC<{
   readonly accent?: string;
   readonly sheenDelay?: number;
 }> = ({ children, style, accent = C.ouro, sheenDelay = 12 }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   const sheen = interpolate(frame, [sheenDelay, sheenDelay + 22], [-120, 220], {
     ...clamp,
     easing: Easing.inOut(Easing.quad),
@@ -192,7 +185,7 @@ export const Extruded: React.FC<{
 
 /** Valor numérico animado de `de` até `para` em `frames`, com desaceleração. */
 export const useContador = (para: number, frames: number, delay = 0, de = 0) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   return interpolate(frame - delay, [0, frames], [de, para], {
     ...clamp,
     easing: Easing.out(Easing.cubic),

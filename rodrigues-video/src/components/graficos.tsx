@@ -1,5 +1,6 @@
 import React from "react";
-import { Easing, interpolate, useCurrentFrame } from "remotion";
+import { Easing, interpolate } from "remotion";
+import { useFrame30 } from "../tempo";
 import { C, FONT_TEXTO, FONT_TITULO, GOLD_TEXT, fmt } from "../theme";
 import { Card, Extruded, Float3D, useContador, useEntrada } from "./motion";
 
@@ -84,7 +85,7 @@ export const PalavraChave: React.FC<{
   readonly cor?: "ouro" | "verde" | "branco";
   readonly apoio?: string;
 }> = ({ texto, top, tamanho = 210, cor = "ouro", apoio }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   const p = useEntrada(0, 11, 0.8);
   const face =
     cor === "ouro" ? GOLD_TEXT : cor === "verde" ? GREEN_TEXT : { color: C.branco };
@@ -287,7 +288,7 @@ const Notificacao: React.FC<{
 }> = ({ indice, total, delay, intervalo }) => {
   const p = useEntrada(delay, 15, 0.7);
   // Cada nova notificação empurra as anteriores para baixo e para trás.
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   let empurrao = 0;
   for (let j = indice + 1; j < total; j++) {
     empurrao += interpolate(frame, [j * intervalo, j * intervalo + 8], [0, 1], clamp);
@@ -367,7 +368,7 @@ export const MetaProgresso: React.FC<{
   readonly top: number;
   readonly delay?: number;
 }> = ({ atual, meta, top, delay = 6 }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   const fill = interpolate(frame - delay, [0, 40], [0, atual / meta], {
     ...clamp,
     easing: Easing.out(Easing.cubic),
@@ -425,7 +426,7 @@ export const DiasSemana: React.FC<{
   readonly destaque: string;
   readonly top: number;
 }> = ({ dias, titulo, destaque, top }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   return (
     <Float3D style={{ top, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
       <Card style={{ padding: "24px 30px 28px", textAlign: "center" }}>
@@ -473,7 +474,7 @@ export const Alerta: React.FC<{ readonly rotulo: string; readonly texto: string;
   texto,
   top,
 }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   const seta = interpolate(frame, [8, 26], [-30, 0], { ...clamp, easing: Easing.out(Easing.back(2)) });
   return (
     <Float3D style={{ top, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
@@ -510,7 +511,7 @@ export const Alerta: React.FC<{ readonly rotulo: string; readonly texto: string;
 
 /** Abertura do episódio: DIA 39 + nome da série. */
 export const TituloEpisodio: React.FC<{ readonly dia: number; readonly top: number }> = ({ dia, top }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   const linha = interpolate(frame, [8, 26], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   return (
     <Float3D style={{ top, left: 0, right: 0, textAlign: "center" }} tilt={75} from={[0, 40]} bob={0.5}>
@@ -578,7 +579,7 @@ export const SeloEpisodio: React.FC<{ readonly dia: number }> = ({ dia }) => {
 
 /** Chamada para seguir o perfil. */
 export const ChamadaSeguir: React.FC<{ readonly top: number }> = ({ top }) => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   const pulso = 1 + Math.max(0, Math.sin(frame / 7)) * 0.035;
   return (
     <Float3D style={{ top, left: 0, right: 0, display: "flex", justifyContent: "center" }}>

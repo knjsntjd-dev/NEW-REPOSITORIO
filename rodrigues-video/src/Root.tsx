@@ -7,8 +7,8 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="Dia39"
         component={Dia39}
-        durationInFrames={Math.ceil(EDICAO_DIA39.duracao * 30)}
-        fps={30}
+        durationInFrames={Math.ceil(EDICAO_DIA39.duracao * 60)}
+        fps={60}
         width={1080}
         height={1920}
       />

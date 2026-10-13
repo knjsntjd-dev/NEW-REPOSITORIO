@@ -10,6 +10,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { Clip, Plano } from "../edicao";
+import { useFrame30 } from "../tempo";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
@@ -37,13 +38,14 @@ const ClipeVideo: React.FC<{ readonly clip: Clip; readonly planos: Plano[]; read
   src,
 }) => {
   const frame = useCurrentFrame();
+  const f30 = useFrame30();
   const { fps } = useVideoConfig();
   const srcT = clip.src0 + frame / fps;
   let zoom = zoomNoTempo(planos, srcT);
   if (clip.gancho) {
     // Abertura: entra bem fechado e abre rápido, com controle.
-    zoom = interpolate(frame, [0, 14], [1.38, 1.14], { ...clamp, easing: Easing.out(Easing.cubic) }) +
-      interpolate(frame, [14, 180], [0, 0.05], clamp);
+    zoom = interpolate(f30, [0, 14], [1.38, 1.14], { ...clamp, easing: Easing.out(Easing.cubic) }) +
+      interpolate(f30, [14, 180], [0, 0.05], clamp);
   }
   return (
     <AbsoluteFill style={{ overflow: "hidden", backgroundColor: "#000" }}>
@@ -101,7 +103,7 @@ export const Acabamento: React.FC = () => (
 
 /** Flash + desfoque curto para transições de impacto. */
 export const Flash: React.FC = () => {
-  const frame = useCurrentFrame();
+  const frame = useFrame30();
   return (
     <AbsoluteFill
       style={{

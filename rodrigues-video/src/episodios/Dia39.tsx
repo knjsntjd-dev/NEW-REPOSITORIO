@@ -19,6 +19,7 @@ import {
 } from "../components/graficos";
 import { Legendas } from "../components/legendas";
 import { montarEdicao } from "../edicao";
+import { FPS_DESIGN } from "../tempo";
 import { fontsLoaded } from "../theme";
 import { DADOS, ENFASE, FALAS, GANCHO, PAUSA_MAX, RESPIRO } from "./dia39-dados";
 
@@ -73,7 +74,8 @@ const Sfx: React.FC<{ readonly em: number; readonly som: string; readonly volume
 };
 
 /** Frames entre dois tempos do original (para atrasos internos dos gráficos). */
-const entre = (a: number, b: number, fps: number) => Math.round((srcToOut(b) - srcToOut(a)) * fps);
+/** Frames de design (30 fps) entre dois tempos do original — os gráficos animam em 30 fps-equivalentes. */
+const entre = (a: number, b: number) => Math.round((srcToOut(b) - srcToOut(a)) * FPS_DESIGN);
 
 export const Dia39: React.FC = () => {
   const { fps, durationInFrames } = useVideoConfig();
@@ -90,12 +92,12 @@ export const Dia39: React.FC = () => {
       <Acabamento />
 
       {/* ---------- GANCHO: o resultado mais forte primeiro ---------- */}
-      <Sequence name="Gancho · faturamento" from={3} durationInFrames={fimGancho - 3} premountFor={fps}>
-        <ContadorDinheiro valor={DADOS.faturamentoTotal} rotulo="A loja já faturou" top={ZONA_CARD} frames={entre(107.22, 112.4, fps)} />
+      <Sequence name="Gancho · faturamento" from={Math.round(0.1 * fps)} durationInFrames={fimGancho - Math.round(0.1 * fps)} premountFor={fps}>
+        <ContadorDinheiro valor={DADOS.faturamentoTotal} rotulo="A loja já faturou" top={ZONA_CARD} frames={entre(107.22, 112.4)} />
       </Sequence>
       <Sfx em={GANCHO[0]} gancho som="impact" volume={0.55} />
       <Sfx em={GANCHO[0] + 0.1} gancho som="pop" volume={0.3} />
-      <Sequence name="Transição" from={fimGancho - 2} durationInFrames={10}>
+      <Sequence name="Transição" from={fimGancho - Math.round(0.07 * fps)} durationInFrames={Math.round(0.33 * fps)}>
         <Flash />
       </Sequence>
       <Sfx em={0.18} som="whoosh" volume={0.4} />
@@ -109,7 +111,7 @@ export const Dia39: React.FC = () => {
 
       {/* ---------- HOJE ---------- */}
       <Em nome="Faturado hoje" de={11.29} ate={15.55}>
-        <ContadorDinheiro valor={DADOS.faturadoHoje} casas={2} rotulo="Hoje, até agora" cor="verde" top={ZONA_CARD} frames={entre(11.29, 15.0, fps)} />
+        <ContadorDinheiro valor={DADOS.faturadoHoje} casas={2} rotulo="Hoje, até agora" cor="verde" top={ZONA_CARD} frames={entre(11.29, 15.0)} />
       </Em>
       <Sfx em={11.29} som="pop" volume={0.3} />
 
@@ -128,7 +130,7 @@ export const Dia39: React.FC = () => {
           top={ZONA_CARD}
           esquerda={{ rotulo: "Facebook Ads", valor: DADOS.gastoAds, sub: "gasto até agora" }}
           direita={{ rotulo: "Retornou", valor: DADOS.retornoAds, sub: "até agora" }}
-          atrasoDireita={entre(32.57, 39.29, fps)}
+          atrasoDireita={entre(32.57, 39.29)}
         />
       </Em>
       <Sfx em={32.57} som="pop" volume={0.3} />
@@ -153,7 +155,7 @@ export const Dia39: React.FC = () => {
       <Em nome="Fórmula" de={67.19} ate={76.6}>
         <Formula
           itens={["PRODUTO CERTO", "ESTRUTURA CERTA", "LUCRO"]}
-          tempos={[entre(67.19, 68.5, fps), entre(67.19, 70.1, fps), entre(67.19, 75.83, fps)]}
+          tempos={[entre(67.19, 68.5), entre(67.19, 70.1), entre(67.19, 75.83)]}
           top={ZONA_CARD - 20}
         />
       </Em>
@@ -173,7 +175,7 @@ export const Dia39: React.FC = () => {
 
       {/* ---------- RESULTADOS ACUMULADOS ---------- */}
       <Em nome="Faturamento total" de={107.22} ate={113.15}>
-        <ContadorDinheiro valor={DADOS.faturamentoTotal} rotulo="A loja já faturou" top={ZONA_CARD} frames={entre(107.22, 112.4, fps)} />
+        <ContadorDinheiro valor={DADOS.faturamentoTotal} rotulo="A loja já faturou" top={ZONA_CARD} frames={entre(107.22, 112.4)} />
       </Em>
       <Sfx em={107.22} som="pop" volume={0.3} />
 
@@ -185,7 +187,7 @@ export const Dia39: React.FC = () => {
       <Sfx em={113.21 + 14 / 30} som="venda" volume={0.25} />
 
       <Em nome="Visitantes" de={116.76} ate={121.55}>
-        <ContadorDinheiro valor={DADOS.visitantes} sufixo="" rotulo="Pessoas acessaram a loja" top={ZONA_CARD} frames={entre(116.76, 119.5, fps)} />
+        <ContadorDinheiro valor={DADOS.visitantes} sufixo="" rotulo="Pessoas acessaram a loja" top={ZONA_CARD} frames={entre(116.76, 119.5)} />
       </Em>
       <Sfx em={116.76} som="pop" volume={0.3} />
 
