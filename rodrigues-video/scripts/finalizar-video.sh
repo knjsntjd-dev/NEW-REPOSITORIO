@@ -11,8 +11,11 @@ read -r PARTES KBPS < <(python3 - "$DUR" <<'PY'
 import math,sys
 d=float(sys.argv[1]); alvo=88e6      # bytes por arquivo
 import os
-partes=int(os.environ.get("PARTES") or max(1,math.ceil(d/75)))   # no máx. ~75 s por parte
-kbps=min(14000,(partes*alvo*8/d-256_000)/1000)
+# QUALIDADE PRIMEIRO (DIA 41): mira ~16 Mbps (x264 2 passadas ≈ visualmente igual aos ~22 Mbps do encoder do
+# iPhone) e divide em quantas partes ≤ 88 MB forem necessárias. Teto de 18 Mbps.
+alvo_bps=float(os.environ.get("ALVO_KBPS","16000"))*1000+256_000
+partes=int(os.environ.get("PARTES") or max(1,math.ceil(d*alvo_bps/8/alvo)))
+kbps=min(18000,(partes*alvo*8/d-256_000)/1000)
 print(partes,int(kbps))
 PY
 )

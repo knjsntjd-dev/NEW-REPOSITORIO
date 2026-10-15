@@ -20,7 +20,12 @@ echo "fps usado: $FPS"
 YAVG=$(ffmpeg -v error -ss 10 -t 60 -i "$SRC" -vf "fps=1,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-" -an -f null - 2>/dev/null \
   | awk -F= '/YAVG/{s+=$2;n++} END{printf "%.0f", (n? s/n : 100)}')
 echo "brilho médio (YAVG): $YAVG"
-if [ "$YAVG" -lt 65 ]; then
+if [ "${GRADE:-auto}" = "original" ]; then
+  # IMAGEM 100% ORIGINAL (pedido do Rodrigues, DIA 41: "já foi gravado com boa iluminação"):
+  # nenhuma correção de cor, ruído ou nitidez. Só converte faixa de cor (full -> tv) para o H.264 padrão.
+  echo "modo ORIGINAL: sem tratamento de imagem"
+  G="scale=in_range=auto:out_range=tv"
+elif [ "$YAVG" -lt 65 ]; then
   echo "vídeo ESCURO -> curva de sombras"
   G="hqdn3d=2.5:2.5:7:7,curves=all='0/0 0.08/0.18 0.25/0.40 0.55/0.66 1/1',colorbalance=gs=-0.03:bs=0.01,eq=saturation=1.06,unsharp=5:5:0.3"
 else
@@ -31,7 +36,7 @@ fi
 A="highpass=f=80,afftdn=nf=-45,equalizer=f=250:t=q:w=1.2:g=-2,equalizer=f=3500:t=q:w=1.5:g=2,acompressor=threshold=-20dB:ratio=2.5:attack=10:release=150:makeup=2,loudnorm=I=-14:TP=-1.5:LRA=9"
 # Intermediário de altíssima qualidade (crf 12): a perda real só acontece no render final.
 ffmpeg -v error -y -i "$SRC" -vf "fps=$FPS,$G,format=yuv420p" -af "$A" -ar 48000 \
-  -c:v libx264 -preset fast -crf 12 -g 60 -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
+  -c:v libx264 -preset fast -crf ${CRF:-12} -g 60 -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
   -c:a aac -b:a 256k -movflags +faststart "$DEST/base.mp4"
 ffmpeg -v error -y -i "$SRC" -vn -ac 1 -ar 16000 "$DEST/audio16k.wav"
 echo "ok: $DEST/base.mp4"

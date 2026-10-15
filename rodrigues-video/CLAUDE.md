@@ -60,6 +60,20 @@ timeline.json` + `python scripts/montar-audio.py voz.wav timeline.json public/sf
 o render de áudio do Remotion não dá progresso e pode demorar como um render completo) → `mixar-musica-externa.sh`
 → regravar o áudio de cada parte com `-c:v copy` (parte1 com `-itsoffset 0.033`, como o vídeo dela).
 
+## DIA 41 — pedidos do Rodrigues (valem daqui pra frente)
+- **Imagem 100% original quando a gravação já está bem iluminada**: `GRADE=original CRF=10 scripts/preparar-episodio.sh`
+  (só fixa 60 fps e converte faixa de cor; nada de cor/ruído/nitidez). Zooms contidos (`estilo.fator=0.5`, máx. ~1,1×)
+  e suaves (`suave: true`) para não perder nitidez. Só o ÁUDIO é tratado (`voz-podcast.sh`).
+- **Motion variado e atual**: pacote `src/components/motion-v2.tsx` — `NumeroRolante` (odômetro; larguras reais da
+  Anton: dígitos 0,494 em, "1" 0,331 em), `BordaViva` (luz girando na borda), `CardRolante`, `IlhaDinamica`
+  (Dynamic Island), `TituloMascara`, `Marcador` (marca-texto), `BentoResultados` (grade 2×2; esconder a legenda
+  enquanto ela está na tela), `MetaAnel`, `Chips`, `BotaoSeguir` (cursor clica e vira "Seguindo"). Legenda
+  `estilo="pilula"` (pílula dourada na palavra falada) e câmera com `impactos` (tremor curto nos números).
+  Alternar entre o pacote v1 (DIA 39/40) e o v2 e recombinar para não repetir.
+- **Música do Rodrigues mais baixa e "respirando" com a voz**: `DUCK_RATIO=4 DUCK_TH=0.04 scripts/mixar-musica-externa.sh
+  <video> <musica> <saida> -22`.
+- **Encode final qualidade-primeiro**: `finalizar-video.sh` mira ~16 Mbps (teto 18) e divide em partes ≤ 88 MB.
+
 ## Exposição adaptativa (DIA 40)
 O DIA 40 veio MUITO escuro (YAVG ≈ 24–38 contra ≈ 100 do DIA 39: parede e blusa pretas, só o rosto iluminado).
 `scripts/preparar-episodio.sh` mede o brilho médio e, abaixo de 65, usa curva que levanta só as sombras + denoise maior +

@@ -14,7 +14,7 @@ ffmpeg -v error -y -i "$VID" -i "$TMP/musica.wav" -filter_complex "
   [0:a]aformat=sample_rates=48000:channel_layouts=stereo,asplit=2[voz][sc];
   [1:a]highpass=f=80,equalizer=f=250:t=q:w=1:g=-3,equalizer=f=2800:t=q:w=1.3:g=-5,
        loudnorm=I=${LM}:TP=-2:LRA=7[mus];
-  [mus][sc]sidechaincompress=threshold=0.05:ratio=2.5:attack=20:release=500:makeup=1[musduck];
+  [mus][sc]sidechaincompress=threshold=${DUCK_TH:-0.05}:ratio=${DUCK_RATIO:-2.5}:attack=20:release=${DUCK_REL:-500}:makeup=1[musduck];
   [voz][musduck]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.89:level=disabled[a]" \
   -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -movflags +faststart "$OUT"
 echo "ok: $OUT"
