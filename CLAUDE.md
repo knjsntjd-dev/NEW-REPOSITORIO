@@ -4,8 +4,8 @@
 - **Tema oficial: "RODRIGUES RLP TEMA OFICIAL"** — `gid://shopify/OnlineStoreTheme/210427904349`.
   Desde 02/10/2026 está **PUBLICADO (MAIN)** — a API não escreve em tema publicado.
 - Para editar: `themeDuplicate` do tema publicado → editar a cópia → a usuária publica no admin.
-  Publicado (MAIN) desde 03/10/2026 ~15h: "RODRIGUES RLP - carrinho + combo" `gid://shopify/OnlineStoreTheme/210575556957`.
-  Rascunho atual (cinto + ajustes RLP): "RODRIGUES RLP - cinto + ajustes" `gid://shopify/OnlineStoreTheme/210581127517`.
+  Publicado (MAIN) desde ~04/10/2026: "RODRIGUES RLP - cinto + ajustes" `gid://shopify/OnlineStoreTheme/210581127517`.
+  A usuária prefere editar só por RLP (metafields/dados) e NÃO duplicar tema, salvo se pedir.
   SEMPRE conferir `themes{role}` antes de escrever — a usuária publica rascunhos sem avisar.
 - Este repositório (`shopify-theme/`) é uma linhagem antiga ("RODRIGUES Leve v2") e NÃO é a fonte
   do tema oficial. O tema oficial vive na Shopify; leia os arquivos de lá antes de editar.
@@ -53,6 +53,12 @@
   preencher produto/metafields mesmo com o tema online; só arquivos de tema são bloqueados. Tamanhos 35–43 seguem a
   numeração do fabricante (veste menor que o habitual): `tabela_medidas` mostra "cm · EU · BR". Packs desligados,
   sem estrelas/depoimentos. Variantes Marrom/Preto apontam para fotos ligadas pelo importador (conferir se a cor bate).
+- FlexFit Zíper (16651465818461, handle `flexfit-ziper`, template `modelo-rodrigues`, 19/10/2026): versão de compressão
+  mais firme, fecho com zíper, hastes de aço (dado do fornecedor), XS–XXXL por cintura (faixas do fornecedor se
+  sobrepõem). Feito só por RLP/dados — a usuária NÃO quer duplicar tema. PACK2, PACK3 e COMBO15 passaram a incluir
+  a Zíper (pack misto FlexFit + Zíper também vale). Sem estrelas/depoimentos próprios. ATENÇÃO: a calculadora
+  do template modelo-rodrigues usa a tabela da FlexFit clássica (blocos do template, não metafield) e os
+  vídeos do template são da FlexFit clássica.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
