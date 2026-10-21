@@ -59,6 +59,11 @@
   a Zíper (pack misto FlexFit + Zíper também vale). Sem estrelas/depoimentos próprios. ATENÇÃO: a calculadora
   do template modelo-rodrigues usa a tabela da FlexFit clássica (blocos do template, não metafield) e os
   vídeos do template são da FlexFit clássica.
+- Depilador 4 em 1 (16654988935517, handle `kit-depilador`, template `kit4em1` criado pela usuária = cópia do
+  modelo-rodrigues, 21/10/2026): é BARBEADOR/aparador (lâmina inox, corta rente) — não arranca pela raiz; não prometer
+  pelo que demora a crescer. Bateria NiMH 600 mAh, até 60 min, carregar só em 5 V/1 A. Packs desligados,
+  esconder_tamanhos=sim, sem estrelas. O template kit4em1 ainda tem vídeos da FlexFit e a calculadora (invisível,
+  produto sem tamanho) — a usuária deve ocultar as seções de vídeo no editor.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
