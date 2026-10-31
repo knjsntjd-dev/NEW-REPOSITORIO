@@ -64,6 +64,10 @@
   pelo que demora a crescer. Bateria NiMH 600 mAh, até 60 min, carregar só em 5 V/1 A. Packs desligados,
   esconder_tamanhos=sim, sem estrelas. O template kit4em1 ainda tem vídeos da FlexFit e a calculadora (invisível,
   produto sem tamanho) — a usuária deve ocultar as seções de vídeo no editor.
+- Shorts Modelador FlexFit Control (16473989120349, handle `controlflexfit`, template `mod-rdg-lag-flexfit` criado pela
+  usuária, 31/10/2026): a usuária chama de "lag modeladora". Sem ficha do fornecedor nem SKU — copy usa só fatos
+  (cintura às coxas, sem atrito, XS/S–6XL, preto/nude). Tabela de medidas PENDENTE (linha provisória "em atualização"),
+  packs desligados até a usuária autorizar incluir o produto no PACK2/PACK3 (a tentativa foi bloqueada).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
