@@ -68,6 +68,7 @@
   usuária, 31/10/2026): a usuária chama de "lag modeladora". Sem ficha do fornecedor nem SKU — copy usa só fatos
   (cintura às coxas, sem atrito, XS/S–6XL, preto/nude). Tabela de medidas PENDENTE (linha provisória "em atualização"),
   Preço €36,40 (riscado €47,70). Packs LIGADOS: incluído no PACK2/PACK3 com autorização da usuária (31/10/2026).
+  A usuária NÃO quer menção a troca nessa página (garantia_2, fim_selo, faq etc. focam em qualidades do produto).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
