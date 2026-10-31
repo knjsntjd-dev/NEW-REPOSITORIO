@@ -67,7 +67,7 @@
 - Shorts Modelador FlexFit Control (16473989120349, handle `controlflexfit`, template `mod-rdg-lag-flexfit` criado pela
   usuária, 31/10/2026): a usuária chama de "lag modeladora". Sem ficha do fornecedor nem SKU — copy usa só fatos
   (cintura às coxas, sem atrito, XS/S–6XL, preto/nude). Tabela de medidas PENDENTE (linha provisória "em atualização"),
-  packs desligados até a usuária autorizar incluir o produto no PACK2/PACK3 (a tentativa foi bloqueada).
+  Preço €36,40 (riscado €47,70). Packs LIGADOS: incluído no PACK2/PACK3 com autorização da usuária (31/10/2026).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
