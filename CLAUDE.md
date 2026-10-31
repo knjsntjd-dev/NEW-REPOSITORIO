@@ -16,6 +16,8 @@
   para servir qualquer produto com o mesmo layout.
 - Benefícios em fotos: `rlp.img_1/2/3` (file_reference). As fotos já trazem o texto embutido —
   não preencher `rlp.legenda_N_*`.
+  Desde 31/10/2026 (editado pela usuária no tema publicado) o card usa `imN.value.preview_image.aspect_ratio`,
+  então cada foto aparece no próprio formato (antes caía no padrão 4:5 do CSS e cortava fotos quadradas).
 - Cor das bolinhas de cor (swatches) deve vir sempre da Shopify (swatch da opção do produto).
 
 ## Carrinho lateral e combo (modelo Rodrigues)
