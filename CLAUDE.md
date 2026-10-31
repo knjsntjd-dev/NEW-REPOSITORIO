@@ -10,6 +10,14 @@
 - Este repositório (`shopify-theme/`) é uma linhagem antiga ("RODRIGUES Leve v2") e NÃO é a fonte
   do tema oficial. O tema oficial vive na Shopify; leia os arquivos de lá antes de editar.
 
+## Preferências da usuária (resumo)
+- Editar produtos SÓ por RLP/dados (metafields, descrição, SEO, preços). Não duplicar tema nem mexer em template
+  sem ela pedir; cada produto tem o seu template (mudar vídeos/seções de um não pode afetar outro).
+- Quando algo só se resolve no código, explicar o passo a passo curto (ela mesma edita no "Editar código").
+- Textos em pt-BR, copy forte focada nas qualidades do produto; não inventar dados técnicos, avaliações ou
+  prazos. Avisar (sem bloquear) sobre riscos legais, ex.: preço riscado que nunca foi praticado.
+- Respostas curtas e diretas, em português.
+
 ## Sistema RLP (template `product.modelo-rodrigues`)
 - Seções `rlp-produto`, `rlp-comparacao`, `rlp-beneficios`, `rlp-conteudo` + `video-reviews`.
 - Todo o conteúdo vem de **metafields do produto, namespace `rlp`** (não de settings de seção),
