@@ -1,0 +1,76 @@
+{
+  "sections": {
+    "rlp_produto": {
+      "type": "rlp-produto",
+      "settings": {}
+    },
+    "entrega_estimada": {
+      "type": "entrega-estimada",
+      "settings": {}
+    },
+    "compre_junto": {
+      "type": "compre-junto",
+      "blocks": {
+        "produto_1": {
+          "type": "produto",
+          "settings": {
+            "produto": "",
+            "selo": "",
+            "marcado": true
+          }
+        }
+      },
+      "block_order": [
+        "produto_1"
+      ],
+      "settings": {}
+    },
+    "rlp_comparacao": {
+      "type": "rlp-comparacao",
+      "settings": {}
+    },
+    "rlp_beneficios": {
+      "type": "rlp-beneficios",
+      "settings": {}
+    },
+    "rlp_conteudo": {
+      "type": "rlp-conteudo",
+      "settings": {}
+    },
+    "rlp_carrinho": {
+      "type": "rlp-carrinho",
+      "blocks": {
+        "nivel_70": {
+          "type": "nivel",
+          "settings": {
+            "valor": 70,
+            "premio": "10% OFF"
+          }
+        },
+        "nivel_100": {
+          "type": "nivel",
+          "settings": {
+            "valor": 100,
+            "premio": "15% OFF"
+          }
+        }
+      },
+      "block_order": [
+        "nivel_70",
+        "nivel_100"
+      ],
+      "settings": {
+        "upsell_qtd": 2
+      }
+    }
+  },
+  "order": [
+    "rlp_produto",
+    "entrega_estimada",
+    "compre_junto",
+    "rlp_comparacao",
+    "rlp_beneficios",
+    "rlp_conteudo",
+    "rlp_carrinho"
+  ]
+}

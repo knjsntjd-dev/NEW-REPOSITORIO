@@ -1,0 +1,78 @@
+{%- comment -%}
+=====================================================================
+ GUIA RLP — PARA O CLAUDE (automação de páginas de produto)
+ Este arquivo não é renderizado; é só documentação que viaja com o tema.
+=====================================================================
+
+COMO FUNCIONA
+- As páginas "Modelo Rodrigues" (RLP) usam as seções:
+    rlp-produto, rlp-comparacao, rlp-beneficios, rlp-conteudo, rlp-carrinho
+- Cada texto pode vir de DOIS lugares:
+    1) Metafield do produto, namespace "rlp"  -> TEM PRIORIDADE (por produto)
+    2) Configuração da seção no editor do tema -> usado quando o metafield está vazio
+- Ou seja: a automação escreve metafields rlp.* em cada produto; o que não for
+  preenchido usa o texto do editor do tema (igual para todos os produtos).
+
+MODELOS (templateSuffix do produto)
+- modelo-rodrigues          -> completo (calculadora de tamanho, vídeos, compre junto, coleção)
+- mdl-rdg-acessorios        -> acessórios (sem calculadora nem vídeos)
+- mdl-rdg-cal-alfaiataria   -> calça/alfaiataria (calculadora, vídeos, compre junto)
+- mod-rdg-lag-flexfit       -> modeladores (calculadora, vídeos, coleção)
+- kit4em1                   -> kit/eletrônicos (calculadora, vídeos de clientes)
+  Para aplicar: productUpdate(input: { id, templateSuffix: "modelo-rodrigues" })
+
+ESCREVER METAFIELDS (Admin GraphQL)
+  mutation { metafieldsSet(metafields: [
+    { ownerId: "gid://shopify/Product/ID", namespace: "rlp", key: "eyebrow",
+      type: "single_line_text_field", value: "Modelador · Uso diário" }
+  ]) { userErrors { field message } } }
+  Não é preciso criar definições de metafield antes (mas pode, para aparecer bonito no admin).
+
+CAMPOS (key -> type)  — deixe vazio para usar o texto do editor
+ Topo / compra (rlp-produto)
+  eyebrow                    single_line_text_field   texto pequeno acima do título
+  nota                       single_line_text_field   texto das estrelas ("-" esconde as estrelas)
+  nota_preco                 single_line_text_field   texto abaixo do preço
+  beneficio_1_titulo / _texto  single_line_text_field (1 a 3)
+  bundle_titulo              single_line_text_field
+  bundle2_ativo / bundle3_ativo  single_line_text_field  "sim" ou "nao"
+  bundle2_off / bundle3_off  number_integer           desconto % do pacote
+  bundle2_codigo / bundle3_codigo  single_line_text_field  código de desconto (criar em Descontos)
+  garantia_1 .. garantia_3   single_line_text_field
+  dif_1_titulo / dif_1_texto single_line_text_field (1 a 4)  faixa de diferenciais
+  guia_link, guia_titulo     single_line_text_field
+  guia_texto                 multi_line_text_field
+  medida_nome                single_line_text_field   ex.: "Cintura"
+  tabela_medidas             multi_line_text_field    uma linha por tamanho: "S | 62 – 68 cm"
+ Comparação (rlp-comparacao)
+  cmp_eyebrow, cmp_titulo    single_line_text_field
+  cmp_texto                  multi_line_text_field
+  cmp_nosso, cmp_marca, cmp_col2, cmp_col3   single_line_text_field
+  criterio_estrelas, criterio_1 .. criterio_5  single_line_text_field
+ Benefícios em fotos (rlp-beneficios)
+  ben_eyebrow, ben_titulo    single_line_text_field
+  ben_texto                  multi_line_text_field
+  img_1 .. img_3             file_reference           gid://shopify/MediaImage/... (arquivo da loja)
+  legenda_1_titulo .. 3      single_line_text_field
+  legenda_1_texto .. 3       multi_line_text_field
+ Tamanhos, depoimentos, final e FAQ (rlp-conteudo)
+  esconder_tamanhos          single_line_text_field   "sim" esconde o guia de tamanhos
+  tam_titulo                 single_line_text_field
+  tam_texto, tam_nota        multi_line_text_field
+  dep_eyebrow, dep_titulo    single_line_text_field
+  dep_1_texto .. 3           multi_line_text_field
+  dep_1_nome .. 3            single_line_text_field
+  fim_eyebrow, fim_nota_preco, fim_selo   single_line_text_field
+  fim_texto                  multi_line_text_field
+  faq_1_pergunta .. 6        single_line_text_field
+  faq_1_resposta .. 6        multi_line_text_field
+ Combo (legado — o tema atual NÃO lê estes campos; o combo é feito pela
+ seção "Compre junto", com os produtos escolhidos em blocos no template)
+  combo_produto              product_reference
+  combo_off                  number_integer
+  combo_codigo               single_line_text_field
+
+CORES, CARRINHO LATERAL, ENTREGA ESTIMADA, CALCULADORA E COMPRE JUNTO
+- Ficam nas configurações das seções no editor do tema (ou no JSON do template:
+  templates/product.<modelo>.json, via themeFilesUpsert num tema não publicado).
+{%- endcomment -%}

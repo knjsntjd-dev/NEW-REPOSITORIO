@@ -13,3 +13,10 @@ Arquivos alterados em relação ao tema original (estão nesta pasta):
 - `templates/*.json`: sem vídeos, produtos, coleções e imagens da loja original.
 
 Os modelos com nome de produtos da loja original foram reduzidos a um modelo básico vazio.
+
+## Automação RLP (Claude)
+
+- Os metafields `rlp.*` dos produtos continuam a funcionar e têm prioridade sobre o editor.
+- Os 5 modelos RLP estão disponíveis: `modelo-rodrigues`, `mdl-rdg-acessorios`,
+  `mdl-rdg-cal-alfaiataria`, `mod-rdg-lag-flexfit`, `kit4em1` (limpos, sem dados da loja original).
+- Guia completo dos campos para o Claude: `snippets/rlp-guia-claude.liquid` (vai junto no .zip do tema).
