@@ -1,0 +1,131 @@
+{
+  "sections": {
+    "rlp_produto": { "type": "rlp-produto", "settings": {} },
+    "entrega_estimada": { "type": "entrega-estimada", "settings": {} },
+    "calc_tamanho": {
+      "type": "calc-tamanho",
+      "blocks": {
+        "tam_1": { "type": "tamanho", "settings": { "tamanho": "S", "min_1": 62, "max_1": 68, "min_2": 37.5, "max_2": 50 } },
+        "tam_2": { "type": "tamanho", "settings": { "tamanho": "M", "min_1": 68, "max_1": 74, "min_2": 50, "max_2": 57 } },
+        "tam_3": { "type": "tamanho", "settings": { "tamanho": "L", "min_1": 74, "max_1": 80, "min_2": 57, "max_2": 64.5 } },
+        "tam_4": { "type": "tamanho", "settings": { "tamanho": "XL", "min_1": 80, "max_1": 86, "min_2": 64.5, "max_2": 72 } },
+        "tam_5": { "type": "tamanho", "settings": { "tamanho": "XXL", "min_1": 86, "max_1": 92, "min_2": 72, "max_2": 77.5 } },
+        "tam_6": { "type": "tamanho", "settings": { "tamanho": "3XL / XXXL", "min_1": 92, "max_1": 98, "min_2": 77.5, "max_2": 90 } }
+      },
+      "block_order": ["tam_1", "tam_2", "tam_3", "tam_4", "tam_5", "tam_6"],
+      "settings": {
+        "texto_link": "Descobrir meu tamanho",
+        "titulo": "Descubra seu tamanho ideal",
+        "texto": "Informe suas medidas e a gente indica o tamanho certo.",
+        "medida_1": "Cintura (cm)",
+        "exemplo_1": "Ex.: 72",
+        "ajuda_1": "De pé e relaxada, passe a fita pelo ponto mais estreito do tronco — um pouco acima do umbigo. Justa, sem apertar.",
+        "usar_medida_2": true,
+        "medida_2": "Peso (kg)",
+        "exemplo_2": "Ex.: 62",
+        "ajuda_2": "Opcional — ajuda a acertar quando você está entre dois tamanhos.",
+        "botao": "Ver meu tamanho",
+        "texto_resultado": "Seu tamanho ideal é",
+        "dica": "Entre dois tamanhos? Escolha o maior para mais conforto.",
+        "botao_usar": "Escolher tamanho [tamanho]",
+        "texto_fora": "Essa medida está fora da nossa tabela. Fale com a gente que ajudamos a escolher.",
+        "texto_vazio": "Preencha pelo menos uma medida.",
+        "cor_fundo": "#ffffff",
+        "cor_texto": "#111111",
+        "cor_destaque": "#9c2b33",
+        "cor_botao": "#111111",
+        "cor_botao_texto": "#ffffff",
+        "raio": 18
+      }
+    },
+    "video_reviews": {
+      "type": "video-reviews",
+      "name": "Vídeos de clientes",
+      "settings": {
+        "caption": "AVALIAÇÕES VERIFICADAS",
+        "heading": "Mais de 5.000 pessoas confiam em nós.",
+        "heading_size": "h1",
+        "subheading": "Confira nossas avaliações e veja por si mesmo!",
+        "card_ratio": "9/16",
+        "card_width": 370,
+        "link_label": "Ver produto",
+        "accent_color": "#0048ff",
+        "color_scheme": "custom",
+        "custom_colors_background": "#000000",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "videos_produto": { "type": "product-video-gallery", "name": "Videos Produto", "settings": {} },
+    "rlp_comparacao": { "type": "rlp-comparacao", "settings": {} },
+    "rlp_beneficios": { "type": "rlp-beneficios", "settings": {} },
+    "compre_junto": {
+      "type": "compre-junto",
+      "blocks": {
+        "produto_1": { "type": "produto", "settings": { "produto": "", "selo": "", "marcado": true } }
+      },
+      "block_order": ["produto_1"],
+      "settings": {}
+    },
+    "rlp_conteudo": { "type": "rlp-conteudo", "settings": {} },
+    "rlp_carrinho": {
+      "type": "rlp-carrinho",
+      "blocks": {
+        "nivel_70": { "type": "nivel", "settings": { "valor": 70, "premio": "10% OFF" } },
+        "nivel_100": { "type": "nivel", "settings": { "valor": 100, "premio": "15% OFF" } }
+      },
+      "block_order": ["nivel_70", "nivel_100"],
+      "settings": { "upsell_qtd": 3 }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Complete seu kit 🎁",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "color_scheme": "background-1",
+        "collection": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "product_cards_stretch": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "cards_color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#FFFFFF",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2E2A39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "rlp_produto",
+    "entrega_estimada",
+    "calc_tamanho",
+    "video_reviews",
+    "videos_produto",
+    "rlp_comparacao",
+    "rlp_beneficios",
+    "compre_junto",
+    "rlp_conteudo",
+    "rlp_carrinho",
+    "featured_collection"
+  ]
+}

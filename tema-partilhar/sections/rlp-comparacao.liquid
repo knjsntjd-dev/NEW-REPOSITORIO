@@ -1,0 +1,77 @@
+{%- assign s = section.settings -%}{%- assign mf = product.metafields.rlp -%}
+<div class="rlp">
+<section class="rlp-compare">
+  <div class="rlp-wrap">
+    <div class="rlp-sec-head rlp-rv">
+      {%- assign eb = mf.cmp_eyebrow | default: s.cmp_eyebrow -%}{%- if eb != blank -%}<span class="rlp-eyebrow">{{ eb }}</span>{%- endif -%}
+      {%- assign tt = mf.cmp_titulo | default: s.cmp_titulo -%}{%- if tt != blank -%}<h2>{{ tt }}</h2>{%- endif -%}
+      {%- assign tx = mf.cmp_texto | default: s.cmp_texto -%}{%- if tx != blank -%}<p class="rlp-lead">{{ tx }}</p>{%- endif -%}
+    </div>
+    <div class="rlp-compare-wrap rlp-rv">
+      <table class="rlp-compare-table">
+        <colgroup><col class="rlp-lbl"><col class="rlp-hl-col"><col class="rlp-oth"><col class="rlp-oth"></colgroup>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col" class="rlp-hl"><span class="rlp-compare-brand"><b>{{ mf.cmp_nosso | default: s.cmp_nosso }}</b><span>{{ mf.cmp_marca | default: s.cmp_marca | default: shop.name }}</span></span></th>
+            <th scope="col">{{ mf.cmp_col2 | default: s.cmp_col2 }}</th>
+            <th scope="col">{{ mf.cmp_col3 | default: s.cmp_col3 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- assign ce = mf.criterio_estrelas | default: s.criterio_estrelas -%}
+          {%- if ce != blank -%}
+          <tr>
+            <th scope="row">{{ ce }}</th>
+            <td class="rlp-hl"><span class="rlp-compare-stars" aria-label="5 de 5"><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span></span></td>
+            <td><span class="rlp-compare-stars" aria-label="3 de 5"><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-off">★</span><span class="rlp-off">★</span></span></td>
+            <td><span class="rlp-compare-stars" aria-label="2 de 5"><span class="rlp-on">★</span><span class="rlp-on">★</span><span class="rlp-off">★</span><span class="rlp-off">★</span><span class="rlp-off">★</span></span></td>
+          </tr>
+          {%- endif -%}
+          {%- for i in (1..5) -%}
+          {%- capture kc -%}criterio_{{ i }}{%- endcapture -%}
+          {%- assign crit = mf[kc] | default: s[kc] -%}
+          {%- if crit != blank -%}
+          <tr>
+            <th scope="row">{{ crit }}</th>
+            <td class="rlp-hl"><span class="rlp-compare-badge rlp-ok" aria-label="Sim">✓</span></td>
+            <td><span class="rlp-compare-badge rlp-mid" aria-label="Parcial">–</span></td>
+            <td><span class="rlp-compare-badge rlp-no" aria-label="Não">✕</span></td>
+          </tr>
+          {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</div>
+
+{% schema %}
+{
+  "name": "RLP · Comparação",
+  "tag": "section",
+  "class": "rlp-sec",
+  "settings": [
+    { "type": "paragraph", "content": "Tabela \"nós contra eles\". Deixe um critério vazio para esconder a linha." },
+    { "type": "text", "id": "cmp_eyebrow", "label": "Texto pequeno acima", "default": "Nós contra eles" },
+    { "type": "text", "id": "cmp_titulo", "label": "Título", "default": "Por que escolher o nosso produto" },
+    { "type": "textarea", "id": "cmp_texto", "label": "Texto", "default": "O problema dos produtos comuns numa frase. Como o seu produto resolve." },
+    { "type": "header", "content": "Colunas" },
+    { "type": "text", "id": "cmp_nosso", "label": "Nossa coluna — nome", "default": "PRODUTO" },
+    { "type": "text", "id": "cmp_marca", "label": "Nossa coluna — marca", "info": "Vazio = nome da loja." },
+    { "type": "text", "id": "cmp_col2", "label": "Coluna 2", "default": "Comum" },
+    { "type": "text", "id": "cmp_col3", "label": "Coluna 3", "default": "Barato" },
+    { "type": "header", "content": "Linhas" },
+    { "type": "text", "id": "criterio_estrelas", "label": "Linha de estrelas", "default": "Qualidade geral" },
+    { "type": "text", "id": "criterio_1", "label": "Critério 1", "default": "Critério 1" },
+    { "type": "text", "id": "criterio_2", "label": "Critério 2", "default": "Critério 2" },
+    { "type": "text", "id": "criterio_3", "label": "Critério 3", "default": "Critério 3" },
+    { "type": "text", "id": "criterio_4", "label": "Critério 4", "default": "Critério 4" },
+    { "type": "text", "id": "criterio_5", "label": "Critério 5", "default": "Critério 5" }
+  ],
+  "presets": [
+    { "name": "RLP · Comparação" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,154 @@
+{%- liquid
+  assign s = section.settings
+  assign mf = product.metafields.rlp
+  assign p = product
+  assign v0 = p.selected_or_first_available_variant
+  assign tabela_txt = mf.tabela_medidas | default: s.tabela_medidas
+  assign esconder_tam = s.esconder_tamanhos
+  if mf.esconder_tamanhos == 'sim'
+    assign esconder_tam = true
+  endif
+-%}
+<div class="rlp">
+{%- if tabela_txt != blank and esconder_tam != true -%}
+<section class="rlp-sizing">
+  <div class="rlp-wrap">
+    <div class="rlp-sec-head rlp-rv">
+      {%- if s.tam_eyebrow != blank -%}<span class="rlp-eyebrow">{{ s.tam_eyebrow }}</span>{%- endif -%}
+      <h2>{{ mf.tam_titulo | default: s.tam_titulo }}</h2>
+      {%- assign tx = mf.tam_texto | default: s.tam_texto -%}{%- if tx != blank -%}<p class="rlp-lead">{{ tx }}</p>{%- endif -%}
+    </div>
+    <div class="rlp-sizing-grid rlp-rv">
+      <div class="rlp-tbl-wrap">
+        <table>
+          <thead><tr><th>{{ s.txt_col_tamanho }}</th><th>{{ mf.medida_nome | default: s.medida_nome }}</th></tr></thead>
+          <tbody>{%- assign linhas = tabela_txt | newline_to_br | split: '<br />' -%}{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}<tr><td>{{ c[0] | strip }}</td><td class="rlp-num">{{ c[1] | strip }}</td></tr>{%- endif -%}{%- endfor -%}</tbody>
+        </table>
+      </div>
+      {%- assign tn = mf.tam_nota | default: s.tam_nota -%}{%- if tn != blank -%}<p class="rlp-tbl-note">{{ tn }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{%- assign dep1 = mf.dep_1_texto | default: s.dep_1_texto -%}
+{%- if dep1 != blank -%}
+<section class="rlp-reviews">
+  <div class="rlp-wrap">
+    <div class="rlp-sec-head rlp-rv">
+      {%- assign de = mf.dep_eyebrow | default: s.dep_eyebrow -%}{%- if de != blank -%}<span class="rlp-eyebrow rlp-num">{{ de }}</span>{%- endif -%}
+      <h2>{{ mf.dep_titulo | default: s.dep_titulo }}</h2>
+    </div>
+    <div class="rlp-r-grid rlp-rv">
+      {%- for i in (1..3) -%}
+      {%- capture kt -%}dep_{{ i }}_texto{%- endcapture -%}{%- capture kn -%}dep_{{ i }}_nome{%- endcapture -%}
+      {%- assign dt = mf[kt] | default: s[kt] -%}{%- assign dn = mf[kn] | default: s[kn] -%}
+      {%- if dt != blank -%}
+      <article class="rlp-r-card">
+        <span class="rlp-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg></span>
+        <q>{{ dt }}</q>
+        <p class="rlp-r-who"><b>{{ dn }}</b>{% if s.txt_verificada != blank %} · {{ s.txt_verificada }}{% endif %}</p>
+      </article>
+      {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{%- if s.mostrar_final -%}
+<section class="rlp-final">
+  <div class="rlp-wrap">
+    <div class="rlp-final-box rlp-rv">
+      {%- assign fe = mf.fim_eyebrow | default: s.fim_eyebrow -%}{%- if fe != blank -%}<span class="rlp-eyebrow">{{ fe }}</span>{%- endif -%}
+      <h2>{{ p.title }}</h2>
+      {%- assign ft = mf.fim_texto | default: s.fim_texto -%}{%- if ft != blank -%}<p class="rlp-lead" style="margin-inline:auto">{{ ft }}</p>{%- endif -%}
+      <div class="rlp-price-row">
+        <span class="rlp-price rlp-num" data-final-preco>{{ v0.price | money }}</span>
+        <span class="rlp-price-old rlp-num" data-final-antigo>{{ v0.compare_at_price | money }}</span>
+      </div>
+      {%- assign fn = mf.fim_nota_preco | default: s.fim_nota_preco -%}{%- if fn != blank -%}<p class="rlp-tax-note" style="margin-bottom:6px">{{ fn }}</p>{%- endif -%}
+      <a class="rlp-cta" href="#comprar" data-buy id="ctaFinal">{{ s.txt_botao }} — {{ v0.price | money }}</a>
+      {%- assign fs = mf.fim_selo | default: s.fim_selo -%}
+      {%- if fs != blank -%}
+      <span class="rlp-seal">
+        <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        {{ fs }}
+      </span>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+<section class="rlp-faq">
+  <div class="rlp-wrap">
+    <div class="rlp-faq-list rlp-rv">
+      {%- for i in (1..6) -%}
+      {%- capture kp -%}faq_{{ i }}_pergunta{%- endcapture -%}{%- capture kr -%}faq_{{ i }}_resposta{%- endcapture -%}
+      {%- assign fp = mf[kp] | default: s[kp] -%}{%- assign fr = mf[kr] | default: s[kr] -%}
+      {%- if fp != blank -%}
+      <details>
+        <summary>{{ fp }}</summary>
+        <div class="rlp-faq-body">{{ fr }}</div>
+      </details>
+      {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+</div>
+
+{% schema %}
+{
+  "name": "RLP · Tamanhos e FAQ",
+  "tag": "section",
+  "class": "rlp-sec",
+  "settings": [
+    { "type": "paragraph", "content": "Guia de tamanhos, depoimentos, chamada final e perguntas frequentes. Deixe um campo vazio para esconder esse item." },
+    { "type": "header", "content": "Guia de tamanhos" },
+    { "type": "checkbox", "id": "esconder_tamanhos", "label": "Esconder o guia de tamanhos", "default": false },
+    { "type": "text", "id": "tam_eyebrow", "label": "Texto pequeno acima", "default": "Guia de tamanhos" },
+    { "type": "text", "id": "tam_titulo", "label": "Título", "default": "Encontre o seu tamanho" },
+    { "type": "textarea", "id": "tam_texto", "label": "Texto", "default": "Como medir para escolher o tamanho. Em dúvida entre dois tamanhos, escolha o maior." },
+    { "type": "text", "id": "txt_col_tamanho", "label": "Nome da coluna de tamanho", "default": "Tamanho" },
+    { "type": "text", "id": "medida_nome", "label": "Nome da medida", "default": "Cintura" },
+    { "type": "textarea", "id": "tabela_medidas", "label": "Tabela de medidas", "info": "Uma linha por tamanho: TAMANHO | MEDIDA", "default": "S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm" },
+    { "type": "text", "id": "tam_nota", "label": "Nota abaixo da tabela", "default": "Se o tamanho não servir, você tem 7 dias para trocar." },
+    { "type": "header", "content": "Depoimentos" },
+    { "type": "paragraph", "content": "Deixe o depoimento 1 vazio para esconder este bloco." },
+    { "type": "text", "id": "dep_eyebrow", "label": "Texto pequeno acima", "default": "4,8 / 5 · clientes verificados" },
+    { "type": "text", "id": "dep_titulo", "label": "Título", "default": "O que diz quem já usa" },
+    { "type": "text", "id": "txt_verificada", "label": "Selo ao lado do nome", "default": "Compra verificada" },
+    { "type": "textarea", "id": "dep_1_texto", "label": "Depoimento 1 — texto" },
+    { "type": "text", "id": "dep_1_nome", "label": "Depoimento 1 — nome" },
+    { "type": "textarea", "id": "dep_2_texto", "label": "Depoimento 2 — texto" },
+    { "type": "text", "id": "dep_2_nome", "label": "Depoimento 2 — nome" },
+    { "type": "textarea", "id": "dep_3_texto", "label": "Depoimento 3 — texto" },
+    { "type": "text", "id": "dep_3_nome", "label": "Depoimento 3 — nome" },
+    { "type": "header", "content": "Chamada final" },
+    { "type": "checkbox", "id": "mostrar_final", "label": "Mostrar chamada final", "default": true },
+    { "type": "text", "id": "fim_eyebrow", "label": "Texto pequeno acima", "default": "Oferta por tempo limitado" },
+    { "type": "textarea", "id": "fim_texto", "label": "Texto", "default": "Escolha o tamanho, receba em casa e, se não servir, troque em até 7 dias." },
+    { "type": "text", "id": "fim_nota_preco", "label": "Texto abaixo do preço", "default": "IVA incluído · Frete grátis em todos os pedidos" },
+    { "type": "text", "id": "txt_botao", "label": "Botão", "info": "O preço é adicionado automaticamente.", "default": "Comprar agora" },
+    { "type": "text", "id": "fim_selo", "label": "Selo abaixo do botão", "default": "Troca de tamanho · 7 dias" },
+    { "type": "header", "content": "Perguntas frequentes" },
+    { "type": "text", "id": "faq_1_pergunta", "label": "Pergunta 1", "default": "Qual tamanho devo escolher?" },
+    { "type": "richtext", "id": "faq_1_resposta", "label": "Resposta 1", "default": "<p>Veja o guia de medidas acima. Em dúvida entre dois tamanhos, escolha o maior.</p>" },
+    { "type": "text", "id": "faq_2_pergunta", "label": "Pergunta 2", "default": "Quanto tempo demora a entrega?" },
+    { "type": "richtext", "id": "faq_2_resposta", "label": "Resposta 2", "default": "<p>Enviamos em 24 horas úteis. A entrega demora normalmente 5 a 7 dias úteis e você recebe o código de rastreamento por e-mail.</p>" },
+    { "type": "text", "id": "faq_3_pergunta", "label": "Pergunta 3", "default": "Como funciona o desconto de quantidade?" },
+    { "type": "richtext", "id": "faq_3_resposta", "label": "Resposta 3", "default": "<p>Ao escolher 2 peças, o desconto de 10% é aplicado ao total; com 3 peças, 15%. O frete é grátis em qualquer pedido.</p>" },
+    { "type": "text", "id": "faq_4_pergunta", "label": "Pergunta 4", "default": "E se não servir?" },
+    { "type": "richtext", "id": "faq_4_resposta", "label": "Resposta 4", "default": "<p>Você tem 7 dias para pedir a troca de tamanho. Basta responder ao e-mail do pedido — nós cuidamos do resto.</p>" },
+    { "type": "text", "id": "faq_5_pergunta", "label": "Pergunta 5" },
+    { "type": "richtext", "id": "faq_5_resposta", "label": "Resposta 5" },
+    { "type": "text", "id": "faq_6_pergunta", "label": "Pergunta 6" },
+    { "type": "richtext", "id": "faq_6_resposta", "label": "Resposta 6" }
+  ],
+  "presets": [
+    { "name": "RLP · Tamanhos e FAQ" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,404 @@
+{%- comment -%}
+  RLP · Produto e compra
+  Todos os textos são editáveis no editor do tema (esta seção).
+  Opcional: se o produto tiver um metafield "rlp.<campo>" preenchido, ele tem prioridade
+  sobre o texto da seção — útil para ter textos diferentes por produto.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign mf = product.metafields.rlp
+  assign p = product
+  assign v0 = p.selected_or_first_available_variant
+  assign cor_idx = -1
+  assign tam_idx = -1
+  for o in p.options_with_values
+    assign n = o.name | downcase
+    if n contains 'cor' or n contains 'color' or n contains 'colour'
+      assign cor_idx = forloop.index0
+      break
+    endif
+  endfor
+  for o in p.options_with_values
+    if forloop.index0 != cor_idx
+      assign tam_idx = forloop.index0
+      break
+    endif
+  endfor
+  assign preco = v0.price | divided_by: 100.0
+  assign preco_cmp = preco
+  if v0.compare_at_price > v0.price
+    assign preco_cmp = v0.compare_at_price | divided_by: 100.0
+  endif
+
+  assign b2_on = s.bundle2_ativo
+  if mf.bundle2_ativo != blank
+    assign b2_on = false
+    if mf.bundle2_ativo == 'sim'
+      assign b2_on = true
+    endif
+  endif
+  assign b3_on = s.bundle3_ativo
+  if mf.bundle3_ativo != blank
+    assign b3_on = false
+    if mf.bundle3_ativo == 'sim'
+      assign b3_on = true
+    endif
+  endif
+  assign b2_off = mf.bundle2_off | default: s.bundle2_off
+  assign b3_off = mf.bundle3_off | default: s.bundle3_off
+  assign b2_cod = mf.bundle2_codigo | default: s.bundle2_codigo | strip
+  assign b3_cod = mf.bundle3_codigo | default: s.bundle3_codigo | strip
+  assign tabela_txt = mf.tabela_medidas | default: s.tabela_medidas
+-%}
+{{ 'rodrigues-lp-archivo.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+<style>@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url({{ 'rodrigues-lp-archivo.woff2' | asset_url }}) format('woff2')}</style>
+{{ 'rodrigues-lp.css' | asset_url | stylesheet_tag }}
+<script>
+  window.LOJA = {
+    nome: {{ p.title | json }},
+    produtoId: {{ p.id | json }},
+    categoria: {{ p.type | json }},
+    dominio: {{ request.origin | json }},
+    variantes: {
+      {%- for vv in p.variants -%}{%- if vv.available -%}
+      {%- capture k -%}{%- if cor_idx >= 0 -%}{{ vv.options[cor_idx] | handleize }}{%- else -%}unico{%- endif -%}|{%- if tam_idx >= 0 -%}{{ vv.options[tam_idx] }}{%- else -%}unico{%- endif -%}{%- endcapture -%}
+      {{ k | json }}: {{ vv.id | json }},
+      {%- endif -%}{%- endfor -%}
+    },
+    precoBase: {{ preco }},
+    precoComparacao: {{ preco_cmp }},
+    bundles: [
+      { q: 1, off: 0, codigo: '' }
+      {%- if b2_on -%}, { q: 2, off: {{ b2_off | default: 0 }}, codigo: {{ b2_cod | json }} }{%- endif -%}
+      {%- if b3_on -%}, { q: 3, off: {{ b3_off | default: 0 }}, codigo: {{ b3_cod | json }} }{%- endif -%}
+    ],
+    moeda: {{ cart.currency.iso_code | json }},
+    textos: {
+      melhor: {{ s.txt_melhor | json }},
+      frete1: {{ s.txt_frete_1 | json }},
+      freteN: {{ s.txt_frete_n | json }},
+      peca: {{ s.txt_peca | json }},
+      pecas: {{ s.txt_pecas | json }},
+      porPeca: {{ s.txt_por_peca | json }},
+      experimentar: {{ s.txt_experimentar | json }},
+      off: {{ s.txt_off | json }},
+      economize: {{ s.txt_economize | json }},
+      comprar: {{ s.txt_comprar | json }},
+      comprarFinal: {{ s.txt_comprar_final | json }},
+      pecaN: {{ s.txt_peca_n | json }},
+      adicionando: {{ s.txt_adicionando | json }},
+      erro: {{ s.txt_erro | json }}
+    },
+    pixelId: '',
+    capiUrl: ''
+  };
+</script>
+<script src="{{ 'rodrigues-lp.js' | asset_url }}" defer></script>
+
+<div class="rlp">
+<section class="rlp-hero" id="comprar">
+  <div class="rlp-wrap rlp-hero-grid">
+
+    <div class="rlp-gallery">
+      <div style="position:relative">
+        <figure class="rlp-shot" id="mainShot" style="margin:0">
+          {%- if p.featured_image -%}
+          <img id="mainImg" src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 600 }} 600w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(min-width: 920px) 560px, 100vw" alt="{{ p.featured_image.alt | default: p.title | escape }}" width="800" height="800" loading="eager" fetchpriority="high">
+          {%- else -%}<img id="mainImg" alt="" width="800" height="800" hidden>{%- endif -%}
+        </figure>
+      </div>
+      <div class="rlp-thumbs" id="thumbs">
+        {%- assign n_img = 0 -%}
+        {%- for m in p.media -%}{%- if m.media_type == 'image' and n_img < 5 -%}
+        <figure class="rlp-shot" data-src="{{ m | image_url: width: 800 }}" {% if n_img == 0 %}aria-current="true"{% endif %} style="margin:0"><img src="{{ m | image_url: width: 200 }}" alt="{{ m.alt | escape }}" width="200" height="200" loading="lazy" decoding="async"></figure>
+        {%- assign n_img = n_img | plus: 1 -%}
+        {%- endif -%}{%- endfor -%}
+      </div>
+    </div>
+
+    <div class="rlp-buy">
+      {%- assign eyebrow = mf.eyebrow | default: s.eyebrow -%}
+      {%- if eyebrow != blank -%}<span class="rlp-eyebrow">{{ eyebrow }}</span>{%- endif -%}
+      <h1 style="margin-top:10px">{{ p.title }}</h1>
+
+      {%- assign nota = mf.nota | default: s.nota -%}
+      {%- comment -%} nota vazia ou "-" esconde as estrelas {%- endcomment -%}
+      {%- if nota != blank and nota != '-' -%}
+      <div class="rlp-stars-row">
+        <span class="rlp-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .7-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.7z"/></svg></span>
+        <span class="rlp-num">{{ nota }}</span>
+      </div>
+      {%- endif -%}
+
+      <div class="rlp-price-row">
+        <span class="rlp-price rlp-num" id="precoAtual">{{ v0.price | money }}</span>
+        <span class="rlp-price-old rlp-num" id="precoAntigo">{{ v0.compare_at_price | money }}</span>
+        <span class="rlp-save-chip rlp-num" id="poupanca"></span>
+      </div>
+      {%- assign nota_preco = mf.nota_preco | default: s.nota_preco -%}
+      {%- if nota_preco != blank -%}<p class="rlp-tax-note">{{ nota_preco }}</p>{%- endif -%}
+
+      <ul class="rlp-benefits">
+        {%- for i in (1..3) -%}
+        {%- capture bt -%}beneficio_{{ i }}_titulo{%- endcapture -%}{%- capture bx -%}beneficio_{{ i }}_texto{%- endcapture -%}
+        {%- assign titulo = mf[bt] | default: s[bt] -%}
+        {%- assign texto = mf[bx] | default: s[bx] -%}
+        {%- if titulo != blank -%}
+        <li>
+          <svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg>
+          <span><b>{{ titulo }}</b>{% if texto != blank %} — {{ texto }}{% endif %}</span>
+        </li>
+        {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <div class="rlp-opt"{% if cor_idx < 0 %} hidden{% endif %}>
+        <div class="rlp-opt-head">
+          <span class="rlp-lbl">{% if cor_idx >= 0 %}{{ p.options_with_values[cor_idx].name }}{% endif %}</span>
+          <span class="rlp-val" id="corVal">{% if cor_idx >= 0 %}{{ v0.options[cor_idx] }}{% endif %}</span>
+        </div>
+        <div class="rlp-swatches" id="cores">
+          {%- if cor_idx >= 0 -%}
+          {%- for val in p.options_with_values[cor_idx].values -%}
+            {%- liquid
+              assign img = ''
+              for vv in p.variants
+                if vv.options[cor_idx] == val.name and vv.featured_image
+                  assign img = vv.featured_image | image_url: width: 800
+                  break
+                endif
+              endfor
+              if img == blank and p.featured_image
+                assign img = p.featured_image | image_url: width: 800
+              endif
+              assign sw = val.swatch.color
+              if sw == blank
+                assign nm = val.name | downcase
+                case nm
+                  when 'preto', 'black', 'negro'
+                    assign sw = '#1A1A1A'
+                  when 'branco', 'white', 'blanco'
+                    assign sw = '#F4F2EE'
+                  when 'nude', 'bege', 'beige', 'skin'
+                    assign sw = '#E4CFB4'
+                  when 'cinza', 'grey', 'gray', 'silver', 'prateado'
+                    assign sw = '#9A9A9A'
+                  when 'azul', 'blue', 'navy', 'marinho', 'azul-marinho'
+                    assign sw = '#2B4C8C'
+                  when 'vermelho', 'red'
+                    assign sw = '#B3262E'
+                  when 'rosa', 'pink'
+                    assign sw = '#E8A7B8'
+                  when 'verde', 'green'
+                    assign sw = '#3F6B45'
+                  when 'castanho', 'marrom', 'brown'
+                    assign sw = '#6B4A34'
+                  when 'café', 'cafe', 'coffee', 'chocolate'
+                    assign sw = '#4E342E'
+                  when 'caramelo', 'camel', 'caramel'
+                    assign sw = '#B5803F'
+                  when 'amarelo', 'yellow', 'mostarda'
+                    assign sw = '#E2B93B'
+                  when 'dourado', 'gold'
+                    assign sw = '#C9A44C'
+                  else
+                    assign sw = '#CCCCCC'
+                endcase
+              endif
+              assign sel = false
+              if val.name == v0.options[cor_idx]
+                assign sel = true
+              endif
+            -%}
+          <button type="button" class="rlp-sw" style="--sw:{{ sw }}" data-cor="{{ val.name | handleize }}" data-nome="{{ val.name | escape }}" data-img="{{ img }}" aria-pressed="{{ sel }}" aria-label="{{ val.name | escape }}"><i></i></button>
+          {%- endfor -%}
+          {%- else -%}
+          <button type="button" class="rlp-sw" data-cor="unico" data-nome="" data-img="" aria-pressed="true"><i></i></button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="rlp-opt"{% if tam_idx < 0 %} hidden{% endif %}>
+        <div class="rlp-opt-head">
+          <span class="rlp-lbl">{% if tam_idx >= 0 %}{{ p.options_with_values[tam_idx].name }}{% endif %}</span>
+          {%- if tabela_txt != blank -%}<button type="button" class="rlp-link" id="abrirGuia">{{ mf.guia_link | default: s.guia_link }}</button>{%- endif -%}<span class="rlp-calc-slot" data-calc-slot></span>
+        </div>
+        <div class="rlp-sizes" id="tamanhos">
+          {%- if tam_idx >= 0 -%}
+          {%- for val in p.options_with_values[tam_idx].values -%}
+          {%- assign tam_label = val.name | split: ' ' | first -%}
+          <button type="button" class="rlp-size" data-size="{{ val.name | escape }}" data-nome="{{ tam_label | escape }}" aria-pressed="{% if val.name == v0.options[tam_idx] %}true{% else %}false{% endif %}">{{ tam_label }}</button>
+          {%- endfor -%}
+          {%- else -%}
+          <button type="button" class="rlp-size" data-size="unico" aria-pressed="true">{{ s.txt_unico }}</button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="rlp-opt"{% unless b2_on or b3_on %} hidden{% endunless %}>
+        <div class="rlp-bundle-head"><span class="rlp-lbl">{{ mf.bundle_titulo | default: s.bundle_titulo }}</span></div>
+        <div class="rlp-bundles" id="bundles"></div>
+      </div>
+
+      <div class="rlp-opt" id="pecasWrap" hidden>
+        <div class="rlp-bundle-head"><span class="rlp-lbl">{{ s.txt_pecas_titulo }}</span></div>
+        <div class="rlp-pecas" id="pecas"></div>
+        {%- if s.txt_pecas_nota != blank -%}<p class="rlp-pecas-nota">{{ s.txt_pecas_nota }}</p>{%- endif -%}
+      </div>
+
+      <a class="rlp-cta" href="#" data-buy id="ctaPrincipal">{{ s.txt_comprar }} — {{ v0.price | money }}</a>
+      {%- if s.mostrar_add_cart -%}
+      <button type="button" class="rlp-cta rlp-cta-sec" data-add-cart>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+        <span data-add-cart-txt>{{ s.txt_add_cart }}</span>
+      </button>
+      {%- endif -%}
+      <div data-eta-slot></div>
+
+      <ul class="rlp-assur">
+        {%- assign g1 = mf.garantia_1 | default: s.garantia_1 -%}
+        {%- assign g2 = mf.garantia_2 | default: s.garantia_2 -%}
+        {%- assign g3 = mf.garantia_3 | default: s.garantia_3 -%}
+        {%- if g1 != blank -%}<li>
+          <svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+          <span>{{ g1 }}</span>
+        </li>{%- endif -%}
+        {%- if g2 != blank -%}<li>
+          <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg>
+          <span>{{ g2 }}</span>
+        </li>{%- endif -%}
+        {%- if g3 != blank -%}<li>
+          <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <span>{{ g3 }}</span>
+        </li>{%- endif -%}
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+{%- assign dif1t = mf.dif_1_titulo | default: s.dif_1_titulo -%}
+{%- if dif1t != blank -%}
+<section class="rlp-trust">
+  <div class="rlp-wrap rlp-trust-grid">
+    {%- for i in (1..4) -%}
+    {%- capture kt -%}dif_{{ i }}_titulo{%- endcapture -%}{%- capture kx -%}dif_{{ i }}_texto{%- endcapture -%}
+    {%- assign dt = mf[kt] | default: s[kt] -%}{%- assign dx = mf[kx] | default: s[kx] -%}
+    {%- if dt != blank -%}
+    <div class="rlp-trust-cell rlp-rv">
+      {%- case i -%}
+        {%- when 1 -%}<svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        {%- when 2 -%}<svg viewBox="0 0 24 24"><path d="M4 14c3-6 13-6 16 0"/><path d="M12 4v3"/><circle cx="12" cy="16" r="3"/></svg>
+        {%- when 3 -%}<svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16"/><path d="M6 9h12M6 15h12"/></svg>
+        {%- else -%}<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
+      {%- endcase -%}
+      <b>{{ dt }}</b><span>{{ dx }}</span>
+    </div>
+    {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+
+<div class="rlp-dock" id="dock">
+  <div class="rlp-dock-in">
+    <div class="rlp-dock-info">
+      <b>{{ p.title }}</b>
+      <span id="dockResumo"></span>
+    </div>
+    {%- if s.mostrar_add_cart -%}
+    <button type="button" class="rlp-dock-cart" data-add-cart aria-label="{{ s.txt_add_cart | escape }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg></button>
+    {%- endif -%}
+    <a class="rlp-cta" href="#" data-buy>{{ s.txt_dock }}</a>
+  </div>
+</div>
+
+<dialog id="guia">
+  <button type="button" class="rlp-dlg-close" id="fecharGuia" aria-label="Fechar">&times;</button>
+  <div class="rlp-dlg-in">
+    {%- if s.txt_guia_eyebrow != blank -%}<span class="rlp-eyebrow">{{ s.txt_guia_eyebrow }}</span>{%- endif -%}
+    <h3 style="margin:10px 0 8px">{{ mf.guia_titulo | default: s.guia_titulo }}</h3>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.7">{{ mf.guia_texto | default: s.guia_texto }}</p>
+    <table>
+      <thead><tr><th>{{ s.txt_col_tamanho }}</th><th>{{ mf.medida_nome | default: s.medida_nome }}</th></tr></thead>
+      <tbody>{%- assign linhas = tabela_txt | newline_to_br | split: '<br />' -%}{%- for l in linhas -%}{%- assign c = l | strip | split: '|' -%}{%- if c.size > 1 -%}<tr><td>{{ c[0] | strip }}</td><td class="rlp-num">{{ c[1] | strip }}</td></tr>{%- endif -%}{%- endfor -%}</tbody>
+    </table>
+  </div>
+</dialog>
+</div>
+
+{% schema %}
+{
+  "name": "RLP · Produto e compra",
+  "tag": "section",
+  "class": "rlp-sec",
+  "settings": [
+    { "type": "paragraph", "content": "Todos os textos abaixo são editáveis aqui. Deixe um campo vazio para esconder esse item. (Avançado: se o produto tiver o metafield rlp.<campo> preenchido, ele substitui o texto daqui só naquele produto.)" },
+    { "type": "header", "content": "Topo" },
+    { "type": "text", "id": "eyebrow", "label": "Texto pequeno acima do título", "default": "Categoria · Uso" },
+    { "type": "text", "id": "nota", "label": "Texto das estrelas", "info": "Deixe vazio para esconder as estrelas.", "default": "4,8/5 · mais de 10.000 clientes verificados" },
+    { "type": "text", "id": "nota_preco", "label": "Texto abaixo do preço", "default": "IVA incluído · Frete grátis em todos os pedidos" },
+    { "type": "header", "content": "Benefícios (lista com ✓)" },
+    { "type": "text", "id": "beneficio_1_titulo", "label": "Benefício 1 — título", "default": "Benefício principal" },
+    { "type": "text", "id": "beneficio_1_texto", "label": "Benefício 1 — texto", "default": "explicação curta" },
+    { "type": "text", "id": "beneficio_2_titulo", "label": "Benefício 2 — título", "default": "Benefício 2" },
+    { "type": "text", "id": "beneficio_2_texto", "label": "Benefício 2 — texto", "default": "explicação curta" },
+    { "type": "text", "id": "beneficio_3_titulo", "label": "Benefício 3 — título", "default": "Benefício 3" },
+    { "type": "text", "id": "beneficio_3_texto", "label": "Benefício 3 — texto", "default": "explicação curta" },
+    { "type": "header", "content": "Pacotes (compre mais, pague menos)" },
+    { "type": "text", "id": "bundle_titulo", "label": "Título dos pacotes", "default": "Compre mais, pague menos" },
+    { "type": "checkbox", "id": "bundle2_ativo", "label": "Mostrar pacote de 2 peças", "default": true },
+    { "type": "range", "id": "bundle2_off", "label": "Desconto do pacote de 2", "min": 0, "max": 60, "step": 1, "unit": "%", "default": 10 },
+    { "type": "text", "id": "bundle2_codigo", "label": "Código de desconto do pacote de 2", "info": "Crie este código em Descontos no admin. Vazio = desconto automático." },
+    { "type": "checkbox", "id": "bundle3_ativo", "label": "Mostrar pacote de 3 peças", "default": true },
+    { "type": "range", "id": "bundle3_off", "label": "Desconto do pacote de 3", "min": 0, "max": 60, "step": 1, "unit": "%", "default": 15 },
+    { "type": "text", "id": "bundle3_codigo", "label": "Código de desconto do pacote de 3", "info": "Crie este código em Descontos no admin. Vazio = desconto automático." },
+    { "type": "text", "id": "txt_melhor", "label": "Etiqueta do melhor pacote", "default": "Melhor custo-benefício" },
+    { "type": "text", "id": "txt_frete_1", "label": "Selo de frete — 1 peça", "default": "Frete grátis só hoje" },
+    { "type": "text", "id": "txt_frete_n", "label": "Selo de frete — pacotes", "default": "Frete grátis" },
+    { "type": "text", "id": "txt_peca", "label": "Palavra \"peça\" (singular)", "default": "peça" },
+    { "type": "text", "id": "txt_pecas", "label": "Palavra \"peças\" (plural)", "default": "peças" },
+    { "type": "text", "id": "txt_por_peca", "label": "Texto \"por peça\"", "default": "por peça" },
+    { "type": "text", "id": "txt_experimentar", "label": "Texto do pacote de 1", "default": "Para experimentar" },
+    { "type": "text", "id": "txt_off", "label": "Selo de desconto", "info": "Use [n] para a porcentagem.", "default": "[n]% OFF" },
+    { "type": "text", "id": "txt_economize", "label": "Selo de economia ao lado do preço", "info": "Use [n] para a porcentagem.", "default": "Economize [n]%" },
+    { "type": "text", "id": "txt_pecas_titulo", "label": "Título da escolha peça a peça", "default": "Escolha cada peça" },
+    { "type": "text", "id": "txt_peca_n", "label": "Rótulo de cada peça", "info": "Use [n] para o número.", "default": "Peça [n]" },
+    { "type": "text", "id": "txt_pecas_nota", "label": "Nota da escolha peça a peça", "default": "Você pode misturar cores e tamanhos — cada peça vai do jeito que você escolher aqui." },
+    { "type": "header", "content": "Tamanhos e guia de medidas" },
+    { "type": "text", "id": "txt_unico", "label": "Texto para tamanho único", "default": "Único" },
+    { "type": "text", "id": "guia_link", "label": "Link do guia de medidas", "default": "Guia de medidas" },
+    { "type": "text", "id": "txt_guia_eyebrow", "label": "Guia — texto pequeno", "default": "Guia rápido" },
+    { "type": "text", "id": "guia_titulo", "label": "Guia — título", "default": "Como medir" },
+    { "type": "textarea", "id": "guia_texto", "label": "Guia — texto", "default": "Passo a passo para medir. Em dúvida, escolha o maior." },
+    { "type": "text", "id": "txt_col_tamanho", "label": "Guia — nome da coluna de tamanho", "default": "Tamanho" },
+    { "type": "text", "id": "medida_nome", "label": "Guia — nome da medida", "default": "Cintura" },
+    { "type": "textarea", "id": "tabela_medidas", "label": "Tabela de medidas", "info": "Uma linha por tamanho, no formato: TAMANHO | MEDIDA. Deixe vazio para esconder o guia.", "default": "S | 62 – 68 cm\nM | 68 – 74 cm\nL | 74 – 80 cm\nXL | 80 – 86 cm\nXXL | 86 – 92 cm\n3XL | 92 – 98 cm" },
+    { "type": "header", "content": "Botões" },
+    { "type": "text", "id": "txt_comprar", "label": "Botão principal", "info": "O preço é adicionado automaticamente.", "default": "Comprar" },
+    { "type": "text", "id": "txt_comprar_final", "label": "Botão do final da página", "info": "O preço é adicionado automaticamente.", "default": "Comprar agora" },
+    { "type": "text", "id": "txt_dock", "label": "Botão da barra fixa (celular)", "default": "Comprar" },
+    { "type": "checkbox", "id": "mostrar_add_cart", "label": "Mostrar botão \"Adicionar ao carrinho\"", "default": true },
+    { "type": "text", "id": "txt_add_cart", "label": "Botão adicionar ao carrinho", "default": "Adicionar ao carrinho" },
+    { "type": "text", "id": "txt_adicionando", "label": "Botão enquanto adiciona", "default": "Adicionando…" },
+    { "type": "text", "id": "txt_erro", "label": "Mensagem de erro ao adicionar", "default": "Não foi possível adicionar ao carrinho." },
+    { "type": "header", "content": "Garantias (abaixo do botão)" },
+    { "type": "text", "id": "garantia_1", "label": "Garantia 1 (entrega)", "default": "Envio em 24 h úteis · entrega em 5 a 7 dias úteis" },
+    { "type": "text", "id": "garantia_2", "label": "Garantia 2 (troca)", "default": "7 dias para troca de tamanho" },
+    { "type": "text", "id": "garantia_3", "label": "Garantia 3 (pagamento)", "default": "Pagamento seguro — MB Way, cartão ou Klarna" },
+    { "type": "header", "content": "Faixa de diferenciais" },
+    { "type": "paragraph", "content": "Até 4 itens com ícone logo abaixo da área de compra. Deixe o título 1 vazio para esconder a faixa." },
+    { "type": "text", "id": "dif_1_titulo", "label": "Diferencial 1 — título" },
+    { "type": "text", "id": "dif_1_texto", "label": "Diferencial 1 — texto" },
+    { "type": "text", "id": "dif_2_titulo", "label": "Diferencial 2 — título" },
+    { "type": "text", "id": "dif_2_texto", "label": "Diferencial 2 — texto" },
+    { "type": "text", "id": "dif_3_titulo", "label": "Diferencial 3 — título" },
+    { "type": "text", "id": "dif_3_texto", "label": "Diferencial 3 — texto" },
+    { "type": "text", "id": "dif_4_titulo", "label": "Diferencial 4 — título" },
+    { "type": "text", "id": "dif_4_texto", "label": "Diferencial 4 — texto" }
+  ],
+  "presets": [
+    { "name": "RLP · Produto e compra" }
+  ]
+}
+{% endschema %}
