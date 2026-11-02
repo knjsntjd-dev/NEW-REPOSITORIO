@@ -9,3 +9,4 @@ out
 # Mídia dos episódios (fica nas Releases)
 public/dia*/
 out/
+public/anuncio/musica.mp3
