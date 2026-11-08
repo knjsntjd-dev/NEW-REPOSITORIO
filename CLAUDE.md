@@ -30,7 +30,9 @@
   pedidos pagos arredondados p/ baixo à centena. Rotina diária 03:17 Lisboa `trig_013EzGG9UUKxxR3H4TgSBEAU`
   (dispara nesta sessão) atualiza N — só aumenta. `rlp.nota` agora sem default: só nota REAL; "-"/vazio = linha de pedidos.
   `rlp.esconder_pedidos`="sim" esconde a linha num produto. FlexFit e Calça: nota="-".
-  Código na cópia "RODRIGUES RLP - pedidos reais" `gid://shopify/OnlineStoreTheme/211612565853` (aguardando ela publicar).
+  "RODRIGUES RLP - pedidos reais" (211612565853) foi PUBLICADO por ela em 08/11. Ela pediu estrelinhas amarelas junto:
+  RECUSEI (5 estrelas + nº de pedidos = nota 5 implícita, avaliação falsa). Fiz selo dourado (pílula amarela + selo ✓)
+  na cópia "RODRIGUES RLP - selo pedidos dourado" `gid://shopify/OnlineStoreTheme/211612631389` (aguardando publicar).
   Ainda falso nos templates: título do video-reviews "Mais de 5.000 pessoas confiam em nós" (settings de template).
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
