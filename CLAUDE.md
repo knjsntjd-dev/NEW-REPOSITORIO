@@ -17,6 +17,9 @@
 - Textos em pt-BR, copy forte focada nas qualidades do produto; não inventar dados técnicos, avaliações ou
   prazos. Avisar (sem bloquear) sobre riscos legais, ex.: preço riscado que nunca foi praticado.
 - Respostas curtas e diretas, em português.
+- 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
+  clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
+  outra plataforma COM a fonte indicada (ex.: "4,8/5 no AliExpress"), se ela fornecer o dado.
 
 ## Sistema RLP (template `product.modelo-rodrigues`)
 - Seções `rlp-produto`, `rlp-comparacao`, `rlp-beneficios`, `rlp-conteudo` + `video-reviews`.
