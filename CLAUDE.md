@@ -21,6 +21,9 @@
   deve ficar oculta/removida no template dele (a calculadora é da cinta). Atenção: se o produto tem outra opção
   (ex.: Plugue) o rlp-produto a trata como "tamanho" e o botão "Descobrir meu tamanho" APARECE mesmo assim.
   Como não escrevo em tema publicado, avisar a usuária para ocultar no editor (olho) ao criar/preencher o produto.
+  RESOLVIDO no código (08/11/2026) na cópia "RODRIGUES RLP - sem calc em s/ tamanho" `gid://shopify/OnlineStoreTheme/211610796381`
+  (duplicada do MAIN 210581127517 a pedido dela): `calc-tamanho.liquid` só renderiza se o produto tiver opção cujo nome
+  contém "tam" ou "size" (some com Plugue, Comprimento, só Cor). Vale depois que ela PUBLICAR essa cópia.
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
