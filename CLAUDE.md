@@ -81,7 +81,9 @@
   A usuária NÃO quer menção a troca nessa página (garantia_2, fim_selo, faq etc. focam em qualidades do produto).
 - Sutiã Tomara que Caia (16689996136797, template `sutia-tomara` criado pela usuária, 08/11/2026): nome original mantido.
   Fatos: sem alças, fecho frontal 3 níveis, estrutura reforçada, bojo removível, sem aro, decote plunge, taça 3/4,
-  poliéster, Preto/Nude, S–XL. Não prometer "não escorrega". Sem tabela de medidas (provisória) e packs desligados.
+  poliéster, Preto/Nude, S–XL. Não prometer "não escorrega". Sem tabela de medidas (provisória).
+  Packs LIGADOS com cupons próprios SUTIA2 (10%, mín. 2) e SUTIA3 (15%, mín. 3), só para o sutiã. Recusei pôr
+  "4,8/5 · 10.000 clientes" (sem avaliações reais = avaliação falsa, proibida na UE); `nota` continua "-".
   Template tem calculadora (tabela da cinta) e vídeos FlexFit — usuária deve ocultar no editor.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
