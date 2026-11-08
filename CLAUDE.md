@@ -85,7 +85,7 @@
 - Sutiã Tomara que Caia (16689996136797, template `sutia-tomara` criado pela usuária, 08/11/2026): nome original mantido.
   Fatos: sem alças, fecho frontal 3 níveis, estrutura reforçada, bojo removível, sem aro, decote plunge, taça 3/4,
   poliéster, Preto/Nude, S–XL. Não prometer "não escorrega". Tabela em cm (convertida do fornecedor): abaixo do
-  busto S 60–84 / M 64–88 / L 68–92 / XL 72–96 cm + peso 40–50/50–60/60–70/70–80 kg.
+  busto S 60–84 / M 64–88 / L 68–92 / XL 72–96 cm. SEM peso (usuária não quer peso em tabela de sutiã).
   Packs LIGADOS com cupons próprios SUTIA2 (10%, mín. 2) e SUTIA3 (15%, mín. 3), só para o sutiã. Recusei pôr
   "4,8/5 · 10.000 clientes" (sem avaliações reais = avaliação falsa, proibida na UE); `nota` continua "-".
   Template tem calculadora (tabela da cinta) e vídeos FlexFit — usuária deve ocultar no editor.
