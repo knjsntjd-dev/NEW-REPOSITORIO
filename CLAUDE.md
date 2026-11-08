@@ -17,6 +17,11 @@
 - Textos em pt-BR, copy forte focada nas qualidades do produto; não inventar dados técnicos, avaliações ou
   prazos. Avisar (sem bloquear) sobre riscos legais, ex.: preço riscado que nunca foi praticado.
 - Respostas curtas e diretas, em português.
+- REGRA (08/11/2026, "salva na memória"): em TODO produto novo SEM tamanho, a seção "Calculadora de tamanho" (calc_tamanho)
+  deve ficar oculta/removida no template dele (a calculadora é da cinta). Atenção: se o produto tem outra opção
+  (ex.: Plugue) o rlp-produto a trata como "tamanho" e o botão "Descobrir meu tamanho" APARECE mesmo assim.
+  Como não escrevo em tema publicado, avisar a usuária para ocultar no editor (olho) ao criar/preencher o produto.
+- Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
   outra plataforma COM a fonte indicada (ex.: "4,8/5 no AliExpress"), se ela fornecer o dado.
@@ -94,7 +99,8 @@
   Opção "Plugue" (UE/UK/AU/EUA) — botão mostra a 1ª palavra; guia de plugues no lugar da tabela de tamanhos.
   Copy "Viralizou no Brasil · Agora na Europa" (NÃO usar "exclusivo": não verificável). Os números do Kalodata
   (4,8/5, 23 mil vendas) eram de OUTRO anúncio (GOKOCO) — não usar como dado do produto. Packs desligados, `nota`="-".
-  Preço €63,68 (riscado €110,40). Template tem calculadora/vídeos FlexFit e coleção "modeladores" — usuária deve ajustar.
+  Preço €63,68 (riscado €110,40). Packs LIGADOS: cupons MYLISS2 (10%, mín. 2) e MYLISS3 (15%, mín. 3), só p/ a escova.
+  Template tem calculadora (aparece mesmo: opção Plugue conta como tamanho)/vídeos FlexFit e coleção "modeladores" — usuária deve ajustar.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
