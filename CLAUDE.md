@@ -24,6 +24,14 @@
   (ex.: Plugue) contava como tamanho no rlp-produto e o botão aparecia. Corrigido no código (08/11/2026) na cópia "RODRIGUES RLP - sem calc em s/ tamanho" `gid://shopify/OnlineStoreTheme/211610796381`
   (duplicada do MAIN 210581127517 a pedido dela): `calc-tamanho.liquid` só renderiza se o produto tiver opção cujo nome
   contém "tam" ou "size" (some com Plugue, Comprimento, só Cor). Ela PUBLICOU essa cópia em 08/11/2026 → é o MAIN atual.
+- PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
+  (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
+  "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
+  pedidos pagos arredondados p/ baixo à centena. Rotina diária 03:17 Lisboa `trig_013EzGG9UUKxxR3H4TgSBEAU`
+  (dispara nesta sessão) atualiza N — só aumenta. `rlp.nota` agora sem default: só nota REAL; "-"/vazio = linha de pedidos.
+  `rlp.esconder_pedidos`="sim" esconde a linha num produto. FlexFit e Calça: nota="-".
+  Código na cópia "RODRIGUES RLP - pedidos reais" `gid://shopify/OnlineStoreTheme/211612565853` (aguardando ela publicar).
+  Ainda falso nos templates: título do video-reviews "Mais de 5.000 pessoas confiam em nós" (settings de template).
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
