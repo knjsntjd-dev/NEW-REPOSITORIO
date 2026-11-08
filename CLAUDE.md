@@ -24,6 +24,9 @@
   (ex.: Plugue) contava como tamanho no rlp-produto e o botão aparecia. Corrigido no código (08/11/2026) na cópia "RODRIGUES RLP - sem calc em s/ tamanho" `gid://shopify/OnlineStoreTheme/211610796381`
   (duplicada do MAIN 210581127517 a pedido dela): `calc-tamanho.liquid` só renderiza se o produto tiver opção cujo nome
   contém "tam" ou "size" (some com Plugue, Comprimento, só Cor). Ela PUBLICOU essa cópia em 08/11/2026 → é o MAIN atual.
+- CALCULADORA SÓ NA FLEXFIT (08/11/2026, pedido dela): `calc-tamanho.liquid` só renderiza em produto com template
+  `modelo-rodrigues` (FlexFit clássica + Zíper) E opção Tamanho/Size. Some no sutiã, calça, shorts, mocassim etc.
+  Feito na cópia "RODRIGUES RLP - calc só na FlexFit" `gid://shopify/OnlineStoreTheme/211623346525` (aguardando publicar).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
