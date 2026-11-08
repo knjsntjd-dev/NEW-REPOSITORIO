@@ -89,6 +89,12 @@
   Packs LIGADOS com cupons próprios SUTIA2 (10%, mín. 2) e SUTIA3 (15%, mín. 3), só para o sutiã. Recusei pôr
   "4,8/5 · 10.000 clientes" (sem avaliações reais = avaliação falsa, proibida na UE); `nota` continua "-".
   Template tem calculadora (tabela da cinta) e vídeos FlexFit — usuária deve ocultar no editor.
+- Escova Myliss 38 (16690246418781, template `myliss-38` criado pela usuária, 08/11/2026): escova modeladora/secadora 38 mm,
+  íons negativos, 9 ajustes de temperatura, PTC duplo, 100–240 V, liso ou cacheado. Nome original mantido.
+  Opção "Plugue" (UE/UK/AU/EUA) — botão mostra a 1ª palavra; guia de plugues no lugar da tabela de tamanhos.
+  Copy "Viralizou no Brasil · Agora na Europa" (NÃO usar "exclusivo": não verificável). Os números do Kalodata
+  (4,8/5, 23 mil vendas) eram de OUTRO anúncio (GOKOCO) — não usar como dado do produto. Packs desligados, `nota`="-".
+  Preço €63,68 (riscado €110,40). Template tem calculadora/vídeos FlexFit e coleção "modeladores" — usuária deve ajustar.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
