@@ -4,7 +4,8 @@
 - **Tema oficial: "RODRIGUES RLP TEMA OFICIAL"** — `gid://shopify/OnlineStoreTheme/210427904349`.
   Desde 02/10/2026 está **PUBLICADO (MAIN)** — a API não escreve em tema publicado.
 - Para editar: `themeDuplicate` do tema publicado → editar a cópia → a usuária publica no admin.
-  Publicado (MAIN) desde ~04/10/2026: "RODRIGUES RLP - cinto + ajustes" `gid://shopify/OnlineStoreTheme/210581127517`.
+  Publicado (MAIN) desde 08/11/2026: "RODRIGUES RLP - sem calc em s/ tamanho" `gid://shopify/OnlineStoreTheme/211610796381`
+  (antes: "RODRIGUES RLP - cinto + ajustes" 210581127517).
   A usuária prefere editar só por RLP (metafields/dados) e NÃO duplicar tema, salvo se pedir.
   SEMPRE conferir `themes{role}` antes de escrever — a usuária publica rascunhos sem avisar.
 - Este repositório (`shopify-theme/`) é uma linhagem antiga ("RODRIGUES Leve v2") e NÃO é a fonte
@@ -23,7 +24,7 @@
   Como não escrevo em tema publicado, avisar a usuária para ocultar no editor (olho) ao criar/preencher o produto.
   RESOLVIDO no código (08/11/2026) na cópia "RODRIGUES RLP - sem calc em s/ tamanho" `gid://shopify/OnlineStoreTheme/211610796381`
   (duplicada do MAIN 210581127517 a pedido dela): `calc-tamanho.liquid` só renderiza se o produto tiver opção cujo nome
-  contém "tam" ou "size" (some com Plugue, Comprimento, só Cor). Vale depois que ela PUBLICAR essa cópia.
+  contém "tam" ou "size" (some com Plugue, Comprimento, só Cor). Ela PUBLICOU essa cópia em 08/11/2026 → é o MAIN atual.
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
