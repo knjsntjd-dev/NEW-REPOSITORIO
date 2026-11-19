@@ -127,6 +127,9 @@
   NÃO usar os números "clínicos" da marca (-28,54% rugas etc.: medidos com o Retinol Shot Serum junto). Opção virou
   "Conteúdo: 15 ml" (era "Color: Eye Cream 15g"). Packs RETINAL2 (10%) / RETINAL3 (15%), só p/ esse produto. Preço €23,40
   (riscado €37,00). Template `retinol` tem vídeos de CABELO com "Avaliações verificadas · 5.000 pessoas" — usuária deve ocultar.
+  Benefícios em fotos (subidas por mim via stagedUploads + fileCreate, 1254x1254): img_1 = 78139108295005 (poros/rugas,
+  corrigida pela usuária p/ "Após 2 semanas" + fonte "uso combinado com Retinol Shot Serum"), img_2 = 78139108327773
+  (microagulhas A-Shot, unidades corrigidas 0,015/0,25 mm e "WD"), img_3 = 78139108360541 (0,1% retinal + 3% Matrixyl).
   Pendente: foto da lista INCI da caixa para conferir a fórmula.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
