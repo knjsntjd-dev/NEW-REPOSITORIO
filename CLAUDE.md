@@ -4,8 +4,8 @@
 - **Tema oficial: "RODRIGUES RLP TEMA OFICIAL"** — `gid://shopify/OnlineStoreTheme/210427904349`.
   Desde 02/10/2026 está **PUBLICADO (MAIN)** — a API não escreve em tema publicado.
 - Para editar: `themeDuplicate` do tema publicado → editar a cópia → a usuária publica no admin.
-  Publicado (MAIN) desde 08/11/2026: "RODRIGUES RLP - selo pedidos dourado" `gid://shopify/OnlineStoreTheme/211612631389`
-  (linhagem: cinto + ajustes 210581127517 → sem calc 211610796381 → pedidos reais 211612565853 → selo dourado).
+  Publicado (MAIN) desde ~19/11/2026: "RODRIGUES RLP - calc só na FlexFit" `gid://shopify/OnlineStoreTheme/211623346525`
+  (linhagem: cinto + ajustes 210581127517 → sem calc 211610796381 → pedidos reais 211612565853 → selo dourado 211612631389 → calc só FlexFit).
   A usuária prefere editar só por RLP (metafields/dados) e NÃO duplicar tema, salvo se pedir.
   SEMPRE conferir `themes{role}` antes de escrever — a usuária publica rascunhos sem avisar.
 - Este repositório (`shopify-theme/`) é uma linhagem antiga ("RODRIGUES Leve v2") e NÃO é a fonte
@@ -26,7 +26,7 @@
   contém "tam" ou "size" (some com Plugue, Comprimento, só Cor). Ela PUBLICOU essa cópia em 08/11/2026 → é o MAIN atual.
 - CALCULADORA SÓ NA FLEXFIT (08/11/2026, pedido dela): `calc-tamanho.liquid` só renderiza em produto com template
   `modelo-rodrigues` (FlexFit clássica + Zíper) E opção Tamanho/Size. Some no sutiã, calça, shorts, mocassim etc.
-  Feito na cópia "RODRIGUES RLP - calc só na FlexFit" `gid://shopify/OnlineStoreTheme/211623346525` (aguardando publicar).
+  Feito na cópia "RODRIGUES RLP - calc só na FlexFit" `gid://shopify/OnlineStoreTheme/211623346525` (PUBLICADO pela usuária).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
@@ -119,6 +119,15 @@
   Preço €63,68 (riscado €110,40). Packs LIGADOS: cupons MYLISS2 (10%, mín. 2) e MYLISS3 (15%, mín. 3), só p/ a escova.
   Calculadora já some sozinha (sem opção Tamanho). Template ainda tem vídeos FlexFit com título "Avaliações verificadas ·
   Mais de 5.000 pessoas" (avisei: enganoso numa escova, ocultar) e coleção "modeladores" — usuária deve ajustar.
+- Celimax The Vita-A Retinal Shot (16712124727645, handle `skin-cream`, template `retinol`, 19/11/2026): a usuária
+  CONFIRMOU que é Celimax ORIGINAL (avisei: se não for, é falsificação; cosmético na UE precisa de pessoa responsável,
+  CPNP e INCI). Fatos (marca/revendedores; site celimax.com bloqueado aqui): retinal 0,1% lipossomado, 3% Matrixyl 3000
+  (palmitoyl tripeptide-1 + tetrapeptide-7), pantenol 1%, niacinamida (sem %), A-Shot™ (esponja hidrolisada, formigamento).
+  Uso só à noite, noites alternadas nas 2 primeiras semanas, protetor solar de manhã; avisos de gravidez/olhos.
+  NÃO usar os números "clínicos" da marca (-28,54% rugas etc.: medidos com o Retinol Shot Serum junto). Opção virou
+  "Conteúdo: 15 ml" (era "Color: Eye Cream 15g"). Packs RETINAL2 (10%) / RETINAL3 (15%), só p/ esse produto. Preço €23,40
+  (riscado €37,00). Template `retinol` tem vídeos de CABELO com "Avaliações verificadas · 5.000 pessoas" — usuária deve ocultar.
+  Pendente: foto da lista INCI da caixa para conferir a fórmula.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
