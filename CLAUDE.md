@@ -31,7 +31,7 @@
   só aparece se o produto tiver `rlp.tabela_medidas` (sem tabela o botão fica no DOM com display:none, porque o
   rodrigues-lp.js faz getElementById('abrirGuia') sem checar). A linha da opção some se ela tiver 1 valor só E não
   houver tabela (ex.: "Envio de: Alemanha", "Conteúdo: 15 ml"). Cópia "RODRIGUES RLP - guia só com tabela"
-  `gid://shopify/OnlineStoreTheme/212008173917` (aguardando ela publicar). theme_bash do MCP pediu permissão nova
+  `gid://shopify/OnlineStoreTheme/212008173917` (PUBLICADO por ela em 20/11). theme_bash do MCP pediu permissão nova
   (conector precisa ser reconectado) — usei themeDuplicate + themeFilesUpsert.
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
@@ -149,6 +149,14 @@
   img_1 = 78157364887901 (intestino laranja→verde), img_2 = 78157364920669 (microbiota), img_3 = 78157364953437
   (operários "consertando" intestino escuro). Avisei: 1 e 3 sugerem que o produto CURA/repara o intestino = alegação
   de saúde implícita por imagem (Reg. 1924/2006); a 2 é a segura. ben_titulo "20 cepas e prebióticos numa só cápsula".
+- Leggings Ultra Sculpt (15619710878045, handle `ultrasculpt`, template `ultrascupp` criado pela usuária, 20/11/2026):
+  fatos tirados do template antigo `lagging`: 68% nylon/32% elastano, cós em camadas c/ reforço frontal em diamante,
+  frente sem costura + camada dupla, costuras laterais/traseiras, respirável, cuidados de lavagem. S–XL, 4 cores.
+  NÃO usei do template antigo: "4,8/5 · 10.000 clientes", garantia 30/60 dias (política real = troca 7 dias),
+  depoimentos ("Nataly Trindade" etc.). Packs LEGGING2 (10%) / LEGGING3 (15%). Preço €31,77 (riscado €47,77).
+  Vídeos: os 6 do `product_video_gallery` do template antigo foram para a seção `videos_produto` do ultrascupp
+  (reativada) e os 2 `video-reviews` de CABELO foram ocultados — na cópia "RODRIGUES RLP - videos legging"
+  `gid://shopify/OnlineStoreTheme/212008567133` (aguardando publicar). Sem tabela de medidas (guia some sozinho).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
