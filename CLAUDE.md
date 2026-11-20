@@ -131,6 +131,15 @@
   corrigida pela usuária p/ "Após 2 semanas" + fonte "uso combinado com Retinol Shot Serum"), img_2 = 78139108327773
   (microagulhas A-Shot, unidades corrigidas 0,015/0,25 mm e "WD"), img_3 = 78139108360541 (0,1% retinal + 3% Matrixyl).
   Pendente: foto da lista INCI da caixa para conferir a fórmula.
+- Complexo Probiótico 20 Cepas (16714276405597, 20/11/2026): marca do fornecedor "Vita Elements Nature's Power",
+  fabricante Saflia International GmbH (DE), envio da Alemanha. Fatos (listagem do fornecedor): 20 cepas, 60 mil milhões
+  UFC (sem dizer se por cápsula ou por dose), inulina + FOS, 2 cáps/dia com refeição, 120 cáps = 60 dias, HPMC vegetal;
+  não para grávidas/lactantes/crianças/adolescentes. Ângulo pedido: cansaço/fadiga/barriga inchada — NA UE probiótico
+  NÃO tem alegação de saúde autorizada (Reg. 1924/2006): usei o ângulo só como identificação do público (eyebrow
+  "Para quem sente a barriga pesada e o dia cansativo") e NENHUMA promessa de efeito; FAQ 1 diz que não trata.
+  Concorrente Kijimea K53 Advance (53 cepas, biotina, 1 cáps/dia) — não copiar números dele. Opção virou "Envio de: Alemanha".
+  Packs PROBIO2 (10%) / PROBIO3 (15%). Preço €32,40 (riscado €47,00). SEM template RLP (usa o padrão) — usuária
+  precisa criar o template e atribuir. Pendente: rótulo (UFC por dose, lista de cepas), notificação DGAV.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
