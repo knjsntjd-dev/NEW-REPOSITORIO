@@ -140,6 +140,10 @@
   Concorrente Kijimea K53 Advance (53 cepas, biotina, 1 cáps/dia) — não copiar números dele. Opção virou "Envio de: Alemanha".
   Packs PROBIO2 (10%) / PROBIO3 (15%). Preço €32,40 (riscado €47,00). SEM template RLP (usa o padrão) — usuária
   precisa criar o template e atribuir. Pendente: rótulo (UFC por dose, lista de cepas), notificação DGAV.
+  Benefícios: ela mandou 3 MP4 (6–8 s, 1280x720); converti com ffmpeg em WebP ANIMADO (seção só aceita imagem):
+  img_1 = 78157364887901 (intestino laranja→verde), img_2 = 78157364920669 (microbiota), img_3 = 78157364953437
+  (operários "consertando" intestino escuro). Avisei: 1 e 3 sugerem que o produto CURA/repara o intestino = alegação
+  de saúde implícita por imagem (Reg. 1924/2006); a 2 é a segura. ben_titulo "20 cepas e prebióticos numa só cápsula".
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
