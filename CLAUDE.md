@@ -162,7 +162,7 @@
   probiótico + extrato de abacaxi, sabor abacaxi, 60 gomas, validade 3 anos, local fresco e seco. CONTRADIÇÃO do
   fornecedor: "60 gomas = 30 doses" mas "1 goma por dia" — não escrevi duração. Referência dela: O Positiv URO
   ("odor & pH", "105.725 reviews", Forbes/People) — NÃO copiei alegações de pH/odor/candidíase/imunidade/urinário
-  (proibidas na UE) nem avaliações/mídia. Título "Núvia · Gomas com Probióticos para o Cuidado Íntimo Feminino (60 gomas)",
+  (proibidas na UE) nem avaliações/mídia. Título (escolhido por ela) "Núvia · Gomas Vaginal Probiotic",
   opção "Conteúdo: 60 gomas". Packs NUVIA2/NUVIA3. Preço €32,70 (riscado €47,70). Pendente: rótulo (cepas, UFC, gelatina?).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
