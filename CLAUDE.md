@@ -159,8 +159,8 @@
   `gid://shopify/OnlineStoreTheme/212008567133` (aguardando publicar). Sem tabela de medidas (guia some sozinho).
 - Núvia gomas (16715050778973, template `nuvia`, 20/11/2026): goma probiótica feminina do AliExpress (China; listagem
   diz "Certification CPNP" — CPNP é de COSMÉTICO, goma é suplemento → precisa notificação DGAV). Fatos: complexo
-  probiótico + extrato de abacaxi, sabor abacaxi, 60 gomas, validade 3 anos, local fresco e seco. CONTRADIÇÃO do
-  fornecedor: "60 gomas = 30 doses" mas "1 goma por dia" — não escrevi duração. Referência dela: O Positiv URO
+  probiótico + extrato de abacaxi, sabor abacaxi, 60 gomas, validade 3 anos, local fresco e seco. DOSE confirmada
+  pela usuária: 2 gomas/dia, 60 gomas = 30 porções = 30 dias. Referência dela: O Positiv URO
   ("odor & pH", "105.725 reviews", Forbes/People) — NÃO copiei alegações de pH/odor/candidíase/imunidade/urinário
   (proibidas na UE) nem avaliações/mídia. Título (escolhido por ela) "Núvia Gomas Vaginal Probiotic",
   opção "Conteúdo: 60 gomas". Packs NUVIA2/NUVIA3. Preço €32,70 (riscado €47,70). Pendente: rótulo (cepas, UFC, gelatina?).
