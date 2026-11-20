@@ -27,6 +27,12 @@
 - CALCULADORA SÓ NA FLEXFIT (08/11/2026, pedido dela): `calc-tamanho.liquid` só renderiza em produto com template
   `modelo-rodrigues` (FlexFit clássica + Zíper) E opção Tamanho/Size. Some no sutiã, calça, shorts, mocassim etc.
   Feito na cópia "RODRIGUES RLP - calc só na FlexFit" `gid://shopify/OnlineStoreTheme/211623346525` (PUBLICADO pela usuária).
+- GUIA DE MEDIDAS SÓ COM TABELA (20/11/2026, pedido dela): rlp-produto sem tabela padrão — o botão "Guia de medidas"
+  só aparece se o produto tiver `rlp.tabela_medidas` (sem tabela o botão fica no DOM com display:none, porque o
+  rodrigues-lp.js faz getElementById('abrirGuia') sem checar). A linha da opção some se ela tiver 1 valor só E não
+  houver tabela (ex.: "Envio de: Alemanha", "Conteúdo: 15 ml"). Cópia "RODRIGUES RLP - guia só com tabela"
+  `gid://shopify/OnlineStoreTheme/212008173917` (aguardando ela publicar). theme_bash do MCP pediu permissão nova
+  (conector precisa ser reconectado) — usei themeDuplicate + themeFilesUpsert.
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
@@ -138,8 +144,7 @@
   NÃO tem alegação de saúde autorizada (Reg. 1924/2006): usei o ângulo só como identificação do público (eyebrow
   "Para quem sente a barriga pesada e o dia cansativo") e NENHUMA promessa de efeito; FAQ 1 diz que não trata.
   Concorrente Kijimea K53 Advance (53 cepas, biotina, 1 cáps/dia) — não copiar números dele. Opção virou "Envio de: Alemanha".
-  Packs PROBIO2 (10%) / PROBIO3 (15%). Preço €32,40 (riscado €47,00). SEM template RLP (usa o padrão) — usuária
-  precisa criar o template e atribuir. Pendente: rótulo (UFC por dose, lista de cepas), notificação DGAV.
+  Packs PROBIO2 (10%) / PROBIO3 (15%). Preço €32,40 (riscado €47,00). Template `probiotico` (criado pela usuária). Pendente: rótulo (UFC por dose, lista de cepas), notificação DGAV.
   Benefícios: ela mandou 3 MP4 (6–8 s, 1280x720); converti com ffmpeg em WebP ANIMADO (seção só aceita imagem):
   img_1 = 78157364887901 (intestino laranja→verde), img_2 = 78157364920669 (microbiota), img_3 = 78157364953437
   (operários "consertando" intestino escuro). Avisei: 1 e 3 sugerem que o produto CURA/repara o intestino = alegação
