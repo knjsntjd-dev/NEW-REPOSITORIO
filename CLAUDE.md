@@ -168,7 +168,8 @@
   opção "Conteúdo: 60 gomas". Packs NUVIA2/NUVIA3. Preço €32,70 (riscado €47,70). Pendente: rótulo (cepas, UFC, gelatina?).
   Benefícios em fotos (21/11): ela mandou 3. Subi só img_2 = 78164367049053 ("Mais conforto e confiança").
   SEGUREI a 1 ("Sua PPK com cheirinho de Pineapple" = promete mudar o odor íntimo, falso/enganoso) e a 3
-  ("Equilíbrio do pH íntimo" = alegação de saúde proibida) — pedi para refazer o texto.
+  ("Equilíbrio do pH íntimo" = alegação de saúde proibida) — pedi para refazer o texto. Ela insistiu "só para teste": subi as duas só em Conteúdo → Arquivos
+  (nuvia-teste-abacaxi 78164413677917, nuvia-teste-ph 78164413710685), SEM ligar ao produto (página está ativa).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
