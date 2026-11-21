@@ -33,6 +33,8 @@
   houver tabela (ex.: "Envio de: Alemanha", "Conteúdo: 15 ml"). Cópia "RODRIGUES RLP - guia só com tabela"
   `gid://shopify/OnlineStoreTheme/212008173917` (PUBLICADO por ela em 20/11). theme_bash do MCP pediu permissão nova
   (conector precisa ser reconectado) — usei themeDuplicate + themeFilesUpsert.
+- SEÇÃO "Guia de tamanhos" (rlp-conteudo, lá embaixo): ainda tem a tabela PADRÃO da cinta. Some só com
+  `rlp.esconder_tamanhos`="sim" — colocar "sim" em TODO produto sem tabela própria (Núvia e Leggings feitos 21/11).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
