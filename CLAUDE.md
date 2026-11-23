@@ -171,7 +171,10 @@
   ("Equilíbrio do pH íntimo" = alegação de saúde proibida) — pedi para refazer o texto. Ela insistiu "só para teste": subi as duas só em Conteúdo → Arquivos
   (nuvia-teste-abacaxi 78164413677917, nuvia-teste-ph 78164413710685), depois ela pediu
   para ativar na página ("não estou rodando ainda"): coloquei o produto em RASCUNHO (DRAFT) e liguei img_1/img_3 de teste.
-  ANTES de reativar o produto, trocar img_1/img_3 pelas versões com texto novo (ela disse que vai trocar).
+  23/11: ela mandou 3 novas (enzimas do abacaxi "destroem bactérias", "proteção de pH 24 h / cepa exclusiva",
+  "equilibram o pH… e o olfato") — avisei que são alegações falsas/proibidas; a pedido dela, SÓ PARA TESTE com o produto
+  em RASCUNHO: img_1 = 78215354122589, img_2 = 78215354155357, img_3 = 78215354188125.
+  ANTES de reativar o produto, trocar as 3 por versões sem pH/odor/antibacteriano (ela disse que vai trocar).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
