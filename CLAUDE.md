@@ -35,6 +35,11 @@
   (conector precisa ser reconectado) — usei themeDuplicate + themeFilesUpsert.
 - SEÇÃO "Guia de tamanhos" (rlp-conteudo, lá embaixo): ainda tem a tabela PADRÃO da cinta. Some só com
   `rlp.esconder_tamanhos`="sim" — colocar "sim" em TODO produto sem tabela própria (Núvia e Leggings feitos 21/11).
+- BENEFÍCIOS EDITÁVEIS NO TEMA (23/11/2026, pedido dela): `rlp-beneficios.liquid` ganhou settings (eyebrow, título,
+  texto) e blocos "Foto de benefício" (image_picker + título/texto opcionais, até 6). Prioridade: editor > metafields
+  (rlp.ben_*, rlp.img_1..3 continuam valendo quando o editor está vazio). Cópia "RODRIGUES RLP - beneficios editaveis"
+  `gid://shopify/OnlineStoreTheme/212073644381` (duplicada do MAIN 212008173917; aguardando ela publicar).
+  A cópia "videos legging" (212008567133) ficou obsoleta: ela pôs os vídeos da legging no ultrascupp pelo editor.
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
