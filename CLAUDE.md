@@ -65,6 +65,14 @@
   na cópia "RODRIGUES RLP - selo pedidos dourado" `gid://shopify/OnlineStoreTheme/211612631389` — PUBLICADO e APROVADO
   ("perfeito, incrível"). PADRÃO para todos os produtos: selo dourado com nº real de pedidos; estrelas só com nota real.
   Ainda falso nos templates: título do video-reviews "Mais de 5.000 pessoas confiam em nós" (settings de template).
+- PACKS COM ÂNGULO DE PRESENTE (24/11/2026, "salve na memória", ela AMOU no VibraFlex): em produto novo que sirva de
+  presente, usar rótulos `bundle1_rotulo` "1 <Nome>", `bundle1_sub` "Para você", `bundle2_rotulo` "2 <Nome> · você + 1 presente",
+  `bundle3_rotulo` "3 <Nome> · presentes de <data>", `bundle_unidade` "unidade", bundle_titulo "Leve um para presentear e pague menos".
+  AUTOMÁTICO: a rotina diária (trig_013EzGG9UUKxxR3H4TgSBEAU, renomeada "Rotina diária RODRIGUES (pedidos + datas)") troca o
+  texto do 3º pack conforme a data (semana Black Friday → Natal até 25/12 → Ano Novo até 06/01 → Dia dos Namorados até 14/02
+  → Dia do Pai até 19/03 → Dia da Mãe até o 1º domingo de maio → "para você e a família" → Natal a partir de 01/11).
+  Para incluir um produto: pôr `rlp.rotulo_nome` no produto e acrescentar o gid na lista da LOJA
+  `shop.metafields.rlp.datas_produtos` (list.product_reference). Hoje: VibraFlex. Não usar em suplemento (Núvia = meses).
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
