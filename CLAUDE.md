@@ -198,7 +198,7 @@
   em anel, sem fio, modelado na oferta da Merach (NÃO usar marca Merach nem as fotos deles com "collective s").
   Fatos (listagem Merach que ela mandou): 6 níveis, cinta ajustável 69,3 in = 176 cm, 3 texturas (2 zonas lineares
   costas/coxas, 12 grupos de nós braços/panturrilhas/coxas, 1 nó grande pescoço/lombar), visor digital; braços, glúteos,
-  cintura/abdômen, coxas, costas, panturrilhas. Bateria/carga/autonomia NÃO confirmadas (não escrevi). Sem variantes.
+  cintura/abdômen, coxas, costas, panturrilhas. Bateria (imagem dela, 24/11): 1200 mAh, até 180 min sem fio, carga 3–4 h por USB-C. Sem variantes.
   Preço €37,70 (riscado €49,99). Packs VIBRA2 (10%) / VIBRA3 (15%), ângulo presente de Natal; rótulos "1 VibraFlex /
   2 VibraFlex · você + 1 presente / 3 VibraFlex · presentes de Natal", unidade "unidade". nota "-".
   FAQ diz que NÃO emagrece/celulite e não é aparelho médico. Descrição + SEO preenchidos. Sem img_1..3 (benefícios some).
