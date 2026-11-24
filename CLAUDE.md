@@ -53,7 +53,7 @@
   (o tema antigo ignora esses campos, então o site no ar não muda antes de publicar). JS usa `b.nome` do pack.
   Núvia: pack3 = 6 unidades, 25%, cupom NUVIA6 (DiscountCodeNode/2316375753053, mín. 6, só Núvia, não combina).
   NUVIA3 continua ativo (fica sem uso depois de publicar). Cópia "RODRIGUES RLP - pack 6 meses"
-  `gid://shopify/OnlineStoreTheme/212088979805` (duplicada do MAIN 212088783197; aguardando ela publicar).
+  `gid://shopify/OnlineStoreTheme/212088979805` (duplicada do MAIN 212088783197; PUBLICADA por ela em 24/11).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
@@ -194,6 +194,15 @@
   "equilibram o pH… e o olfato") — avisei que são alegações falsas/proibidas; a pedido dela, SÓ PARA TESTE com o produto
   em RASCUNHO: img_1 = 78215354122589, img_2 = 78215354155357, img_3 = 78215354188125.
   ANTES de reativar o produto, trocar as 3 por versões sem pH/odor/antibacteriano (ela disse que vai trocar).
+- VibraFlex (16721418420573, handle `viflex`, template `vibraflex` criado pela usuária, 24/11/2026): massageador vibratório
+  em anel, sem fio, modelado na oferta da Merach (NÃO usar marca Merach nem as fotos deles com "collective s").
+  Fatos (listagem Merach que ela mandou): 6 níveis, cinta ajustável 69,3 in = 176 cm, 3 texturas (2 zonas lineares
+  costas/coxas, 12 grupos de nós braços/panturrilhas/coxas, 1 nó grande pescoço/lombar), visor digital; braços, glúteos,
+  cintura/abdômen, coxas, costas, panturrilhas. Bateria/carga/autonomia NÃO confirmadas (não escrevi). Sem variantes.
+  Preço €37,70 (riscado €49,99). Packs VIBRA2 (10%) / VIBRA3 (15%), ângulo presente de Natal; rótulos "1 VibraFlex /
+  2 VibraFlex · você + 1 presente / 3 VibraFlex · presentes de Natal", unidade "unidade". nota "-".
+  FAQ diz que NÃO emagrece/celulite e não é aparelho médico. Descrição + SEO preenchidos. Sem img_1..3 (benefícios some).
+  Template vibraflex tem vídeos de CABELO com "AVALIAÇÕES VERIFICADAS · Mais de 5.000 pessoas" e coleção "modeladores".
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
