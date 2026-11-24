@@ -43,6 +43,11 @@
   "Personalizada" (padrão p/ novas) + Cor de fundo / Cor do texto / degradê logo no topo; mesmos ids de setting
   (templates antigos continuam iguais) e a cor é aplicada também inline (background/color).
   A cópia "videos legging" (212008567133) ficou obsoleta: ela pôs os vídeos da legging no ultrascupp pelo editor.
+- PACKS COM RÓTULO PRÓPRIO (24/11/2026, pedido dela p/ Núvia): metafields `rlp.bundle1_rotulo`/`bundle2_rotulo`/`bundle3_rotulo`
+  (nome do card), `rlp.bundle1_sub` (texto do card 1, no lugar de "Para experimentar") e `rlp.bundle_unidade` ("por mês"
+  no lugar de "por peça"). Vazio = padrão "1 peça / 2 peças". "Escolha cada peça" some em produto de variante única.
+  Núvia: "Uso para 1/2/3 meses", sub1 "1 embalagem · 60 gomas", unidade "mês". Cópia "RODRIGUES RLP - packs em meses"
+  `gid://shopify/OnlineStoreTheme/212088783197` (duplicada do MAIN 212073644381; aguardando ela publicar).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
