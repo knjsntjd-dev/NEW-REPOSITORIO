@@ -47,7 +47,13 @@
   (nome do card), `rlp.bundle1_sub` (texto do card 1, no lugar de "Para experimentar") e `rlp.bundle_unidade` ("por mês"
   no lugar de "por peça"). Vazio = padrão "1 peça / 2 peças". "Escolha cada peça" some em produto de variante única.
   Núvia: "Uso para 1/2/3 meses", sub1 "1 embalagem · 60 gomas", unidade "mês". Cópia "RODRIGUES RLP - packs em meses"
-  `gid://shopify/OnlineStoreTheme/212088783197` (duplicada do MAIN 212073644381; aguardando ela publicar).
+  `gid://shopify/OnlineStoreTheme/212088783197` (duplicada do MAIN 212073644381; PUBLICADA por ela em 24/11).
+- PACK 6 MESES NÚVIA (24/11/2026, pedido dela: oferta 1 / 2 / 6 meses): o 3º pack ganhou campos próprios que têm
+  prioridade sobre bundle3_*: `rlp.pack3_qtd` (number_integer), `pack3_off`, `pack3_codigo`, `pack3_rotulo`
+  (o tema antigo ignora esses campos, então o site no ar não muda antes de publicar). JS usa `b.nome` do pack.
+  Núvia: pack3 = 6 unidades, 25%, cupom NUVIA6 (DiscountCodeNode/2316375753053, mín. 6, só Núvia, não combina).
+  NUVIA3 continua ativo (fica sem uso depois de publicar). Cópia "RODRIGUES RLP - pack 6 meses"
+  `gid://shopify/OnlineStoreTheme/212088979805` (duplicada do MAIN 212088783197; aguardando ela publicar).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
