@@ -211,6 +211,14 @@
   2 VibraFlex · você + 1 presente / 3 VibraFlex · presentes de Natal", unidade "unidade". nota "-".
   FAQ diz que NÃO emagrece/celulite e não é aparelho médico. Descrição + SEO preenchidos. Sem img_1..3 (benefícios some).
   Template vibraflex tem vídeos de CABELO com "AVALIAÇÕES VERIFICADAS · Mais de 5.000 pessoas" e coleção "modeladores".
+- ShapeFlex (16726294004061, handle `shapeflex-cinta-modeladora-de-alta-compressao-flexivel`, 25/11/2026): "upgrade 3.0"
+  da FlexFit segundo a usuária — mais compressão, SEM AÇO (dado dela), mais confortável. Fornecedor (AliExpress, macroupta
+  N709/N719/N708): poliéster, controle Firm, fino, waist cincher, fecho de colchetes. NÃO usar do fornecedor: "reduz 3–5
+  polegadas", dor lombar, pós-parto. Tabela (cm, do fornecedor): XXS 55–65 / XS 62–70 / S 72–80 / M 78–86 / L 82–90 /
+  XL 86–95 / XXL 90–98 / XXXL 95–103 (4XL–6XL existem na tabela, mas o produto não vende). Numeração DIFERENTE da FlexFit.
+  Opções: "Cor" (valores ainda N719-Black / N709-Black / N708-Skin — perguntei a diferença entre os 2 pretos) e
+  "Tamanho" XXS→XXXL (renomeei "XS（old）"→"XS" e ordenei). Packs SHAPE2 (10%) / SHAPE3 (15%). €37,70 (riscado €65,00).
+  nota "-", sem depoimentos. Descrição AliExpress trocada por pt-BR + SEO. Produto estava SEM template RLP (templateSuffix null).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
