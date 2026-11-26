@@ -216,7 +216,7 @@
   N709/N719/N708): poliéster, controle Firm, fino, waist cincher, fecho de colchetes. NÃO usar do fornecedor: "reduz 3–5
   polegadas", dor lombar, pós-parto. Tabela (cm, do fornecedor): XXS 55–65 / XS 62–70 / S 72–80 / M 78–86 / L 82–90 /
   XL 86–95 / XXL 90–98 / XXXL 95–103 (4XL–6XL existem na tabela, mas o produto não vende). Numeração DIFERENTE da FlexFit.
-  Opções: "Cor" = Preto (modelo N709, "de 30 cm" segundo ela) / Nude (N708); as 8 variantes N719-Black foram APAGADAS a pedido dela; e
+  Opções: "Cor" = Preto (modelo N709, 30 cm de ALTURA segundo ela — está na página: dif_3, criterio_4, descrição) / Nude (N708); as 8 variantes N719-Black foram APAGADAS a pedido dela; e
   "Tamanho" XXS→XXXL (renomeei "XS（old）"→"XS" e ordenei). Packs SHAPE2 (10%) / SHAPE3 (15%). €37,70 (riscado €65,00).
   nota "-", sem depoimentos. Descrição AliExpress trocada por pt-BR + SEO. Produto estava SEM template RLP (templateSuffix null).
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
