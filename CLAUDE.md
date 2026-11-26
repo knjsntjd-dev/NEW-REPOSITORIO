@@ -72,7 +72,7 @@
   texto do 3º pack conforme a data (semana Black Friday → Natal até 25/12 → Ano Novo até 06/01 → Dia dos Namorados até 14/02
   → Dia do Pai até 19/03 → Dia da Mãe até o 1º domingo de maio → "para você e a família" → Natal a partir de 01/11).
   Para incluir um produto: pôr `rlp.rotulo_nome` no produto e acrescentar o gid na lista da LOJA
-  `shop.metafields.rlp.datas_produtos` (list.product_reference). Hoje: VibraFlex e ShapeFlex (26/11, pedido dela). Não usar em suplemento (Núvia = meses).
+  `shop.metafields.rlp.datas_produtos` (list.product_reference). Hoje: VibraFlex, ShapeFlex e Body de Renda (26/11). Não usar em suplemento (Núvia = meses).
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
@@ -219,6 +219,13 @@
   Opções: "Cor" = Preto (modelo N709, 30 cm de ALTURA segundo ela — está na página: dif_3, criterio_4, descrição) / Nude (N708); as 8 variantes N719-Black foram APAGADAS a pedido dela; e
   "Tamanho" XXS→XXXL (renomeei "XS（old）"→"XS" e ordenei). Packs SHAPE2 (10%) / SHAPE3 (15%). €37,70 (riscado €65,00).
   nota "-", sem depoimentos. Descrição AliExpress trocada por pt-BR + SEO. Produto estava SEM template RLP (templateSuffix null).
+- Body de Renda (16727527555421, handle `body-renda`, template `bodyrenda` criado pela usuária, 26/11/2026): body feminino
+  de renda floral, manga longa, gola alta. Material/tamanho NÃO informados (sem opção de tamanho; perguntei). Cores criadas
+  por mim com swatch nativo (opção "Cor" ligada a shopify.color-pattern): Branco / Bordô / Marrom / Preto — criei o
+  metaobject "Bordô" (2016330678621, #6E1E2B, taxonomia vermelho). Estoque 1500 por cor (estava 0 e rastreado).
+  Preço €27,70, riscado €39,57 (= 30% OFF, pedido dela). Packs BODY2 (10%) / BODY3 (15%), ângulo presente;
+  rotulo_nome "Bodies" (bundle1 "1 Body de Renda"), incluído em datas_produtos. nota "-", esconder_tamanhos "sim".
+  Banner dela diz "Até 30% OFF no primeiro pedido" — avisei que não existe desconto de primeiro pedido.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
