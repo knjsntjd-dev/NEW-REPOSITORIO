@@ -222,7 +222,7 @@
 - Body de Renda (16727527555421, handle `body-renda`, template `bodyrenda` criado pela usuária, 26/11/2026): body feminino
   de renda floral, manga longa, gola alta. Tamanhos S–XL (opção "Tamanho" criada 26/11, sem tabela de medidas → guia some). Material NÃO informado. Cores criadas
   por mim com swatch nativo (opção "Cor" ligada a shopify.color-pattern): Branco / Bordô / Marrom / Preto — criei o
-  metaobject "Bordô" (2016330678621, #6E1E2B, taxonomia vermelho). Estoque 1500 por variante (16 variantes; estava 0 e rastreado).
+  metaobject "Bordô" (2016330678621, #6E1E2B, taxonomia vermelho). Estoque 200 por variante + "continuar vendendo sem estoque" (CONTINUE), pedido dela 26/11. Fotos por cor (ordem dada por ela): Marrom 78269342450013, Preto 78269342482781, Branco 78269342515549, Bordô 78269658628445; cores reordenadas Marrom/Preto/Branco/Bordô (1ª foto = Marrom).
   Preço €27,70, riscado €39,57 (= 30% OFF, pedido dela). Packs BODY2 (10%) / BODY3 (15%), ângulo presente;
   rotulo_nome "Bodies" (bundle1 "1 Body de Renda"), incluído em datas_produtos. nota "-", esconder_tamanhos "sim".
   Banner dela diz "Até 30% OFF no primeiro pedido" — avisei que não existe desconto de primeiro pedido.
