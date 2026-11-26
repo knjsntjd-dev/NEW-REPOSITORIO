@@ -1,0 +1,148 @@
+{%- comment -%}
+  Benefícios em card — seção independente (Online Store 2.0).
+  - Textos, foto, cores, borda, espaçamento e fonte editáveis no editor do tema.
+  - Bloco com título/texto vazio usa o RLP do produto (rlp.beneficio_N_titulo / _texto),
+    então a mesma seção serve para qualquer produto do template.
+  - Em página com o modelo RLP, o card é colocado logo ACIMA DO PREÇO e a lista antiga (✓) some.
+    Em qualquer outro tema/página, aparece onde a seção estiver.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign mf = product.metafields.rlp
+  assign tem = false
+  for b in section.blocks
+    assign idx = forloop.index
+    capture kt
+      echo 'beneficio_' | append: idx | append: '_titulo'
+    endcapture
+    assign t = b.settings.titulo | default: mf[kt]
+    if t != blank
+      assign tem = true
+    endif
+  endfor
+-%}
+{%- if tem -%}
+<div class="bc" id="bc-{{ section.id }}" data-bc="{{ section.id }}" data-bc-mover="{{ s.posicao }}" data-bc-esconder="{{ s.esconder_lista }}"
+  style="--bc-bg:{{ s.cor_fundo }};--bc-borda:{{ s.cor_borda }};--bc-check:{{ s.cor_check }};--bc-tit:{{ s.cor_titulo }};--bc-txt:{{ s.cor_texto }};--bc-sep:{{ s.cor_separador }};--bc-raio:{{ s.raio }}px;--bc-pad:{{ s.espaco }}px;--bc-ft:{{ s.tamanho_titulo }}px;--bc-fx:{{ s.tamanho_texto }}px;--bc-img:{{ s.tamanho_imagem }}px;--bc-mt:{{ s.margem_cima }}px;--bc-mb:{{ s.margem_baixo }}px">
+  <ul class="bc__lista" role="list">
+    {%- for b in section.blocks -%}
+    {%- liquid
+      assign idx = forloop.index
+      capture kt
+        echo 'beneficio_' | append: idx | append: '_titulo'
+      endcapture
+      capture kx
+        echo 'beneficio_' | append: idx | append: '_texto'
+      endcapture
+      assign titulo = b.settings.titulo | default: mf[kt]
+      assign texto = b.settings.texto | default: mf[kx]
+    -%}
+    {%- if titulo != blank -%}
+    <li class="bc__item" {{ b.shopify_attributes }}>
+      <span class="bc__check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M7 12.4l3.2 3.2L17.2 8.6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="bc__txt">
+        <strong class="bc__tit">{{ titulo }}</strong>
+        {%- if texto != blank -%}<span class="bc__desc">{{ texto }}</span>{%- endif -%}
+      </span>
+      {%- if b.settings.imagem != blank -%}
+      <span class="bc__img">{{ b.settings.imagem | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120,180,240', sizes: '(min-width: 750px) 110px, 80px', alt: b.settings.imagem.alt }}</span>
+      {%- endif -%}
+    </li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+
+<style>
+  #bc-{{ section.id }}{box-sizing:border-box;width:100%;max-width:100%;margin:var(--bc-mt) 0 var(--bc-mb);padding:0 calc(var(--bc-pad) + 2px);background:var(--bc-bg);border:1px solid var(--bc-borda);border-radius:var(--bc-raio);overflow:hidden}
+  #bc-{{ section.id }} *,#bc-{{ section.id }} *::before,#bc-{{ section.id }} *::after{box-sizing:border-box}
+  #bc-{{ section.id }} .bc__lista{list-style:none;margin:0;padding:0}
+  #bc-{{ section.id }} .bc__item{display:flex;align-items:center;gap:12px;padding:var(--bc-pad) 0;margin:0;border-top:1px solid var(--bc-sep)}
+  #bc-{{ section.id }} .bc__item:first-child{border-top:0}
+  #bc-{{ section.id }} .bc__check{flex:0 0 auto;width:24px;height:24px;color:var(--bc-check);display:flex;align-self:flex-start;margin-top:1px}
+  #bc-{{ section.id }} .bc__check svg{width:100%;height:100%;display:block}
+  #bc-{{ section.id }} .bc__txt{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+  #bc-{{ section.id }} .bc__tit{font-weight:700;font-size:var(--bc-ft);line-height:1.25;color:var(--bc-tit);overflow-wrap:anywhere}
+  #bc-{{ section.id }} .bc__desc{font-weight:400;font-size:var(--bc-fx);line-height:1.45;color:var(--bc-txt);overflow-wrap:anywhere}
+  #bc-{{ section.id }} .bc__img{flex:0 0 auto;width:calc(var(--bc-img) * .8);height:calc(var(--bc-img) * .8);display:flex;align-items:center;justify-content:center}
+  #bc-{{ section.id }} .bc__img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+  @media (min-width:750px){
+    #bc-{{ section.id }} .bc__item{gap:14px}
+    #bc-{{ section.id }} .bc__img{width:var(--bc-img);height:var(--bc-img)}
+  }
+</style>
+
+<script>
+  (function(){
+    var id = {{ section.id | json }};
+    var card = document.getElementById('bc-' + id);
+    if (!card) return;
+    var modo = card.getAttribute('data-bc-mover');
+    var buy = document.querySelector('.rlp-buy');
+    if (!buy || modo === 'aqui') return;
+    /* no editor do tema a seção é redesenhada: remove a cópia anterior já movida */
+    [].forEach.call(buy.querySelectorAll('[data-bc="' + id + '"]'), function(el){ if (el !== card) el.remove(); });
+    var preco = buy.querySelector('.rlp-price-row');
+    var lista = buy.querySelector('.rlp-benefits');
+    if (modo === 'lista' && lista) lista.parentNode.insertBefore(card, lista);
+    else if (preco) preco.parentNode.insertBefore(card, preco);
+    if (lista && card.getAttribute('data-bc-esconder') === 'true') lista.style.display = 'none';
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Benefícios em card",
+  "tag": "div",
+  "class": "bc-sec",
+  "settings": [
+    { "type": "paragraph", "content": "Título ou texto vazio num bloco = usa o RLP do produto (beneficio_1, 2, 3…). Na página do modelo RLP o card vai sozinho para cima do preço." },
+    { "type": "select", "id": "posicao", "label": "Onde mostrar", "default": "preco", "options": [
+      { "value": "preco", "label": "Acima do preço" },
+      { "value": "lista", "label": "No lugar da lista de ✓ (abaixo do preço)" },
+      { "value": "aqui", "label": "Onde a seção estiver no editor" }
+    ] },
+    { "type": "checkbox", "id": "esconder_lista", "label": "Esconder a lista antiga de ✓", "default": true },
+    { "type": "header", "content": "Cores" },
+    { "type": "color", "id": "cor_fundo", "label": "Fundo", "default": "#FFFFFF" },
+    { "type": "color", "id": "cor_borda", "label": "Borda", "default": "#DCEED8" },
+    { "type": "color", "id": "cor_check", "label": "Check", "default": "#16A34A" },
+    { "type": "color", "id": "cor_titulo", "label": "Título", "default": "#14301A" },
+    { "type": "color", "id": "cor_texto", "label": "Descrição", "default": "#555555" },
+    { "type": "color", "id": "cor_separador", "label": "Separador", "default": "#ECECEC" },
+    { "type": "header", "content": "Tamanhos e espaços" },
+    { "type": "range", "id": "raio", "label": "Cantos arredondados", "min": 0, "max": 24, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "espaco", "label": "Espaço entre itens", "min": 6, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "tamanho_titulo", "label": "Fonte do título", "min": 12, "max": 22, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "tamanho_texto", "label": "Fonte da descrição", "min": 11, "max": 18, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "tamanho_imagem", "label": "Tamanho da foto", "min": 40, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "margem_cima", "label": "Margem em cima", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "margem_baixo", "label": "Margem embaixo", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 14 }
+  ],
+  "blocks": [
+    {
+      "type": "beneficio",
+      "name": "Benefício",
+      "settings": [
+        { "type": "text", "id": "titulo", "label": "Título (vazio = RLP do produto)" },
+        { "type": "textarea", "id": "texto", "label": "Descrição (vazio = RLP do produto)" },
+        { "type": "image_picker", "id": "imagem", "label": "Foto à direita (opcional, PNG sem fundo)" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Benefícios em card",
+      "blocks": [
+        { "type": "beneficio" },
+        { "type": "beneficio" },
+        { "type": "beneficio" }
+      ]
+    }
+  ]
+}
+{% endschema %}

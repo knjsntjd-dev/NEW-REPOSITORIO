@@ -54,6 +54,11 @@
   Núvia: pack3 = 6 unidades, 25%, cupom NUVIA6 (DiscountCodeNode/2316375753053, mín. 6, só Núvia, não combina).
   NUVIA3 continua ativo (fica sem uso depois de publicar). Cópia "RODRIGUES RLP - pack 6 meses"
   `gid://shopify/OnlineStoreTheme/212088979805` (duplicada do MAIN 212088783197; PUBLICADA por ela em 24/11).
+- SEÇÃO "Benefícios em card" (26/11/2026, pedido dela, ref. card verde da Núvia): arquivo `entregas/beneficios-card.liquid`
+  (no repo). Seção independente: blocos Benefício (título/texto vazios = RLP beneficio_N; foto opcional à direita),
+  cores/borda/raio/espaço/fontes editáveis. Em página RLP o JS move o card para ACIMA do `.rlp-price-row` (ou no lugar
+  da lista) e esconde `.rlp-benefits`. Validado na Shopify (upsert no tema não publicado 212088783197, md5 896e0aaa…).
+  Ela mesma instala: Editar código → sections → novo arquivo → depois "Adicionar seção" no template do produto.
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
   (default antigo do rlp-produto) — FALSO (loja tinha 946 clientes / 532 pedidos, 516 pagos). Trocado por
   "Mais de N pedidos realizados na loja": N = metafield da LOJA `shop.metafields.rlp.pedidos` (number_integer, hoje 500),
