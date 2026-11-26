@@ -220,9 +220,9 @@
   "Tamanho" XXS→XXXL (renomeei "XS（old）"→"XS" e ordenei). Packs SHAPE2 (10%) / SHAPE3 (15%). €37,70 (riscado €65,00).
   nota "-", sem depoimentos. Descrição AliExpress trocada por pt-BR + SEO. Produto estava SEM template RLP (templateSuffix null).
 - Body de Renda (16727527555421, handle `body-renda`, template `bodyrenda` criado pela usuária, 26/11/2026): body feminino
-  de renda floral, manga longa, gola alta. Material/tamanho NÃO informados (sem opção de tamanho; perguntei). Cores criadas
+  de renda floral, manga longa, gola alta. Tamanhos S–XL (opção "Tamanho" criada 26/11, sem tabela de medidas → guia some). Material NÃO informado. Cores criadas
   por mim com swatch nativo (opção "Cor" ligada a shopify.color-pattern): Branco / Bordô / Marrom / Preto — criei o
-  metaobject "Bordô" (2016330678621, #6E1E2B, taxonomia vermelho). Estoque 1500 por cor (estava 0 e rastreado).
+  metaobject "Bordô" (2016330678621, #6E1E2B, taxonomia vermelho). Estoque 1500 por variante (16 variantes; estava 0 e rastreado).
   Preço €27,70, riscado €39,57 (= 30% OFF, pedido dela). Packs BODY2 (10%) / BODY3 (15%), ângulo presente;
   rotulo_nome "Bodies" (bundle1 "1 Body de Renda"), incluído em datas_produtos. nota "-", esconder_tamanhos "sim".
   Banner dela diz "Até 30% OFF no primeiro pedido" — avisei que não existe desconto de primeiro pedido.
