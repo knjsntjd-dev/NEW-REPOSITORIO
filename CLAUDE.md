@@ -240,8 +240,8 @@
   poliéster), modelada no concorrente North Alpine "NorthPower" — para anunciar nos EUA (copy agressiva pedida). NÃO usei
   do concorrente: "colete iônico", "acelera perda de peso", "elimina gordurinhas", "2386 avaliações" (falso; FTC também
   pune). Ângulo honesto e agressivo: disfarça barriga/peito na hora, tronco alinhado; FAQ "Ele emagrece? Não".
-  Opções "Cor" (AINDA códigos RUN807–RUN812 — perguntei os nomes) e "Tamanho" S→5XL (ordenado). Tabela = só COMPRIMENTO
-  do fornecedor (60–75,5 cm); pedi tabela de peito/peso. €27,70 (riscado €32,95), custo ~€5,8–7,2/un.
+  Opções "Cor" (AINDA códigos RUN807–RUN812 — perguntei os nomes) e "Tamanho" S→5XL (ordenado). Tabela (dela, 27/11), cm da peça
+  "Peito · Comprimento · Ombro": S 80·60·34,5 … 5XL 104·75,5·38 (2XL/3XL viraram XXL/XXXL p/ bater com as variantes). €27,70 (riscado €32,95), custo ~€5,8–7,2/un.
   PACKS: "Compre 2, leve 3" (pack2_qtd 3, pack2_off 33.3334 decimal, chip "1 GRÁTIS", BXGY NFLEX3 2317267304797) e
   "Compre 3, leve 5" (pack3_qtd 5, off 40, chip "2 GRÁTIS", BXGY NFLEX5 2317267337565). bundle2/3_ativo="nao" para o
   tema publicado não mostrar packs errados antes de publicar a cópia nova.
