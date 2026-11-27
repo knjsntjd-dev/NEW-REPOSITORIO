@@ -61,7 +61,7 @@
   Ela mesma instala: Editar código → sections → novo arquivo → depois "Adicionar seção" no template do produto.
   INSTALADO por mim (pedido dela, 26/11) na cópia "RODRIGUES RLP - beneficios card" `gid://shopify/OnlineStoreTheme/212165886301`
   (duplicada do MAIN 212088979805) — SÓ no template `nuvia` (seção `beneficios_card` logo após rlp_produto, 3 blocos vazios =
-  RLP). Aguardando ela publicar. Se aprovar, levar para os próximos produtos.
+  RLP). PUBLICADO por ela (era MAIN em 27/11). Se aprovar, levar para os próximos produtos.
   Template nuvia (editado por ela) tem coisas FALSAS que avisei: ticker "VOGUE/FORBES/ELLE", "★★★★★ 1.578 avaliações",
   depoimentos com "Author", título "cheiro… lá embaixo" (odor = alegação proibida).
 - PROVA SOCIAL REAL (08/11/2026): a FlexFit e a Calça mostravam "4,8/5 · mais de 10.000/5.000 clientes verificados"
@@ -236,6 +236,19 @@
   Preço €27,70, riscado €39,57 (= 30% OFF, pedido dela). Packs BODY2 (10%) / BODY3 (15%), ângulo presente;
   rotulo_nome "Bodies" (bundle1 "1 Body de Renda"), incluído em datas_produtos. nota "-", esconder_tamanhos "sim".
   Banner dela diz "Até 30% OFF no primeiro pedido" — avisei que não existe desconto de primeiro pedido.
+- North Flex™ (16729091998045, template `northflex`, 27/11/2026): regata de compressão MASCULINA (fornecedor SONECHOKI,
+  poliéster), modelada no concorrente North Alpine "NorthPower" — para anunciar nos EUA (copy agressiva pedida). NÃO usei
+  do concorrente: "colete iônico", "acelera perda de peso", "elimina gordurinhas", "2386 avaliações" (falso; FTC também
+  pune). Ângulo honesto e agressivo: disfarça barriga/peito na hora, tronco alinhado; FAQ "Ele emagrece? Não".
+  Opções "Cor" (AINDA códigos RUN807–RUN812 — perguntei os nomes) e "Tamanho" S→5XL (ordenado). Tabela = só COMPRIMENTO
+  do fornecedor (60–75,5 cm); pedi tabela de peito/peso. €27,70 (riscado €32,95), custo ~€5,8–7,2/un.
+  PACKS: "Compre 2, leve 3" (pack2_qtd 3, pack2_off 33.3334 decimal, chip "1 GRÁTIS", BXGY NFLEX3 2317267304797) e
+  "Compre 3, leve 5" (pack3_qtd 5, off 40, chip "2 GRÁTIS", BXGY NFLEX5 2317267337565). bundle2/3_ativo="nao" para o
+  tema publicado não mostrar packs errados antes de publicar a cópia nova.
+- TEMA "RODRIGUES RLP - packs leve 3 e 5" `gid://shopify/OnlineStoreTheme/212180468061` (27/11, duplicado do MAIN
+  212165886301 "beneficios card", que ela PUBLICOU): rlp-produto ganhou `rlp.pack2_*` (qtd/off/codigo/rotulo/chip) igual ao
+  pack3_*, `pack2/pack3_chip` (texto do selo no lugar de "X% OFF") e pack aparece se `packN_qtd` estiver preenchido mesmo com
+  bundleN_ativo="nao"; JS arredonda % (Math.round). Aguardando ela publicar.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
