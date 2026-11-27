@@ -236,6 +236,12 @@
   Preço €27,70, riscado €39,57 (= 30% OFF, pedido dela). Packs BODY2 (10%) / BODY3 (15%), ângulo presente;
   rotulo_nome "Bodies" (bundle1 "1 Body de Renda"), incluído em datas_produtos. nota "-", esconder_tamanhos "sim".
   Banner dela diz "Até 30% OFF no primeiro pedido" — avisei que não existe desconto de primeiro pedido.
+- North Flex™ EM INGLÊS (27/11, pedido dela: vai anunciar na EUROPA em inglês; só esse produto): título, descrição, SEO,
+  TODOS os rlp.* (inclui packs "2 North Flex + 1 FREE"/"3 North Flex + 2 FREE", unidade "piece", nota_preco "VAT included ·
+  Free shipping"), opções "Color"/"Size", títulos dos cupons NFLEX3/NFLEX5 ("North Flex · Buy 2, get 3/5") — tudo em inglês.
+  Ela NÃO quis a tabela multi-colunas (cópia 212181582173 descartada). Ficam em pt-BR (código do tema, fixo p/ todos):
+  botões Comprar/Adicionar, "Você economiza", "Escolha cada peça", selo "Mais de N pedidos", "Melhor custo-benefício",
+  entrega estimada, carrinho lateral, checkout (idioma da loja). Ofereci versão do tema com rlp.idioma="en".
 - North Flex™ (16729091998045, template `northflex`, 27/11/2026): regata de compressão MASCULINA (fornecedor SONECHOKI,
   poliéster), modelada no concorrente North Alpine "NorthPower" — para anunciar nos EUA (copy agressiva pedida). NÃO usei
   do concorrente: "colete iônico", "acelera perda de peso", "elimina gordurinhas", "2386 avaliações" (falso; FTC também
@@ -264,7 +270,7 @@
   (cópia em entregas/), usado no guia (rlp-produto) e na seção de tamanhos (rlp-conteudo) quando o produto tem
   `rlp.tabela_cols` (linhas "S | 60 | 80 | 34,5") + `rlp.tabela_titulos` ("Tamanho | Comprimento do corpo | …");
   `rlp.tabela_unidades`="sim" mostra botões CM/IN (converte ÷2,54, 1 casa). Sem tabela_cols = tabela antiga de 2 colunas.
-  O tema publicado ignora tabela_cols (continua com tabela_medidas). North Flex preenchido. Aguardando ela publicar.
+  O tema publicado ignora tabela_cols. Ela DISSE que NÃO vai usar (27/11) — cópia descartada.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
