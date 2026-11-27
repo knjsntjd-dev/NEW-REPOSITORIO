@@ -242,6 +242,15 @@
   Ela NÃO quis a tabela multi-colunas (cópia 212181582173 descartada). Ficam em pt-BR (código do tema, fixo p/ todos):
   botões Comprar/Adicionar, "Você economiza", "Escolha cada peça", selo "Mais de N pedidos", "Melhor custo-benefício",
   entrega estimada, carrinho lateral, checkout (idioma da loja). Ofereci versão do tema com rlp.idioma="en".
+- TEMA BILÍNGUE (27/11, pedido dela: ela vai publicar o idioma `en` (/en) e traduzir pelo Translate & Adapt; idioma
+  PRINCIPAL da loja agora é pt-BR; es publicado, en ainda não): cópia "RODRIGUES RLP - botoes em ingles"
+  `gid://shopify/OnlineStoreTheme/212181975389` (duplicada do MAIN 212181320029 "bolinhas com foto"). Textos FIXOS do código
+  trocam para inglês quando `request.locale.iso_code` = en: rlp-produto (Buy now, Add to cart, Choose each piece, selo
+  "Over N orders placed in our store", defaults de nota/garantias/guia), rodrigues-lp.js (LOJA.en → dicionário TX: You save,
+  per, Best value, Piece, Save, Adding…; preço "€27.70" em en), rlp-conteudo (Size guide, Verified purchase, Buy now,
+  defaults de FAQ/fim) e entrega-estimada (datas no idioma da página). Em pt-BR fica IGUAL ao publicado.
+  Textos de settings de seção e metafields traduz no Translate & Adapt. NÃO mexido: rlp-carrinho.js ("Remover"),
+  rlp-comparacao (só aria-labels). LIÇÃO: Liquid não aceita \' em string com aspas simples — upsert por URL falha calado.
 - North Flex™ (16729091998045, template `northflex`, 27/11/2026): regata de compressão MASCULINA (fornecedor SONECHOKI,
   poliéster), modelada no concorrente North Alpine "NorthPower" — para anunciar nos EUA (copy agressiva pedida). NÃO usei
   do concorrente: "colete iônico", "acelera perda de peso", "elimina gordurinhas", "2386 avaliações" (falso; FTC também
