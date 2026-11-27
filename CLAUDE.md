@@ -254,6 +254,11 @@
   "Você economiza €X" (no pack 1 = comparação − preço), riscado embaixo, selo preto "MELHOR CUSTO-BENEFÍCIO" no último.
   Sem chips "Frete grátis só hoje"/"% OFF". Vale para TODOS os produtos RLP quando ela publicar. North Flex: rótulos
   "2 North Flex + 1 GRÁTIS" / "3 North Flex + 2 GRÁTIS". Preview: entregas/packs-novo-visual.png.
+  → "packs leve 3 e 5" foi PUBLICADO por ela (MAIN em 27/11, aprovou o visual: "gostei, parabéns").
+- BOLINHAS COM FOTO (27/11, pedido dela): cópia "RODRIGUES RLP - bolinhas com foto" `gid://shopify/OnlineStoreTheme/212181320029`
+  (duplicada do MAIN 212180468061). Swatch de cor mostra a FOTO da variante (120x120 crop) quando `rlp.swatch_foto`="sim"
+  ou automaticamente quando a cor não tem swatch/nome conhecido (cinza #CCCCCC) e a variante tem foto; "nao" desliga.
+  North Flex: swatch_foto="sim". Aguardando ela publicar.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
