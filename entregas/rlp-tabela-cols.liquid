@@ -1,0 +1,68 @@
+{%- comment -%}
+  Tabela de medidas com várias colunas (RLP).
+  rlp.tabela_cols    = linhas "S | 60 | 80 | 34,5" (1ª coluna = tamanho, demais em cm)
+  rlp.tabela_titulos = "Tamanho | Comprimento do corpo | Largura do peito | Ombro a ombro"
+  rlp.tabela_unidades = "sim" mostra o botão CM / IN (converte os números para polegadas).
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.rlp
+  assign titulos = mf.tabela_titulos.value | default: 'Tamanho | Medida' | split: '|'
+  assign linhas = mf.tabela_cols.value | newline_to_br | split: '<br />'
+  assign un = mf.tabela_unidades.value
+-%}
+<div class="rlp-tc">
+  {%- if un == 'sim' -%}
+  <div class="rlp-tc__un" role="group" aria-label="Unidade">
+    <button type="button" class="rlp-tc__b" data-tc-un="cm" aria-pressed="true">CM</button>
+    <button type="button" class="rlp-tc__b" data-tc-un="in" aria-pressed="false">IN</button>
+  </div>
+  {%- endif -%}
+  <div class="rlp-tc__scroll">
+    <table class="rlp-tc__t">
+      <thead><tr>{%- for t in titulos -%}<th>{{ t | strip }}</th>{%- endfor -%}</tr></thead>
+      <tbody>
+        {%- for l in linhas -%}
+        {%- assign c = l | strip | split: '|' -%}
+        {%- if c.size > 1 -%}
+        <tr>{%- for x in c -%}{%- if forloop.first -%}<td><b>{{ x | strip }}</b></td>{%- else -%}<td class="rlp-num" data-cm="{{ x | strip | escape }}">{{ x | strip }}</td>{%- endif -%}{%- endfor -%}</tr>
+        {%- endif -%}
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+</div>
+<style>
+  .rlp-tc{width:100%;max-width:100%}
+  .rlp-tc__un{display:flex;justify-content:flex-end;gap:8px;margin:0 0 12px}
+  .rlp-tc__b{min-width:56px;padding:8px 14px;border-radius:999px;border:0;background:#F1F1F1;color:#111;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+  .rlp-tc__b[aria-pressed="true"]{background:#111;color:#fff}
+  .rlp-tc__scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .rlp-tc__t{width:100%;border-collapse:collapse;font-size:14px;min-width:100%}
+  .rlp-tc__t th{background:#F4F4F4;font-weight:700;padding:12px 10px;text-align:center;line-height:1.25}
+  .rlp-tc__t td{padding:12px 10px;text-align:center;border-top:1px solid #EEE}
+  .rlp-tc__t tbody tr:nth-child(even) td{background:#FAFAFA}
+  .rlp-tc__t th:first-child,.rlp-tc__t td:first-child{border-right:1px solid #E6E6E6}
+  @media (max-width:420px){.rlp-tc__t{font-size:13px}.rlp-tc__t th,.rlp-tc__t td{padding:10px 6px}}
+</style>
+<script>
+  (function(){
+    if (window.__rlpTc) return; window.__rlpTc = true;
+    function conv(txt, un){
+      if (un === 'cm') return txt;
+      return txt.replace(/\d+(?:[.,]\d+)?/g, function(n){
+        var v = parseFloat(n.replace(',', '.')) / 2.54;
+        return (Math.round(v * 10) / 10).toString().replace('.', ',');
+      }).replace(/\bcm\b/g, 'in');
+    }
+    document.addEventListener('click', function(e){
+      var b = e.target.closest('[data-tc-un]');
+      if (!b) return;
+      var un = b.getAttribute('data-tc-un');
+      /* troca em todas as tabelas da página (guia e seção) */
+      document.querySelectorAll('.rlp-tc').forEach(function(tc){
+        tc.querySelectorAll('[data-tc-un]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-tc-un') === un ? 'true' : 'false'); });
+        tc.querySelectorAll('[data-cm]').forEach(function(td){ td.textContent = conv(td.getAttribute('data-cm'), un); });
+      });
+    });
+  })();
+</script>

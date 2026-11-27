@@ -258,7 +258,13 @@
 - BOLINHAS COM FOTO (27/11, pedido dela): cópia "RODRIGUES RLP - bolinhas com foto" `gid://shopify/OnlineStoreTheme/212181320029`
   (duplicada do MAIN 212180468061). Swatch de cor mostra a FOTO da variante (120x120 crop) quando `rlp.swatch_foto`="sim"
   ou automaticamente quando a cor não tem swatch/nome conhecido (cinza #CCCCCC) e a variante tem foto; "nao" desliga.
-  North Flex: swatch_foto="sim". Aguardando ela publicar.
+  North Flex: swatch_foto="sim". → PUBLICADO por ela (MAIN em 27/11).
+- TABELA COM VÁRIAS COLUNAS + CM/IN (27/11, pedido dela, ref. tabela do fornecedor): cópia "RODRIGUES RLP - tabela colunas cm-in"
+  `gid://shopify/OnlineStoreTheme/212181582173` (duplicada do MAIN 212181320029). Snippet novo `snippets/rlp-tabela-cols.liquid`
+  (cópia em entregas/), usado no guia (rlp-produto) e na seção de tamanhos (rlp-conteudo) quando o produto tem
+  `rlp.tabela_cols` (linhas "S | 60 | 80 | 34,5") + `rlp.tabela_titulos` ("Tamanho | Comprimento do corpo | …");
+  `rlp.tabela_unidades`="sim" mostra botões CM/IN (converte ÷2,54, 1 casa). Sem tabela_cols = tabela antiga de 2 colunas.
+  O tema publicado ignora tabela_cols (continua com tabela_medidas). North Flex preenchido. Aguardando ela publicar.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
