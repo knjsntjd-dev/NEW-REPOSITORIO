@@ -249,6 +249,11 @@
   212165886301 "beneficios card", que ela PUBLICOU): rlp-produto ganhou `rlp.pack2_*` (qtd/off/codigo/rotulo/chip) igual ao
   pack3_*, `pack2/pack3_chip` (texto do selo no lugar de "X% OFF") e pack aparece se `packN_qtd` estiver preenchido mesmo com
   bundleN_ativo="nao"; JS arredonda % (Math.round). Aguardando ela publicar.
+  27/11 (pedido dela, ref. bundle do concorrente): NOVO VISUAL dos packs nessa mesma cópia — cards `.rlp-bx` (CSS inline no
+  rlp-produto): fundo #EFEFEF + borda cinza, selecionado branco com borda preta 3px, radio preto, preço vermelho #8E1B1B,
+  "Você economiza €X" (no pack 1 = comparação − preço), riscado embaixo, selo preto "MELHOR CUSTO-BENEFÍCIO" no último.
+  Sem chips "Frete grátis só hoje"/"% OFF". Vale para TODOS os produtos RLP quando ela publicar. North Flex: rótulos
+  "2 North Flex + 1 GRÁTIS" / "3 North Flex + 2 GRÁTIS". Preview: entregas/packs-novo-visual.png.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
