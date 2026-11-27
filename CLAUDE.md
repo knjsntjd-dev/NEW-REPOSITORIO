@@ -250,7 +250,11 @@
   per, Best value, Piece, Save, Adding…; preço "€27.70" em en), rlp-conteudo (Size guide, Verified purchase, Buy now,
   defaults de FAQ/fim) e entrega-estimada (datas no idioma da página). Em pt-BR fica IGUAL ao publicado.
   Textos de settings de seção e metafields traduz no Translate & Adapt. NÃO mexido: rlp-carrinho.js ("Remover"),
-  rlp-comparacao (só aria-labels). LIÇÃO: Liquid não aceita \' em string com aspas simples — upsert por URL falha calado.
+  rlp-comparacao (só aria-labels). → PUBLICADO por ela (MAIN em 27/11) e idioma `en` PUBLICADO.
+  Traduções EN registradas por mim (translationsRegister, locale en) no template `northflex` do tema 212181975389:
+  entrega estimada ("Order today and get it between…" / "Order within the next [tempo] and it ships today"), textos
+  do carrinho lateral, "View product", "Complete your kit". Outros templates continuam só em pt (ela traduz no T&A).
+  Template northflex dela tem video-reviews "Over 5,000 people trust us" (FALSO) e rlp_beneficios em inglês. LIÇÃO: Liquid não aceita \' em string com aspas simples — upsert por URL falha calado.
 - North Flex™ (16729091998045, template `northflex`, 27/11/2026): regata de compressão MASCULINA (fornecedor SONECHOKI,
   poliéster), modelada no concorrente North Alpine "NorthPower" — para anunciar nos EUA (copy agressiva pedida). NÃO usei
   do concorrente: "colete iônico", "acelera perda de peso", "elimina gordurinhas", "2386 avaliações" (falso; FTC também
