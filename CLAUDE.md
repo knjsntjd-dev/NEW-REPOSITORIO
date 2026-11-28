@@ -302,7 +302,8 @@
   Fatos (fornecedor, marca BALASHOV — não usar): cabeça em U de silicone grau alimentar, sônica, 2 modos, IPX7, carga 60 min,
   "até 15 dias" (dado do fabricante), 5 W, 3,2–3,7 V. NÃO usei: "99% de limpeza", "pasteurização 45°", nada de cárie/saúde.
   FAQ: não substitui dentista, supervisão de adulto. Opção única "Color" (6 valores mistos) DIVIDIDA em "Cor" Rosa/Azul/Verde ×
-  "Idade" 2 a 6 anos / 6 a 12 anos (IDs das variantes mantidos). €27,70 (riscado €38,40), custo €10,9–12,8. Packs ESCOVA2 (10%,
+  "Idade" 2 a 6 anos / 6 a 12 anos (IDs das variantes mantidos). Botão de tamanho do rlp-produto mostra só a 1ª PALAVRA
+  (split: ' ' | first) → aparecia "2"/"6"; corrigido por dados com ESPAÇO INQUEBRÁVEL (U+00A0) nos valores. Truque vale p/ qualquer opção. €27,70 (riscado €38,40), custo €10,9–12,8. Packs ESCOVA2 (10%,
   2317615497565) / ESCOVA3 (15%, 2317615530333), ângulo presente/irmãos: rotulo_nome "Escovas", incluída em datas_produtos.
   nota "-", esconder_tamanhos "sim".
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
