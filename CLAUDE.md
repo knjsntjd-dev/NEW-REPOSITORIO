@@ -284,6 +284,13 @@
   `rlp.tabela_cols` (linhas "S | 60 | 80 | 34,5") + `rlp.tabela_titulos` ("Tamanho | Comprimento do corpo | …");
   `rlp.tabela_unidades`="sim" mostra botões CM/IN (converte ÷2,54, 1 casa). Sem tabela_cols = tabela antiga de 2 colunas.
   O tema publicado ignora tabela_cols. Ela DISSE que NÃO vai usar (27/11) — cópia descartada.
+- Shorts modelador flexfit sem costura (16730976518493, template `shortsnovo`, 28/11/2026): modelado no concorrente
+  Bella "Tuck-N-Lift". Fatos (fornecedor): elastano, cintura alta, sem costura, modela quadril/levanta glúteos, S–2XL,
+  Preto/Nude, margem 1–2 cm. NÃO usei do concorrente: "4,7 · 1.544 avaliações", SuperStay™, corte a laser, "celulite fora
+  de vista". 60 variantes bagunçadas → 10 (Cor Nude/Preto × Tamanho S/M/L/XL/2XL; IDs mantidos p/ DSers, pedido dela).
+  Packs SHORT2 (10%, 2317606191453) / SHORT3 (15%, 2317606224221), só esse produto. €37,70 (riscado €53,59); custo €25,57
+  → MARGEM BAIXA (avisei). Estoque 0 + CONTINUE. Sem tabela (esconder_tamanhos=sim). nota "-", FAQ "Ele emagrece? Não".
+  Descrição AliExpress (dizia Denim/leggings) trocada por pt-BR + SEO.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
