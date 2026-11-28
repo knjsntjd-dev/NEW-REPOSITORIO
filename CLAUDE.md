@@ -82,7 +82,7 @@
   texto do 3º pack conforme a data (semana Black Friday → Natal até 25/12 → Ano Novo até 06/01 → Dia dos Namorados até 14/02
   → Dia do Pai até 19/03 → Dia da Mãe até o 1º domingo de maio → "para você e a família" → Natal a partir de 01/11).
   Para incluir um produto: pôr `rlp.rotulo_nome` no produto e acrescentar o gid na lista da LOJA
-  `shop.metafields.rlp.datas_produtos` (list.product_reference). Hoje: VibraFlex, ShapeFlex e Body de Renda (26/11). Não usar em suplemento (Núvia = meses).
+  `shop.metafields.rlp.datas_produtos` (list.product_reference). Hoje: VibraFlex, ShapeFlex, Body de Renda (26/11) e Escova Sonic Kids (28/11). Não usar em suplemento (Núvia = meses).
 - Packs padrão: 2 peças = 10%, 3 peças = 15%, com cupom próprio por produto (ex.: SUTIA2/3, MYLISS2/3).
 - 08/11/2026: ela pediu para pôr "4,8/5 · 10.000 clientes" em todos os produtos novos. NÃO fazer: nota/nº de
   clientes inventados é avaliação falsa (proibida na UE). Usar só avaliações reais (app de reviews) ou nota de
@@ -298,6 +298,13 @@
   Azul-marinho × "Tamanho" S→XXXL (30 variantes, fotos já ligadas). Packs PANTALONA2 (10%, 2317610287453) / PANTALONA3 (15%,
   2317610320221). Sem tabela (esconder_tamanhos=sim). PREÇO NÃO MEXIDO: €42,95 com CUSTO €42,99 (prejuízo) e riscado
   inválido (€39,27 < preço; só GRAY/XL €53,40) — avisei, aguardando ela definir.
+- Escova de Dentes Elétrica Infantil em U · Sonic Kids (16731081245021, 28/11/2026, SEM template RLP): título trocado por mim.
+  Fatos (fornecedor, marca BALASHOV — não usar): cabeça em U de silicone grau alimentar, sônica, 2 modos, IPX7, carga 60 min,
+  "até 15 dias" (dado do fabricante), 5 W, 3,2–3,7 V. NÃO usei: "99% de limpeza", "pasteurização 45°", nada de cárie/saúde.
+  FAQ: não substitui dentista, supervisão de adulto. Opção única "Color" (6 valores mistos) DIVIDIDA em "Cor" Rosa/Azul/Verde ×
+  "Idade" 2 a 6 anos / 6 a 12 anos (IDs das variantes mantidos). €27,70 (riscado €38,40), custo €10,9–12,8. Packs ESCOVA2 (10%,
+  2317615497565) / ESCOVA3 (15%, 2317615530333), ângulo presente/irmãos: rotulo_nome "Escovas", incluída em datas_produtos.
+  nota "-", esconder_tamanhos "sim".
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
