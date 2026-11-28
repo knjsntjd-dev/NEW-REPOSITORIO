@@ -291,6 +291,13 @@
   Packs SHORT2 (10%, 2317606191453) / SHORT3 (15%, 2317606224221), só esse produto. €37,70 (riscado €53,59); custo €25,57
   → MARGEM BAIXA (avisei). Estoque 0 + CONTINUE. Tabela (dela, 28/11) em tabela_medidas "Cintura · Quadril · Comprimento (cm)": S 68–71·94–97·39 … 2XL 89–94·114–119·47 (XXL→2XL); esconder_tamanhos=nao. nota "-", FAQ "Ele emagrece? Não".
   Descrição AliExpress (dizia Denim/leggings) trocada por pt-BR + SEO.
+- Calça Pantalona Toque de Linho com Cordão (16731074232669, 28/11/2026, SEM template RLP — templateSuffix null): título
+  trocado por mim (era tradução do AliExpress). Fatos (fornecedor): algodão + poliéster (NÃO contém linho — "toque de linho"
+  é só aspecto; FAQ "É de linho? Não"), sem elastano, cós com elástico e cordão, bolsos, perna larga até o tornozelo,
+  solta. Fornecedor diz cintura "MID" (título dizia "cintura alta" → não usei). Opções "Cor" Cinza/Rosa/Verde-claro/Damasco/
+  Azul-marinho × "Tamanho" S→XXXL (30 variantes, fotos já ligadas). Packs PANTALONA2 (10%, 2317610287453) / PANTALONA3 (15%,
+  2317610320221). Sem tabela (esconder_tamanhos=sim). PREÇO NÃO MEXIDO: €42,95 com CUSTO €42,99 (prejuízo) e riscado
+  inválido (€39,27 < preço; só GRAY/XL €53,40) — avisei, aguardando ela definir.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
 
