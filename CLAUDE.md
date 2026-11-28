@@ -289,7 +289,7 @@
   Preto/Nude, margem 1–2 cm. NÃO usei do concorrente: "4,7 · 1.544 avaliações", SuperStay™, corte a laser, "celulite fora
   de vista". 60 variantes bagunçadas → 10 (Cor Nude/Preto × Tamanho S/M/L/XL/2XL; IDs mantidos p/ DSers, pedido dela).
   Packs SHORT2 (10%, 2317606191453) / SHORT3 (15%, 2317606224221), só esse produto. €37,70 (riscado €53,59); custo €25,57
-  → MARGEM BAIXA (avisei). Estoque 0 + CONTINUE. Sem tabela (esconder_tamanhos=sim). nota "-", FAQ "Ele emagrece? Não".
+  → MARGEM BAIXA (avisei). Estoque 0 + CONTINUE. Tabela (dela, 28/11) em tabela_medidas "Cintura · Quadril · Comprimento (cm)": S 68–71·94–97·39 … 2XL 89–94·114–119·47 (XXL→2XL); esconder_tamanhos=nao. nota "-", FAQ "Ele emagrece? Não".
   Descrição AliExpress (dizia Denim/leggings) trocada por pt-BR + SEO.
 - Cinto Legacy Belt (16610465382749): material é PU (couro sintético) + metal — nunca escrever "couro genuíno".
   Opções já em pt-BR (Cor: Branco/Preto/Amarelo/Azul/Caramelo/Vermelho/Café; Comprimento: 105 cm).
